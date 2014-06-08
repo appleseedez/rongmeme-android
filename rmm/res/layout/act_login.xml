@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_home"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dip"
+        android:src="@drawable/icon_login" />
+
+    <EditText
+        android:id="@+id/login_et_user"
+        android:layout_width="240dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dip"
+        android:hint="134 0862 0260"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/login_et_pwd"
+        android:layout_width="240dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:hint="请输入密码"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/login_tv_enter"
+        style="@style/button"
+        android:layout_marginTop="30dip"
+        android:text="登录" />
+
+    <TextView
+        android:id="@+id/login_tv_regist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dip"
+        android:text="没有账号"
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
+
+</LinearLayout>
