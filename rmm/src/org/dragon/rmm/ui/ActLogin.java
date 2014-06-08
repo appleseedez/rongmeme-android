@@ -48,7 +48,7 @@ public class ActLogin extends Activity implements OnClickListener {
 			// finish();
 			// }
 			// }, 3000);
-			mApiServer.login(new InfoUser("abc", "abc"), mResponseListener);
+			mApiServer.login(new InfoUser("13688494410", "123456"), mResponseListener);
 			break;
 		case R.id.login_tv_regist:// 注册
 			break;

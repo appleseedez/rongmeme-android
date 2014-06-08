@@ -75,12 +75,13 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>
             -->
         </activity>
-
+        <activity android:name=".ui.ActLogin" />
         <!-- push service client -->
-       <!--  <receiver android:name="org.dragon.rmm.PushMessageReceiver" >
+        <!--
+        <receiver android:name="org.dragon.rmm.PushMessageReceiver" >
             <intent-filter>
 
                 接收push消息
@@ -89,10 +90,13 @@
                 <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
                 <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
             </intent-filter>
-        </receiver> -->
+        </receiver>
+        -->
+
 
         <!-- push service -->
-       <!--  <receiver
+        <!--
+        <receiver
             android:name="com.baidu.android.pushservice.PushServiceReceiver"
             android:process=":bdservice_v1" >
             <intent-filter>
@@ -120,7 +124,8 @@
         <service
             android:name="com.baidu.android.pushservice.PushService"
             android:exported="true"
-            android:process=":bdservice_v1" /> -->
+            android:process=":bdservice_v1" />
+        -->
         <!-- 推送的百度api_key -->
         <meta-data
             android:name="api_key"
