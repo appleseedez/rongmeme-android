@@ -37,7 +37,8 @@ public class UserInfoDAO {
      * @param galHttpLoadTextCallBack
      *            回调函数
      */
-    public static void saveAppIdAndPhoneNumber(String premisesId, String phoneNumber, final GalHttpLoadTextCallBack galHttpLoadTextCallBack) {
+    public static void saveAppIdAndPhoneNumber(String premisesId, String phoneNumber,
+            final GalHttpLoadTextCallBack galHttpLoadTextCallBack) {
         String requestUrl = Constants.SERVER_DOMAIN_AND_PORT + "/appCustomer!doNotNeedSession_add.do";
         // 交给GalHttprequest自动组装url中的参数
         GalHttpRequest request = GalHttpRequest.requestWithURL(context, requestUrl);

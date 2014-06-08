@@ -19,10 +19,6 @@ public class Constants {
     /**
      * 楼盘销售热线电话，一键咨询的电话
      */
-    public static final String APP_PREMISS_ID = "hxgj_boruigongyuanyihao_v1.0";
-    /**
-     * 楼盘销售热线电话，一键咨询的电话
-     */
     public static final String SALES_TELEPHONE = "085233313333";
     /**
      * 服务器IP地址或者域名,当多台的时候则是域名并且加上端口
@@ -49,29 +45,6 @@ public class Constants {
      * Result结果对象封装成功的数字码
      */
     public static final int RESULT_SUCCESSED_NO = 1;
-
-    // ---------------------------更多页面组件的功能菜单字符串常量------------------------------//
-
-    /**
-     * 房贷计算器功能按钮常量
-     */
-    public static final String FDJSQ_MENU = "fdjsq";
-    /**
-     * 乐翻天功能按钮常量
-     */
-    public static final String LEFT_MENU = "left";
-    /**
-     * 清除缓存功能按钮常量
-     */
-    public static final String CLEAN_CACHE_MENU = "clean_cache";
-    /**
-     * 关闭背景音乐功能按钮常量
-     */
-    public static final String CLOSE_BG_MUSIC_MENU = "close_bg_music";
-    /**
-     * 关于我们功能按钮常量
-     */
-    public static final String ABOUT_ME_MENU = "about_me";
 
     // ---------------------------更多页面组件的功能菜单字符串常量------------------------------//
 

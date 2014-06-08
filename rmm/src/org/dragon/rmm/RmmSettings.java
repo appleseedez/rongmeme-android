@@ -1,7 +1,7 @@
 package org.dragon.rmm;
 
 /**
- * 蜜儿开发过程中的调试、开发配置
+ * 开发过程中的调试、开发配置
  * 
  * @author dengjie
  * 
