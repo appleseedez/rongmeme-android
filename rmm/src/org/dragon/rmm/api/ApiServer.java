@@ -5,6 +5,8 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.dragon.rmm.model.BaseModel;
+import org.dragon.rmm.model.InfoHeader;
 import org.dragon.rmm.model.InfoUser;
 
 import android.content.Context;
@@ -17,6 +19,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 public class ApiServer {
 
@@ -69,7 +72,7 @@ public class ApiServer {
 				reponseListener.success(apiMethod, response);
 			}
 		};
-		StringRequest request = new StringRequest(null == postParams ? Method.GET : Method.POST, url, response, error) {
+		StringRequest request = new StringRequest(null == postParams ? Method.GET : Method.DEPRECATED_GET_OR_POST, url, response, error) {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
 				return post;
@@ -102,8 +105,11 @@ public class ApiServer {
 	// ***** 客户端可以使用的 API*****
 	// *************************
 
-	public void login(InfoUser info ,ResponseListener reponseListener) {
-		//post(ApiMethod.API_LOGIN, null, reponseListener);
+	public void login(InfoUser info, ResponseListener reponseListener) {
+		BaseModel<InfoUser> model = new BaseModel<InfoUser>(info, new InfoHeader());
+		HashMap<String, String> postParams = new HashMap<String, String>(1);
+		postParams.put("no_parameters", new Gson().toJson(model));
+		post(ApiMethod.API_LOGIN, postParams, reponseListener);
 	}
 
 }
