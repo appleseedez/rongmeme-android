@@ -6,6 +6,7 @@ import org.dragon.rmm.model.BaseModel;
 import org.dragon.rmm.model.InfoComment;
 import org.dragon.rmm.model.InfoCommentList;
 import org.dragon.rmm.model.InfoHeader;
+import org.dragon.rmm.model.InfoPlace;
 import org.dragon.rmm.model.InfoRegist;
 import org.dragon.rmm.model.InfoShop;
 import org.dragon.rmm.model.InfoUserLogin;
@@ -13,17 +14,16 @@ import org.dragon.rmm.model.InfoUserLogout;
 import org.dragon.rmm.model.InfoVerycode;
 import org.dragon.rmm.model.ModelResUser;
 import org.dragon.rmm.model.ResUser;
+import org.dragon.rmm.volley.BitmapLruCache;
 import org.dragon.rmm.volley.PostRequest;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.ImageLoader.ImageCache;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
@@ -37,27 +37,12 @@ public class ApiServer {
 	private RequestQueue mQueue;
 	private InfoHeader mHeader;
 	public static ResUser mUser;
-	public static ImageLoader mImageLoader;
+	private static ImageLoader mImageLoader;
 	private static Gson mGson;
 
 	private ApiServer(Context context) {
 		mQueue = Volley.newRequestQueue(context);
 		mHeader = new InfoHeader();
-		ImageCache imageCache = new ImageCache() {
-
-			@Override
-			public void putBitmap(String url, Bitmap bitmap) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public Bitmap getBitmap(String url) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		};
-		mImageLoader = new ImageLoader(Volley.newRequestQueue(context), imageCache);
 	}
 
 	public static ApiServer getInstance(Context context) {
@@ -73,6 +58,13 @@ public class ApiServer {
 			mGson = new Gson();
 		}
 		return mGson;
+	}
+
+	public static ImageLoader getImageLoader(Context context) {
+		if (null == mImageLoader) {
+			mImageLoader = new ImageLoader(Volley.newRequestQueue(context), new BitmapLruCache(10 * 1024 * 1024, context.getFilesDir()));
+		}
+		return mImageLoader;
 	}
 
 	private <T> void request(final ApiMethod apiMethod, T postJson, final ResponseListener reponseListener, boolean forceRefresh) {
@@ -191,6 +183,16 @@ public class ApiServer {
 	 */
 	public void shopInfo(InfoShop info, ResponseListener reponseListener) {
 		request(ApiMethod.API_SHOPINFO, info, reponseListener, true);
+	}
+
+	/**
+	 * 周边门店列表
+	 * 
+	 * @param info
+	 * @param reponseListener
+	 */
+	public void shopList(InfoPlace info, ResponseListener reponseListener) {
+		request(ApiMethod.API_SHOPLIST, info, reponseListener, true);
 	}
 
 	/**

@@ -14,4 +14,5 @@ public class ResShop {
 	public String serviceconcept;// 这是服务理念
 	public String servicetenets;// 这是服务宗旨
 
+	public boolean isSelect;//店铺是否选中。用于本地数据。
 }

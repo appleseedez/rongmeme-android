@@ -94,6 +94,10 @@
             android:name=".ui.ActShop"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ActShopList"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
 
         <!-- push service client -->
         <!--

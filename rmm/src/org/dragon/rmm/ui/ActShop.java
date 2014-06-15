@@ -10,7 +10,6 @@ import org.dragon.rmm.model.ModelResCommenList;
 import org.dragon.rmm.model.ModelResShop;
 import org.dragon.rmm.model.ResShop;
 import org.dragon.rmm.ui.adapter.CommentAdapter;
-import org.dragon.rmm.volley.BitmapLruCache;
 import org.dragon.rmm.widget.xlistview.XListView;
 import org.dragon.rmm.widget.xlistview.XListView.IXListViewListener;
 
@@ -30,24 +29,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
 
 public class ActShop extends Activity implements OnClickListener, IXListViewListener {
 
-	private static final String EXTRA_ID = "ID";
 	private ApiServer mApiServer;
 	private XListView lvDetail;
 	private NetworkImageView imIcon;
 	private TextView tvName, tvExtra, tvFWLN, tvFWZZ;
-	private static ImageLoader mImageLoader;
 	private ViewGroup vgServices;
 	private CommentAdapter mAdapter;
 
 	public static Intent getIntent(Context context, long shopId) {
 		Intent intent = new Intent(context, ActShop.class);
-		intent.putExtra(EXTRA_ID, shopId);
+		intent.putExtra(ActMain.EXTRA_ID, shopId);
 		return intent;
 	}
 
@@ -59,15 +54,7 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 		setContentView(parent);
 		initListview(parent);
 		initActionbar(parent);
-		initImageLoader();
 		onRefresh();
-	}
-
-	private void initImageLoader() {
-		if (null != mImageLoader) {
-			return;
-		}
-		mImageLoader = new ImageLoader(Volley.newRequestQueue(this), new BitmapLruCache(10 * 1024 * 1024, getFilesDir()));
 	}
 
 	private void initActionbar(View parent) {
@@ -98,7 +85,7 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 	private void refreshShopInfo(ModelResShop shop) {
 		ResShop info = shop.body;
 		if (!TextUtils.isEmpty(info.logo)) {
-			imIcon.setImageUrl(info.logo, mImageLoader);
+			imIcon.setImageUrl(info.logo, ApiServer.getImageLoader(this));
 		} else {
 			imIcon.setDefaultImageResId(R.drawable.ic_launcher);
 		}
@@ -186,7 +173,7 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 
 	@Override
 	public void onRefresh() {
-		long id = getIntent().getLongExtra(EXTRA_ID, -1);
+		long id = getIntent().getLongExtra(ActMain.EXTRA_ID, -1);
 		if (-1 == id) {
 			Toast.makeText(this, "请重新选择商铺", Toast.LENGTH_SHORT).show();
 			return;

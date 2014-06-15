@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_check"
+    android:gravity="center_vertical"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/place_list_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="成都市武侯区店" />
+
+    <TextView
+        android:id="@+id/place_list_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="成都市武侯区蜀汉东路12号" />
+
+</LinearLayout>

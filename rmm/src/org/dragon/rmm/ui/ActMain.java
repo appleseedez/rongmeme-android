@@ -4,13 +4,23 @@ import org.dragon.rmm.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 
 public class ActMain extends Activity implements OnClickListener {
+
+	public static final String EXTRA_ID = "ID";
+
+	public static Intent getIntent(Context context, long shopId) {
+		Intent intent = new Intent(context, ActMain.class);
+		intent.putExtra(ActMain.EXTRA_ID, shopId);
+		return intent;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +46,11 @@ public class ActMain extends Activity implements OnClickListener {
 		case R.id.menu_launcher_4:// 保洁
 			break;
 		case R.id.menu_launcher_5:// 商铺
-			//模拟数据
-			startActivity(ActShop.getIntent(this, 21)); 
+			// 模拟数据
+			long id = getIntent().getLongExtra(ActMain.EXTRA_ID, -1);
+			if (-1 != id) {
+				startActivity(ActShop.getIntent(this, id));
+			}
 			break;
 		}
 	}

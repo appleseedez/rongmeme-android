@@ -76,13 +76,13 @@ public class ActLogin extends Activity implements OnClickListener {
 
 		@Override
 		public void success(ApiMethod api, String response) {
-			dismissDialog(0);
 			switch (api) {
 			case API_LOGIN:
-				startActivity(new Intent(ActLogin.this, ActMain.class));
+				startActivity(ActShopList.getIntent(ActLogin.this, 104.06, 30.67)); //根据当前经纬度获取店铺列表
 				finish();
 				break;
 			}
+			dismissDialog(0);
 		}
 
 		@Override
