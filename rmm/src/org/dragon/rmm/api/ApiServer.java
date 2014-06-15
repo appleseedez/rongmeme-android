@@ -3,21 +3,27 @@ package org.dragon.rmm.api;
 import java.io.UnsupportedEncodingException;
 
 import org.dragon.rmm.model.BaseModel;
+import org.dragon.rmm.model.InfoComment;
+import org.dragon.rmm.model.InfoCommentList;
 import org.dragon.rmm.model.InfoHeader;
 import org.dragon.rmm.model.InfoRegist;
-import org.dragon.rmm.model.InfoStore;
+import org.dragon.rmm.model.InfoShop;
 import org.dragon.rmm.model.InfoUserLogin;
 import org.dragon.rmm.model.InfoUserLogout;
 import org.dragon.rmm.model.InfoVerycode;
 import org.dragon.rmm.model.ModelResUser;
+import org.dragon.rmm.model.ResUser;
 import org.dragon.rmm.volley.PostRequest;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageLoader.ImageCache;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
@@ -26,16 +32,32 @@ public class ApiServer {
 	public static final boolean DEBUG = true;
 	public static final String API_HOST = "http://218.244.130.240:8080";
 	public static final int PAGE = 1;
-	public static final int PSIZE = 20;
+	public static final int PSIZE = 100;
 	private static ApiServer mInstance;
 	private RequestQueue mQueue;
 	private InfoHeader mHeader;
-	private Gson mGson;
+	public static ResUser mUser;
+	public static ImageLoader mImageLoader;
+	private static Gson mGson;
 
 	private ApiServer(Context context) {
 		mQueue = Volley.newRequestQueue(context);
 		mHeader = new InfoHeader();
-		mGson = new Gson();
+		ImageCache imageCache = new ImageCache() {
+
+			@Override
+			public void putBitmap(String url, Bitmap bitmap) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public Bitmap getBitmap(String url) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		};
+		mImageLoader = new ImageLoader(Volley.newRequestQueue(context), imageCache);
 	}
 
 	public static ApiServer getInstance(Context context) {
@@ -44,6 +66,13 @@ public class ApiServer {
 
 		}
 		return mInstance;
+	}
+
+	public static Gson getGson() {
+		if (null == mGson) {
+			mGson = new Gson();
+		}
+		return mGson;
 	}
 
 	private <T> void request(final ApiMethod apiMethod, T postJson, final ResponseListener reponseListener, boolean forceRefresh) {
@@ -65,6 +94,14 @@ public class ApiServer {
 
 			@Override
 			public void onErrorResponse(VolleyError error) {
+				if (ApiServer.DEBUG) {
+					System.out.println("<<<<Error>>>>" + apiMethod.getValue() + ":" + error.getMessage());
+				}
+				switch (apiMethod) {
+				case API_LOGIN:
+					mHeader.sessionToken = "";
+					break;
+				}
 				reponseListener.fail(apiMethod, error);
 			}
 		};
@@ -72,9 +109,14 @@ public class ApiServer {
 
 			@Override
 			public void onResponse(String response) {
+				if (DEBUG) {
+					System.out.println("<<<<Response>>>>" + apiMethod.getValue() + ":" + response);
+				}
 				switch (apiMethod) {
 				case API_LOGIN:
-					mHeader.sessionToken = mGson.fromJson(response, ModelResUser.class).head.sessionToken;
+					ModelResUser result = ApiServer.getGson().fromJson(response, ModelResUser.class);
+					mHeader.sessionToken = result.head.sessionToken;
+					mUser = result.body;
 					break;
 				case API_LOGOUT:
 					mHeader.sessionToken = null;
@@ -85,10 +127,10 @@ public class ApiServer {
 		};
 
 		BaseModel<T> model = new BaseModel<T>(postJson, mHeader);
-		PostRequest request = new PostRequest(url, new Gson().toJson(model), response, error);
+		PostRequest request = new PostRequest(url, ApiServer.getGson().toJson(model), response, error);
 		request.setShouldCache(true);
 		if (ApiServer.DEBUG) {
-			System.out.println("<<<Request URL>>>" + request.toString());
+			System.out.println("<<<<Request URL>>>>" + request.toString());
 		}
 		request.setTag(url);
 		if (forceRefresh) {
@@ -147,7 +189,27 @@ public class ApiServer {
 	 * @param info
 	 * @param reponseListener
 	 */
-	public void shopInfo(InfoStore info, ResponseListener reponseListener) {
+	public void shopInfo(InfoShop info, ResponseListener reponseListener) {
 		request(ApiMethod.API_SHOPINFO, info, reponseListener, true);
+	}
+
+	/**
+	 * 获取评论列表
+	 * 
+	 * @param info
+	 * @param reponseListener
+	 */
+	public void commentList(InfoCommentList info, ResponseListener reponseListener) {
+		request(ApiMethod.API_COMMENT_LIST, info, reponseListener, true);
+	}
+
+	/**
+	 * 评论
+	 * 
+	 * @param info
+	 * @param reponseListener
+	 */
+	public void comment(InfoComment info, ResponseListener reponseListener) {
+		request(ApiMethod.API_COMMENT, info, reponseListener, true);
 	}
 }

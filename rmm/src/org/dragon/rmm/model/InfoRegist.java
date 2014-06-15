@@ -1,6 +1,6 @@
 package org.dragon.rmm.model;
 
-public class InfoRegist {
+public class InfoRegist   {
 
 	public String username;
 	public String password;

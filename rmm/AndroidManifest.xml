@@ -75,10 +75,26 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>
             -->
         </activity>
-        <activity android:name=".ui.ActLogin" />
+        <activity
+            android:name=".ui.ActLogin"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ActRegist"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ActMain"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.ActShop"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+
         <!-- push service client -->
         <!--
         <receiver android:name="org.dragon.rmm.PushMessageReceiver" >
@@ -90,7 +106,7 @@
                 <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
                 <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
             </intent-filter>
-        </receiver>
+        </receiver>
         -->
 
 
@@ -124,7 +140,7 @@
         <service
             android:name="com.baidu.android.pushservice.PushService"
             android:exported="true"
-            android:process=":bdservice_v1" />
+            android:process=":bdservice_v1" />
         -->
         <!-- 推送的百度api_key -->
         <meta-data

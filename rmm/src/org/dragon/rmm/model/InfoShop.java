@@ -1,11 +1,10 @@
 package org.dragon.rmm.model;
 
-public class InfoStore {
+public class InfoShop {
 
 	public long storeid;
 
-	public InfoStore(int storeid) {
-		super();
+	public InfoShop(long storeid) {
 		this.storeid = storeid;
 	}
 }

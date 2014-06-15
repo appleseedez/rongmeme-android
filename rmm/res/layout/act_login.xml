@@ -17,7 +17,7 @@
         android:layout_width="240dip"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dip"
-        android:hint="134 0862 0260"
+        android:text="13408620260"
         android:inputType="phone" />
 
     <EditText
@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dip"
         android:hint="请输入密码"
+        android:text="123456"
         android:inputType="textPassword" />
 
     <TextView

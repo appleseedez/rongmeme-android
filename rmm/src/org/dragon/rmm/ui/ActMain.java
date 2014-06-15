@@ -5,7 +5,6 @@ import org.dragon.rmm.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -37,7 +36,8 @@ public class ActMain extends Activity implements OnClickListener {
 		case R.id.menu_launcher_4:// 保洁
 			break;
 		case R.id.menu_launcher_5:// 商铺
-			startActivity(new Intent(this, ActShop.class));
+			//模拟数据
+			startActivity(ActShop.getIntent(this, 21)); 
 			break;
 		}
 	}

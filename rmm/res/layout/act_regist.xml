@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_home"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/actionbar" />
+
+    <LinearLayout
+        android:layout_width="240dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dip"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/regist_et_phone_verifycode"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="134 0862 0260"
+            android:inputType="phone" />
+
+        <Button
+            android:id="@+id/regist_bt_verifycode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="获取" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/regist_et_verifycode"
+        android:layout_width="240dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:hint="请输入验证码"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/regist_et_pwd"
+        android:layout_width="240dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:hint="请设置密码"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/regist_et_pwd_confirm"
+        android:layout_width="240dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:hint="请确认密码"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/regist_tv_regist"
+        style="@style/button"
+        android:layout_marginTop="30dip"
+        android:text="注册" />
+
+</LinearLayout>
