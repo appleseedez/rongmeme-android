@@ -6,6 +6,7 @@ public class ResCommentList {
 	public long orderid;
 	public float level;
 	public long userid;
+	public String username;
 	public String content;
 	public long adminid;
 	public String adminname;
