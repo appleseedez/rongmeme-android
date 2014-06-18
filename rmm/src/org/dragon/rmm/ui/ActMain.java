@@ -45,9 +45,9 @@ public class ActMain extends Activity implements OnClickListener {
 		case R.id.menu_launcher_3:// 干洗
 			break;
 		case R.id.menu_launcher_4:// 保洁
-			//-------test begin------
-			new ShareDialog(this).show();
-			//-------test end  ------
+			// -------test begin------
+			new ShareDialog(this, 1, 1).show();
+			// -------test end ------
 			break;
 		case R.id.menu_launcher_5:// 商铺
 			long id = getIntent().getLongExtra(ActMain.EXTRA_ID, -1);

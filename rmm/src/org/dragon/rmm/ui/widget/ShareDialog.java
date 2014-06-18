@@ -9,6 +9,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.RatingBar;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -20,10 +21,13 @@ public class ShareDialog extends Dialog {
 	private Context mContext;
 
 	private static boolean init = true;
+	private long storeid, orderid;
 
-	public ShareDialog(Context context) {
+	public ShareDialog(Context context, long storeid, long orderid) {
 		super(context);
 		mContext = context;
+		this.storeid = storeid;
+		this.orderid = orderid;
 		if (init) {
 			ShareSDK.initSDK(mContext);
 			init = false;
@@ -55,7 +59,8 @@ public class ShareDialog extends Dialog {
 				plat.share(sp);
 				break;
 			case R.id.share_app:
-
+				float rating = ((RatingBar) findViewById(R.id.share_rating)).getRating();
+				new ShareComment(mContext, storeid, orderid, rating).show();
 				break;
 			case R.id.share_sinaweibo:
 				showShare(false, "SinaWeibo");
