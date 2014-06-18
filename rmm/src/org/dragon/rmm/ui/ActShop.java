@@ -140,14 +140,18 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 
 		@Override
 		public void success(ApiMethod api, String response) {
-			lvDetail.stopRefresh();
-			lvDetail.stopLoadMore();
 			switch (api) {
 			case API_SHOPINFO:
 				dismissDialog(0);
 				refreshShopInfo(ApiServer.getGson().fromJson(response, ModelResShop.class));
 				break;
 			case API_COMMENT_LIST:
+				if (lvDetail.isRefresh()) {
+					mAdapter.clear();
+					lvDetail.stopRefresh();
+				}else {
+					lvDetail.stopLoadMore();
+				}
 				refreshCommentList(ApiServer.getGson().fromJson(response, ModelResCommenList.class));
 				break;
 			}
@@ -155,8 +159,7 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 
 		@Override
 		public void fail(ApiMethod api, VolleyError error) {
-			lvDetail.stopRefresh();
-			lvDetail.stopLoadMore();
+			lvDetail.reset();
 			switch (api) {
 			case API_SHOPINFO:
 				dismissDialog(0);

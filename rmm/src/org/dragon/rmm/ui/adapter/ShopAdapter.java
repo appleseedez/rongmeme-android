@@ -61,6 +61,11 @@ public class ShopAdapter extends BaseAdapter {
 		holder.tvAddress.setText(dataSet.address);
 	}
 
+	public void clear(){
+		mData.clear();
+		notifyDataSetChanged();
+	}
+	
 	public void append(ResShop[] data) {
 		if (null == data || data.length == 0) {
 			return;

@@ -68,6 +68,11 @@ public class CommentAdapter extends BaseAdapter {
 		holder.rbScore.setRating(dataSet.level);
 	}
 
+	public void clear(){
+		mData.clear();
+		notifyDataSetChanged();
+	}
+	
 	public void append(ResCommentList[] data) {
 		if (null == data || data.length == 0) {
 			return;

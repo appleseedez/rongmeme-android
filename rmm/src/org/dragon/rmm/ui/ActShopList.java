@@ -74,7 +74,8 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 
 	private void refreshShopList(ModelResShopList shoplist) {
 		mAdapter.append(shoplist.body);
-		lvDetail.setItemChecked(1, true);  //the position of listview header is 0.
+		lvDetail.setItemChecked(1, true); // the position of listview header is
+											// 0.
 	}
 
 	@Override
@@ -82,7 +83,12 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 		switch (arg0.getId()) {
 		case R.id.actionbar_back:
 			int index = lvDetail.getCheckedItemPosition();
-			ResShop item = (ResShop) mAdapter.getItem(index - 1); //the position of listview header is 0.
+			ResShop item = (ResShop) mAdapter.getItem(index - 1); // the
+																	// position
+																	// of
+																	// listview
+																	// header is
+																	// 0.
 			startActivity(ActMain.getIntent(this, item.id));
 			finish();
 			break;
@@ -93,19 +99,21 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 
 		@Override
 		public void success(ApiMethod api, String response) {
-			lvDetail.stopRefresh();
-			lvDetail.stopLoadMore();
 			switch (api) {
 			case API_SHOPLIST:
 				dismissDialog(0);
+				if (lvDetail.isRefresh()) {
+					mAdapter.clear();
+				}
 				refreshShopList(ApiServer.getGson().fromJson(response, ModelResShopList.class));
 				break;
 			}
+			lvDetail.reset();
 		}
 
 		@Override
 		public void fail(ApiMethod api, VolleyError error) {
-			lvDetail.stopRefresh();
+			lvDetail.reset();
 			switch (api) {
 			case API_SHOPLIST:
 				dismissDialog(0);
