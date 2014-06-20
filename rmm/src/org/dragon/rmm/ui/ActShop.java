@@ -87,7 +87,7 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 		if (!TextUtils.isEmpty(info.logo)) {
 			imIcon.setImageUrl(info.logo, ApiServer.getImageLoader(this));
 		} else {
-			imIcon.setDefaultImageResId(R.drawable.ic_launcher);
+			imIcon.setDefaultImageResId(R.drawable.icon_login);
 		}
 		tvName.setText(info.name);
 		tvExtra.setText(info.introduce);
@@ -100,7 +100,7 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 			for (int i = 0; i < serverIds.length; i++) {
 				TextView item = (TextView) getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
 				String id = serverIds[i];
-				Drawable drawable = getResources().getDrawable(R.drawable.ic_launcher);
+				Drawable drawable = getResources().getDrawable(R.drawable.icon_login);
 				drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
 				if ("1".equals(id)) {
 					item.setCompoundDrawables(null, drawable, null, null);

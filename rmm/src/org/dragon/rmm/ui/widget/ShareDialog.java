@@ -90,7 +90,7 @@ public class ShareDialog extends Dialog {
 
 	private void showShare(boolean silent, String platform) {
 		final OnekeyShare oks = new OnekeyShare();
-		oks.setNotification(R.drawable.ic_launcher, getContext().getString(R.string.app_name));
+		oks.setNotification(R.drawable.icon_login, getContext().getString(R.string.app_name));
 		oks.setTitle("分享");
 		oks.setText("这家店确实很棒，一起来试一试吧");
 		oks.setSilent(silent);
