@@ -18,13 +18,11 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,9 +34,12 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 	private ApiServer mApiServer;
 	private XListView lvDetail;
 	private NetworkImageView imIcon;
-	private TextView tvName, tvExtra, tvFWLN, tvFWZZ;
+	private TextView tvName, tvExtra, tvFWLN, tvFWZZ, tvCommentTitle;
 	private ViewGroup vgServices;
 	private CommentAdapter mAdapter;
+
+	private int mPage = 0;
+	private final int mPSize = ApiServer.PSIZE;
 
 	public static Intent getIntent(Context context, long shopId) {
 		Intent intent = new Intent(context, ActShop.class);
@@ -58,11 +59,11 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 	}
 
 	private void initActionbar(View parent) {
-		((TextView) parent.findViewById(R.id.actionbar_title)).setText("门店详情");
+		((TextView) parent.findViewById(R.id.actionbar_title)).setText("店铺");
 		parent.findViewById(R.id.actionbar_back).setOnClickListener(this);
-		Button next = (Button) parent.findViewById(R.id.actionbar_next);
+		View next = parent.findViewById(R.id.actionbar_next);
 		next.setVisibility(View.VISIBLE);
-		next.setText("扫一扫");
+		next.setBackgroundResource(R.drawable.btn_zxing);
 		next.setOnClickListener(this);
 	}
 
@@ -75,49 +76,58 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 		tvName = (TextView) header.findViewById(R.id.shop_name);
 		tvFWLN = (TextView) header.findViewById(R.id.shop_fwln);
 		tvFWZZ = (TextView) header.findViewById(R.id.shop_fwzz);
+		tvCommentTitle = (TextView) header.findViewById(R.id.shop_comment_title);
 		vgServices = (ViewGroup) header.findViewById(R.id.shop_services);
 		imIcon = (NetworkImageView) header.findViewById(R.id.shop_icon);
+		header.findViewById(R.id.shop_call).setOnClickListener(this);
 		lvDetail.addHeaderView(header);
 		mAdapter = new CommentAdapter(getLayoutInflater());
 		lvDetail.setAdapter(mAdapter);
 	}
 
 	private void refreshShopInfo(ModelResShop shop) {
-		ResShop info = shop.body;
-		if (!TextUtils.isEmpty(info.logo)) {
-			imIcon.setImageUrl(info.logo, ApiServer.getImageLoader(this));
-		} else {
-			imIcon.setDefaultImageResId(R.drawable.icon_login);
-		}
-		tvName.setText(info.name);
-		tvExtra.setText(info.introduce);
-		tvFWLN.setText(info.serviceconcept);
-		tvFWZZ.setText(info.servicetenets);
-		String[] serverIds = info.serviceids.split(",");
-		String[] serverNames = info.services.split(",");
+		ApiServer.mShopInfo = shop.body;
+		imIcon.setDefaultImageResId(R.drawable.icon_login);
+		imIcon.setImageUrl(ApiServer.mShopInfo.logo, ApiServer.getImageLoader(this));
+		tvName.setText(ApiServer.mShopInfo.name);
+		tvExtra.setText(ApiServer.mShopInfo.address);
+		tvFWLN.setText(ApiServer.mShopInfo.serviceconcept);
+		tvFWZZ.setText(ApiServer.mShopInfo.servicetenets);
+		String[] serverIds = ApiServer.mShopInfo.serviceids.split(",");
+		String[] serverNames = ApiServer.mShopInfo.services.split(",");
 		vgServices.removeAllViews();
 		if (serverIds.length == serverNames.length) {
 			for (int i = 0; i < serverIds.length; i++) {
-				TextView item = (TextView) getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
+				View item = getLayoutInflater().inflate(R.layout.list_item_service, vgServices, false);
+				TextView text = (TextView) item.findViewById(android.R.id.text1);
+				ImageView icon = (ImageView) item.findViewById(android.R.id.icon);
 				String id = serverIds[i];
-				Drawable drawable = getResources().getDrawable(R.drawable.icon_login);
-				drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
 				if ("1".equals(id)) {
-					item.setCompoundDrawables(null, drawable, null, null);
+					icon.setImageResource(R.drawable.icon_logo);
 				} else if ("2".equals(id)) {
-					item.setCompoundDrawables(null, drawable, null, null);
+					icon.setImageResource(R.drawable.icon_logo);
 				} else if ("3".equals(id)) {
-					item.setCompoundDrawables(null, drawable, null, null);
+					icon.setImageResource(R.drawable.icon_logo);
 				} else {
-					item.setCompoundDrawables(null, drawable, null, null);
+					icon.setImageResource(R.drawable.icon_logo);
 				}
-				item.setText(serverNames[i]);
+				text.setText(serverNames[i]);
 				vgServices.addView(item);
 			}
 		}
 	}
 
 	private void refreshCommentList(ModelResCommenList comments) {
+		if (mAdapter.getCount() + comments.body.length < mPage * ApiServer.PSIZE) {
+			lvDetail.setPullLoadEnable(false);
+		} else {
+			lvDetail.setPullLoadEnable(true);
+		}
+		if ((mAdapter.getCount() == 0) && (null == comments.body || comments.body.length == 0)) {
+			tvCommentTitle.setVisibility(View.GONE);
+		} else {
+			tvCommentTitle.setVisibility(View.VISIBLE);
+		}
 		mAdapter.append(comments.body);
 	}
 
@@ -130,7 +140,10 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 		case R.id.actionbar_next:
 			// 扫一扫
 			break;
-		default:
+		case R.id.shop_call:// 打电话
+			// Intent intent = new
+			// Intent(Intent.ACTION_CALL,Uri.parse("tel:"+mShopInfo.));
+			// startActivity(intent);
 			break;
 		}
 
@@ -149,7 +162,7 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 				if (lvDetail.isRefresh()) {
 					mAdapter.clear();
 					lvDetail.stopRefresh();
-				}else {
+				} else {
 					lvDetail.stopLoadMore();
 				}
 				refreshCommentList(ApiServer.getGson().fromJson(response, ModelResCommenList.class));
@@ -176,18 +189,27 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 
 	@Override
 	public void onRefresh() {
+		getComment(true);
+	}
+
+	private void getComment(boolean isRefresh) {
 		long id = getIntent().getLongExtra(ActMain.EXTRA_ID, -1);
 		if (-1 == id) {
 			Toast.makeText(this, "请重新选择商铺", Toast.LENGTH_SHORT).show();
 			return;
 		}
-		showDialog(0);
-		mApiServer.shopInfo(new InfoShop(id), mResponseListener);
-		mApiServer.commentList(new InfoCommentList(id), mResponseListener);
+		if (isRefresh) {
+			mPage = 0;
+			showDialog(0);
+			mApiServer.shopInfo(new InfoShop(id), mResponseListener);
+		}
+		InfoCommentList info = new InfoCommentList(id);
+		info.start = (mPage++) * mPSize;
+		mApiServer.commentList(info, mResponseListener);
 	}
 
 	@Override
 	public void onLoadMore() {
-
+		getComment(false);
 	}
 }

@@ -4,7 +4,7 @@
     android:background="#66222222"
     android:padding="10dip" >
 
-    <Button
+    <TextView
         android:id="@+id/actionbar_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,12 +21,11 @@
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
-    <Button
+    <TextView
         android:id="@+id/actionbar_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|right"
-        android:text="next"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:visibility="gone" />

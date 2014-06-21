@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.dragon.rmm.R;
 import org.dragon.rmm.model.ResShop;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,11 +62,13 @@ public class ShopAdapter extends BaseAdapter {
 		holder.tvAddress.setText(dataSet.address);
 	}
 
-	public void clear(){
-		mData.clear();
+	public void clear() {
+		if (null != mData) {
+			mData.clear();
+		}
 		notifyDataSetChanged();
 	}
-	
+
 	public void append(ResShop[] data) {
 		if (null == data || data.length == 0) {
 			return;

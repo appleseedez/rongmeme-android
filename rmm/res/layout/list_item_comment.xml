@@ -1,6 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/itembg"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@android:color/transparent"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -11,22 +13,23 @@
 
         <TextView
             android:id="@+id/shop_list_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="夏天" />
+            style="@style/title.small"
+            android:text="匿名" />
 
         <RatingBar
             android:id="@+id/shop_list_rating"
+            style="@style/ratingbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
             android:numStars="5"
             android:rating="5" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/shop_list_comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/title.small"
+        android:layout_marginTop="6dip"
         android:text="服务很好" />
 
 </LinearLayout>

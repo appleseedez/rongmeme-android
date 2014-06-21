@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.dragon.rmm.R;
 import org.dragon.rmm.model.ResCommentList;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,21 +59,30 @@ public class CommentAdapter extends BaseAdapter {
 		} else {
 			holder = (Holder) convertView.getTag();
 		}
+		if ((position & 1) == 0) {
+			convertView.setBackgroundColor(0x44aaaaaa);
+		} else {
+			convertView.setBackgroundColor(Color.TRANSPARENT);
+		}
 		bindView(holder, mData.get(position));
 		return convertView;
 	}
 
 	private void bindView(Holder holder, ResCommentList dataSet) {
-		holder.tvName.setText(dataSet.adminname);
+		if (null != dataSet.username) {
+			holder.tvName.setText(dataSet.username);
+		}
 		holder.tvComment.setText(dataSet.content);
 		holder.rbScore.setRating(dataSet.level);
 	}
 
-	public void clear(){
-		mData.clear();
+	public void clear() {
+		if (null != mData) {
+			mData.clear();
+		}
 		notifyDataSetChanged();
 	}
-	
+
 	public void append(ResCommentList[] data) {
 		if (null == data || data.length == 0) {
 			return;

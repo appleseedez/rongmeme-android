@@ -4,8 +4,11 @@
     android:orientation="vertical" >
 
     <LinearLayout
+        style="@style/itembg"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
         android:orientation="horizontal" >
 
         <com.android.volley.toolbox.NetworkImageView
@@ -17,75 +20,81 @@
         <LinearLayout
             android:layout_width="0dip"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
             android:layout_weight="1"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/shop_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/title"
                 android:text="隆盛易居" />
 
             <TextView
                 android:id="@+id/shop_extra"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/title.small"
+                android:layout_marginTop="10dip"
                 android:text="细心、用心、热心、爱心" />
         </LinearLayout>
 
         <TextView
+            android:id="@+id/shop_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/icon_login" />
+            android:background="@drawable/btn_call" />
     </LinearLayout>
 
     <LinearLayout
+        style="@style/itembg"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/title"
             android:text="服务理念" />
 
         <TextView
             android:id="@+id/shop_fwln"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/title.small"
+            android:layout_marginTop="6dip"
+            android:gravity="left"
             android:text="细心、用心、热心、爱心" />
     </LinearLayout>
 
     <LinearLayout
+        style="@style/itembg"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dip"
         android:orientation="vertical" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/title"
             android:text="服务宗旨" />
 
         <TextView
             android:id="@+id/shop_fwzz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/title.small"
+            android:layout_marginTop="6dip"
+            android:gravity="left"
             android:text="细心、用心、热心、爱心" />
     </LinearLayout>
 
     <LinearLayout
+        style="@style/itembg"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dip"
         android:orientation="vertical" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/title"
             android:text="服务列表" />
 
         <HorizontalScrollView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip" >
 
             <LinearLayout
                 android:id="@+id/shop_services"
@@ -96,8 +105,10 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/shop_comment_title"
+        style="@style/title"
+        android:layout_marginLeft="20dip"
+        android:layout_marginTop="14dip"
         android:text="口碑评论" />
 
 </LinearLayout>

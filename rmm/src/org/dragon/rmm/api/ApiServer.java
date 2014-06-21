@@ -13,6 +13,7 @@ import org.dragon.rmm.model.InfoUserLogin;
 import org.dragon.rmm.model.InfoUserLogout;
 import org.dragon.rmm.model.InfoVerycode;
 import org.dragon.rmm.model.ModelResUser;
+import org.dragon.rmm.model.ResShop;
 import org.dragon.rmm.model.ResUser;
 import org.dragon.rmm.volley.BitmapLruCache;
 import org.dragon.rmm.volley.PostRequest;
@@ -31,12 +32,12 @@ public class ApiServer {
 
 	public static final boolean DEBUG = true;
 	public static final String API_HOST = "http://218.244.130.240:8080";
-	public static final int PAGE = 1;
 	public static final int PSIZE = 100;
 	private static ApiServer mInstance;
 	private RequestQueue mQueue;
 	private InfoHeader mHeader;
 	public static ResUser mUser;
+	public static ResShop mShopInfo;
 	private static ImageLoader mImageLoader;
 	private static Gson mGson;
 

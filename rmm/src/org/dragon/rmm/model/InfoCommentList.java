@@ -1,10 +1,12 @@
 package org.dragon.rmm.model;
 
+import org.dragon.rmm.api.ApiServer;
+
 public class InfoCommentList {
 
 	public long storeid;
 	public int start = 0;
-	public int limit = 100;
+	public int limit = ApiServer.PSIZE;
 
 	public InfoCommentList(long storeid) {
 		this.storeid = storeid;

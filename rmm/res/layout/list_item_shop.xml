@@ -1,12 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/itembg"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="#44aaaaaa"
-    android:minHeight="60dip"
-    android:paddingBottom="14dip"
-    android:paddingLeft="20dip"
-    android:paddingRight="20dip"
-    android:paddingTop="14dip" >
+    android:layout_height="wrap_content" >
 
     <LinearLayout
         android:layout_width="fill_parent"
