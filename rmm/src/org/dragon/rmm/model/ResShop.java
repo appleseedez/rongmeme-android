@@ -13,6 +13,7 @@ public class ResShop {
 	public String introduce;
 	public String serviceconcept;// 这是服务理念
 	public String servicetenets;// 这是服务宗旨
+	public String phone;
 
-	public boolean isSelect;//店铺是否选中。用于本地数据。
+	public boolean isSelect;// 店铺是否选中。用于本地数据。
 }

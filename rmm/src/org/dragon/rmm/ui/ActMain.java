@@ -41,12 +41,15 @@ public class ActMain extends Activity implements OnClickListener {
 		case R.id.menu_launcher_1: // 钟点工
 			break;
 		case R.id.menu_launcher_2:// 我的预约
+			// startActivity(new Intent(this, UserCenterPortal.class));
 			break;
 		case R.id.menu_launcher_3:// 干洗
+			// startActivity(new Intent(this, DryCleaningPortal.class));
 			break;
 		case R.id.menu_launcher_4:// 保洁
 			// -------test begin------
-			new ShareDialog(this, 1, 1).show();
+//			new ShareDialog(this, 1, 1).show();
+			startActivity(ActShare.getIntent(this, 1, 1, "http://pic14.nipic.com/20110512/5793673_203706569388_2.jpg", "二号服务员", "服务很好\n质量很好\n人品很好\n很细心"));
 			// -------test end ------
 			break;
 		case R.id.menu_launcher_5:// 商铺
