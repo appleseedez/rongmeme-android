@@ -1,4 +1,4 @@
-package org.dragon.rmm.widget.widget;
+package org.dragon.rmm.ui.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;

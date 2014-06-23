@@ -3,7 +3,7 @@
     android:layout_height="fill_parent"
     android:background="@drawable/bg_home" >
 
-    <org.dragon.rmm.widget.widget.MenuViewItem
+    <org.dragon.rmm.ui.widget.MenuViewItem
         android:id="@+id/menu_launcher_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,9 +19,9 @@
             android:gravity="center"
             android:text="钟点工"
             android:textColor="@android:color/white" />
-    </org.dragon.rmm.widget.widget.MenuViewItem>
+    </org.dragon.rmm.ui.widget.MenuViewItem>
 
-    <org.dragon.rmm.widget.widget.MenuViewItem
+    <org.dragon.rmm.ui.widget.MenuViewItem
         android:id="@+id/menu_launcher_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,9 +37,9 @@
             android:gravity="center"
             android:text="我的预约"
             android:textColor="@android:color/white" />
-    </org.dragon.rmm.widget.widget.MenuViewItem>
+    </org.dragon.rmm.ui.widget.MenuViewItem>
 
-    <org.dragon.rmm.widget.widget.MenuViewItem
+    <org.dragon.rmm.ui.widget.MenuViewItem
         android:id="@+id/menu_launcher_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,9 +55,9 @@
             android:gravity="center"
             android:text="干洗"
             android:textColor="@android:color/white" />
-    </org.dragon.rmm.widget.widget.MenuViewItem>
+    </org.dragon.rmm.ui.widget.MenuViewItem>
 
-    <org.dragon.rmm.widget.widget.MenuViewItem
+    <org.dragon.rmm.ui.widget.MenuViewItem
         android:id="@+id/menu_launcher_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,9 +73,9 @@
             android:gravity="center"
             android:text="保洁"
             android:textColor="@android:color/white" />
-    </org.dragon.rmm.widget.widget.MenuViewItem>
+    </org.dragon.rmm.ui.widget.MenuViewItem>
 
-    <org.dragon.rmm.widget.widget.MenuViewItem
+    <org.dragon.rmm.ui.widget.MenuViewItem
         android:id="@+id/menu_launcher_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,6 +89,6 @@
             android:gravity="center"
             android:src="@drawable/icon_5"
             android:textColor="@android:color/white" />
-    </org.dragon.rmm.widget.widget.MenuViewItem>
+    </org.dragon.rmm.ui.widget.MenuViewItem>
 
 </FrameLayout>

@@ -2,12 +2,14 @@ package org.dragon.rmm.ui;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 import org.dragon.rmm.R;
 import org.dragon.rmm.api.ApiMethod;
 import org.dragon.rmm.api.ApiServer;
 import org.dragon.rmm.api.ResponseListener;
+import org.dragon.rmm.ui.widget.ShareComment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,6 +20,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.framework.Platform.ShareParams;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
@@ -88,15 +96,69 @@ public class ActShare extends Activity implements OnClickListener {
 	}
 
 	@Override
-	public void onClick(View arg0) {
-		switch (arg0.getId()) {
+	public void onClick(View v) {
+		switch (v.getId()) {
 		case R.id.share_app:
+			float rating = ((RatingBar) findViewById(R.id.share_rating)).getRating();
+			new ShareComment(this, mStoreId, mOrderId, rating).show();
 			break;
 		case R.id.share_wechat:
+			Platform plat = null;
+			ShareParams sp = getShareParams(v);
+			plat = ShareSDK.getPlatform("Wechat");
+			// plat = ShareSDK.getPlatform("WechatMoments");
+			// plat = ShareSDK.getPlatform("WechatFavorite");
+			plat.setPlatformActionListener(mPlatformActionListener);
+			plat.share(sp);
 			break;
 		case R.id.share_sinaweibo:
+			showShare(false, "SinaWeibo");
 			break;
 		}
+	}
+
+	private PlatformActionListener mPlatformActionListener = new PlatformActionListener() {
+
+		@Override
+		public void onError(Platform arg0, int arg1, Throwable arg2) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
+			// TODO Auto-generated method stub
+			System.out.println("--");
+		}
+
+		@Override
+		public void onCancel(Platform arg0, int arg1) {
+			// TODO Auto-generated method stub
+		}
+	};
+
+	private void showShare(boolean silent, String platform) {
+		final OnekeyShare oks = new OnekeyShare();
+		oks.setNotification(R.drawable.icon_login, getString(R.string.app_name));
+		oks.setTitle("分享");
+		oks.setText("这家店确实很棒，一起来试一试吧");
+		oks.setSilent(silent);
+		if (platform != null) {
+			oks.setPlatform(platform);
+		}
+		// 令编辑页面显示为Dialog模式
+		oks.setDialogMode();
+		// 在自动授权时可以禁用SSO方式
+		oks.disableSSOWhenAuthorize();
+		oks.setCallback(mPlatformActionListener);
+		oks.show(this);
+	}
+
+	private ShareParams getShareParams(View v) {
+		ShareParams sp = new ShareParams();
+		sp.setTitle("分享");
+		sp.setText("这家店不错，支持一下");
+		sp.setShareType(Platform.SHARE_TEXT);
+		return sp;
 	}
 
 	private ResponseListener mResponseListener = new ResponseListener() {

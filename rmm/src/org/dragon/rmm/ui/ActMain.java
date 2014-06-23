@@ -48,7 +48,7 @@ public class ActMain extends Activity implements OnClickListener {
 			break;
 		case R.id.menu_launcher_4:// 保洁
 			// -------test begin------
-//			new ShareDialog(this, 1, 1).show();
+			// new ShareDialog(this, 1, 1).show();
 			startActivity(ActShare.getIntent(this, 1, 1, "http://pic14.nipic.com/20110512/5793673_203706569388_2.jpg", "二号服务员", "服务很好\n质量很好\n人品很好\n很细心"));
 			// -------test end ------
 			break;
