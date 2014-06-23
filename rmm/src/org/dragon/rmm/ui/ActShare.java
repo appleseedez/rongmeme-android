@@ -63,6 +63,7 @@ public class ActShare extends Activity implements OnClickListener {
 		setContentView(parent);
 		mApiServer = ApiServer.getInstance(this);
 		initView(parent);
+		ShareSDK.initSDK(this);
 	}
 
 	private void initView(View parent) {
@@ -94,6 +95,12 @@ public class ActShare extends Activity implements OnClickListener {
 		if (-1 == mOrderId || -1 == mStoreId) {
 			finish();
 		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		ShareSDK.stopSDK(this);
 	}
 
 	@Override
