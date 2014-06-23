@@ -122,6 +122,7 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 			if ((-1 == oldId) || (oldId == mCurrentShop.id)) {
 				save(mCurrentShop);
 				startActivity(ActMain.getIntent(ActShopList.this, mCurrentShop.id));
+				finish();
 			} else {
 				// 创建退出对话框
 				AlertDialog changeShop = new AlertDialog.Builder(this).create();
