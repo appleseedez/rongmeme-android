@@ -1,7 +1,6 @@
 package org.dragon.rmm.ui;
 
 import org.dragon.rmm.R;
-import org.dragon.rmm.ui.widget.ShareDialog;
 
 import android.app.Activity;
 import android.app.AlertDialog;

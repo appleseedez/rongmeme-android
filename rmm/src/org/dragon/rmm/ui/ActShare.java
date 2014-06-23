@@ -9,6 +9,7 @@ import org.dragon.rmm.R;
 import org.dragon.rmm.api.ApiMethod;
 import org.dragon.rmm.api.ApiServer;
 import org.dragon.rmm.api.ResponseListener;
+import org.dragon.rmm.model.InfoComment;
 import org.dragon.rmm.ui.widget.ShareComment;
 
 import android.app.Activity;
@@ -98,6 +99,9 @@ public class ActShare extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.actionbar_back:
+			finish();
+			break;
 		case R.id.share_app:
 			float rating = ((RatingBar) findViewById(R.id.share_rating)).getRating();
 			new ShareComment(this, mStoreId, mOrderId, rating).show();
@@ -127,7 +131,9 @@ public class ActShare extends Activity implements OnClickListener {
 		@Override
 		public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
 			// TODO Auto-generated method stub
-			System.out.println("--");
+			String text = arg2.get("text").toString();
+			InfoComment info = new InfoComment(mStoreId, mOrderId, rbRating.getRating(), text);
+			mApiServer.comment(info, mResponseListener);
 		}
 
 		@Override
@@ -140,7 +146,7 @@ public class ActShare extends Activity implements OnClickListener {
 		final OnekeyShare oks = new OnekeyShare();
 		oks.setNotification(R.drawable.icon_login, getString(R.string.app_name));
 		oks.setTitle("分享");
-		oks.setText("这家店确实很棒，一起来试一试吧");
+		oks.setText("这家店不错，支持一下");
 		oks.setSilent(silent);
 		if (platform != null) {
 			oks.setPlatform(platform);

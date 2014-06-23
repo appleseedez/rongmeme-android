@@ -119,7 +119,10 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 		mCurrentShop = (ResShop) mAdapter.getItem(index - 1);
 		if (mAdapter.getCount() > 0) {
 			long oldId = getSharedPreferences(PREFERENCE_ADDRESS, MODE_WORLD_READABLE).getLong(PREFERENCE_ID, -1);
-			if ((-1 != oldId) && (oldId != mCurrentShop.id)) {
+			if ((-1 == oldId) || (oldId == mCurrentShop.id)) {
+				save(mCurrentShop);
+				startActivity(ActMain.getIntent(ActShopList.this, mCurrentShop.id));
+			} else {
 				// 创建退出对话框
 				AlertDialog changeShop = new AlertDialog.Builder(this).create();
 				// 设置对话框标题
