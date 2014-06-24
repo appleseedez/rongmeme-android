@@ -8,8 +8,8 @@ import org.dragon.rmm.api.ResponseListener;
 import org.dragon.rmm.model.InfoUserLogin;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -40,7 +40,9 @@ public class ActLogin extends Activity implements OnClickListener {
 	@Override
 	@Deprecated
 	protected Dialog onCreateDialog(int id) {
-		return new ProgressDialog(this);
+		Dialog dialog = new Dialog(this, R.style.dialog);
+		dialog.setContentView(R.layout.dialog_progress);
+		return dialog;
 	}
 
 	@Override
@@ -78,7 +80,7 @@ public class ActLogin extends Activity implements OnClickListener {
 		public void success(ApiMethod api, String response) {
 			switch (api) {
 			case API_LOGIN:
-				startActivity(ActShopList.getIntent(ActLogin.this, 104.06, 30.67)); //根据当前经纬度获取店铺列表
+				startActivity(ActShopList.getIntent(ActLogin.this, 104.06, 30.67)); // 根据当前经纬度获取店铺列表
 				finish();
 				break;
 			}

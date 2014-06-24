@@ -178,7 +178,9 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 	@Override
 	@Deprecated
 	protected Dialog onCreateDialog(int id) {
-		return new ProgressDialog(this);
+		Dialog dialog = new Dialog(this, R.style.dialog);
+		dialog.setContentView(R.layout.dialog_progress);
+		return dialog;
 	}
 
 	@Override

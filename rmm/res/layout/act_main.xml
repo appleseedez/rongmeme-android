@@ -11,14 +11,11 @@
         android:background="@drawable/menu_1" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/title.small"
             android:layout_marginLeft="180dip"
             android:layout_marginTop="30dip"
             android:drawableTop="@drawable/icon_1"
-            android:gravity="center"
-            android:text="钟点工"
-            android:textColor="@android:color/white" />
+            android:text="钟点工" />
     </org.dragon.rmm.ui.widget.MenuViewItem>
 
     <org.dragon.rmm.ui.widget.MenuViewItem
@@ -29,14 +26,11 @@
         android:background="@drawable/menu_2" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/title.small"
             android:layout_marginLeft="230dip"
             android:layout_marginTop="180dip"
             android:drawableTop="@drawable/icon_2"
-            android:gravity="center"
-            android:text="我的预约"
-            android:textColor="@android:color/white" />
+            android:text="我的预约" />
     </org.dragon.rmm.ui.widget.MenuViewItem>
 
     <org.dragon.rmm.ui.widget.MenuViewItem
@@ -47,14 +41,11 @@
         android:background="@drawable/menu_3" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/title.small"
             android:layout_marginLeft="100dip"
             android:layout_marginTop="240dip"
             android:drawableTop="@drawable/icon_3"
-            android:gravity="center"
-            android:text="干洗"
-            android:textColor="@android:color/white" />
+            android:text="干洗" />
     </org.dragon.rmm.ui.widget.MenuViewItem>
 
     <org.dragon.rmm.ui.widget.MenuViewItem
@@ -65,14 +56,11 @@
         android:background="@drawable/menu_4" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/title.small"
             android:layout_marginLeft="40dip"
             android:layout_marginTop="80dip"
             android:drawableTop="@drawable/icon_4"
-            android:gravity="center"
-            android:text="保洁"
-            android:textColor="@android:color/white" />
+            android:text="保洁" />
     </org.dragon.rmm.ui.widget.MenuViewItem>
 
     <org.dragon.rmm.ui.widget.MenuViewItem
@@ -83,12 +71,9 @@
         android:background="@drawable/menu_5" >
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/title.small"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:src="@drawable/icon_5"
-            android:textColor="@android:color/white" />
+            android:src="@drawable/icon_5" />
     </org.dragon.rmm.ui.widget.MenuViewItem>
 
 </FrameLayout>
