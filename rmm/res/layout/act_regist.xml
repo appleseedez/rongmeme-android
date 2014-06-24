@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_home"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/actionbar" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dip"
+        android:layout_marginRight="40dip"
+        android:layout_marginTop="50dip"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/regist_et_phone_verifycode"
+            style="@style/edit"
+            android:layout_weight="1"
+            android:hint="134 0862 0260"
+            android:inputType="phone" />
+
+        <TextView
+            android:id="@+id/regist_bt_verifycode"
+            style="@style/button"
+            android:layout_width="60dip"
+            android:layout_marginLeft="4dip"
+            android:text="获取" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/regist_et_verifycode"
+        style="@style/edit"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="40dip"
+        android:layout_marginRight="40dip"
+        android:layout_marginTop="20dip"
+        android:hint="请输入验证码"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/regist_et_pwd"
+        style="@style/edit"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="40dip"
+        android:layout_marginRight="40dip"
+        android:layout_marginTop="20dip"
+        android:hint="请设置密码"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/regist_et_pwd_confirm"
+        style="@style/edit"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="40dip"
+        android:layout_marginRight="40dip"
+        android:layout_marginTop="20dip"
+        android:hint="请确认密码"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/regist_tv_regist"
+        style="@style/button"
+        android:layout_marginTop="30dip"
+        android:text="注册" />
+
+</LinearLayout>
