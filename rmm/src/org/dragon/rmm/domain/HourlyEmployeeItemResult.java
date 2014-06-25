@@ -6,8 +6,6 @@
  */
 package org.dragon.rmm.domain;
 
-import java.util.Map;
-
 import org.dragon.rmm.domain.common.Head;
 
 /**

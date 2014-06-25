@@ -55,6 +55,7 @@ public class CleaningDAO {
         request.setPostValueForKey(GalHttpRequest.NO_PARAMETERS, json);
         request.startAsynRequestString(galHttpLoadTextCallBack);
     }
+
     /**
      * 加载所有保洁服务
      * 
@@ -74,8 +75,9 @@ public class CleaningDAO {
         request.setPostValueForKey(GalHttpRequest.NO_PARAMETERS, json);
         request.startAsynRequestString(galHttpLoadTextCallBack);
     }
+
     /**
-     * 加载星级服务内容
+     * 发送保洁预约内容
      * 
      * @param galHttpLoadTextCallBack
      *            回调函数

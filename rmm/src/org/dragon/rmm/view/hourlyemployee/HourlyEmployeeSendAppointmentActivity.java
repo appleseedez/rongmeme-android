@@ -1,15 +1,24 @@
 package org.dragon.rmm.view.hourlyemployee;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.dragon.core.galhttprequest.GalHttpRequest.GalHttpLoadTextCallBack;
+import org.dragon.core.utils.json.MierJsonUtils;
 import org.dragon.rmm.R;
+import org.dragon.rmm.dao.HourlyEmployeeDAO;
+import org.dragon.rmm.domain.HourlyEmployeeItemResult;
 import org.dragon.rmm.domain.HourlyEmployeeItemVO;
+import org.dragon.rmm.domain.HourlyEmployeeSendAppointmentItemForm;
+import org.dragon.rmm.domain.common.Head;
+import org.dragon.rmm.widget.dialog.NewMsgDialog;
 import org.dragon.rmm.widget.waterfall.bitmaputil.ImageFetcher;
 
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -19,6 +28,8 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.google.gson.reflect.TypeToken;
 
 /**
  * 保洁发送预约界面组件
@@ -31,6 +42,8 @@ public class HourlyEmployeeSendAppointmentActivity extends Activity {
     private LinearLayout waiterItemTableContent;
     private Button sendAppointmentBtn;
     private ImageFetcher mImageFetcher;
+
+    private TextView phoneTextview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +72,53 @@ public class HourlyEmployeeSendAppointmentActivity extends Activity {
     private void initComponents() {
         sendAppointmentBtn = (Button) findViewById(R.id.hsa_confirm_appointment_btn);
         waiterItemTableContent = (LinearLayout) findViewById(R.id.hsa_waiter_table);
+        phoneTextview = (TextView) findViewById(R.id.hsa_phone_textview);
+    }
 
+    /**
+     * 生成成功的弹出框
+     * 
+     * @param phone
+     *            用户的电话号码
+     */
+    private void createSuccessDialog(String phone) {
+        // 生成弹出框
+        final NewMsgDialog dialog = new NewMsgDialog(HourlyEmployeeSendAppointmentActivity.this);
+        LayoutInflater factory = LayoutInflater.from(this);
+        View view = factory.inflate(R.layout.new_msg_dialog, null);
+        dialog.setView(view);
+        dialog.show();
+        String format = getResources().getString(R.string.nmd_msg_content_textview_default_text);
+        dialog.nmdMsgContent.setText(String.format(format, phone));
+        dialog.nmdCloseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    /**
+     * 生成成功的弹出框
+     * 
+     * @param phone
+     *            用户的电话号码
+     */
+    private void createFaildDialog() {
+        // 生成弹出框
+        final NewMsgDialog dialog = new NewMsgDialog(HourlyEmployeeSendAppointmentActivity.this);
+        LayoutInflater factory = LayoutInflater.from(this);
+        View view = factory.inflate(R.layout.new_msg_dialog, null);
+        dialog.setView(view);
+        dialog.show();
+        String format = getResources().getString(R.string.nmd_msg_content_textview_default_faild_text);
+        dialog.nmdMsgContent.setText(format);
+        dialog.nmdCloseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
     private void initWaiterComponents() {
@@ -132,10 +191,57 @@ public class HourlyEmployeeSendAppointmentActivity extends Activity {
 
         @Override
         public void onClick(View v) {
-
+            List<HourlyEmployeeItemVO> list = (List<HourlyEmployeeItemVO>) getIntent().getSerializableExtra(
+                    "hourlyEmployeeItems");
+            // TODO dengjie 这里需要获取当前用户,这些数据都要进行获取
+            long storeid = 0;
+            String storename = "";
+            double allprice = 0;
+            long userid = 0;
+            String name = "";
+            String phone = "";
+            String address = "";
+            // 进行服务转换，且求总价
+            List<HourlyEmployeeSendAppointmentItemForm> services = new ArrayList<HourlyEmployeeSendAppointmentItemForm>();
+            for (HourlyEmployeeItemVO hei : list) {
+                HourlyEmployeeSendAppointmentItemForm hourlyEmployeeSendAppointmentItemForm = new HourlyEmployeeSendAppointmentItemForm();
+                hourlyEmployeeSendAppointmentItemForm.setItemid(hei.getId());
+                hourlyEmployeeSendAppointmentItemForm.setName(hei.getName());
+                services.add(hourlyEmployeeSendAppointmentItemForm);
+                // 累计总价
+                allprice = allprice + hei.getPrice();
+            }
+            HourlyEmployeeDAO.createHourlyWorkerAppointment(storeid, storename, allprice, userid, name, phone, address,
+                    services, createHourlyWorkerAppointmentCallBack);
         }
     };
 
     // --------GalHttpLoadTextCallBack区-----------//
+    /**
+     * 发送保洁预约回调函数
+     * 
+     */
+    final GalHttpLoadTextCallBack createHourlyWorkerAppointmentCallBack = new GalHttpLoadTextCallBack() {
+        @Override
+        public void textLoaded(String text) {
+            // 解析返回的JSON字符串
+            HourlyEmployeeItemResult msgList = MierJsonUtils.readValue(text, new TypeToken<HourlyEmployeeItemResult>() {
+            }.getType());
+            // 成功
+            Head head = msgList.getHead();
+            int status = -1;
+            if (head != null) {
+                status = head.getStatus();
+            }
+            if (status == 0) {
+                // 成功
+                // 获取当前用户currentUser,根据用户获取电话号码 TODO dengjie
+                String phone = phoneTextview.getText().toString();
+                createSuccessDialog(phone);
+            } else {
+                createFaildDialog();
+            }
 
+        }
+    };
 }

@@ -7,12 +7,15 @@
 package org.dragon.rmm.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.dragon.core.galhttprequest.GalHttpRequest;
 import org.dragon.core.galhttprequest.GalHttpRequest.GalHttpLoadTextCallBack;
 import org.dragon.core.utils.json.MierJsonUtils;
 import org.dragon.rmm.Constants;
+import org.dragon.rmm.domain.HourlyEmployeeAppointmentForm;
+import org.dragon.rmm.domain.HourlyEmployeeSendAppointmentItemForm;
 import org.dragon.rmm.domain.common.CommonForm;
 import org.dragon.rmm.domain.common.Head;
 
@@ -61,4 +64,28 @@ public class HourlyEmployeeDAO {
         request.startAsynRequestString(galHttpLoadTextCallBack);
     }
 
+    /**
+     * 发送钟点工预约内容
+     * 
+     * @param galHttpLoadTextCallBack
+     *            回调函数
+     */
+    public static void createHourlyWorkerAppointment(long storeid, String storename, double allprice, long userid,
+            String name, String phone, String address, List<HourlyEmployeeSendAppointmentItemForm> services,
+            final GalHttpLoadTextCallBack galHttpLoadTextCallBack) {
+        String requestUrl = Constants.SERVER_DOMAIN_AND_PORT + "/eclean/createHourlyWorkerAppointment.json";
+        // 交给GalHttprequest自动组装url中的参数
+        // 设置post内容
+        Head head = new Head("android", 0, "ab34ciepk3456677");
+        String servicetype = "bj";
+        String source = "app";
+        HourlyEmployeeAppointmentForm form = new HourlyEmployeeAppointmentForm(head, storeid, servicetype, storename,
+                allprice, userid, name, phone, address, source, services);
+
+        String json = MierJsonUtils.toJson(form);
+
+        GalHttpRequest request = GalHttpRequest.requestWithURL(context, requestUrl);
+        request.setPostValueForKey(GalHttpRequest.NO_PARAMETERS, json);
+        request.startAsynRequestString(galHttpLoadTextCallBack);
+    }
 }

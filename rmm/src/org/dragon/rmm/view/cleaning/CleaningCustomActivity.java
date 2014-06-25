@@ -1,5 +1,6 @@
 package org.dragon.rmm.view.cleaning;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dragon.core.galhttprequest.GalHttpRequest.GalHttpLoadTextCallBack;
@@ -7,20 +8,26 @@ import org.dragon.core.utils.json.MierJsonUtils;
 import org.dragon.rmm.Constants;
 import org.dragon.rmm.R;
 import org.dragon.rmm.dao.CleaningDAO;
+import org.dragon.rmm.domain.CleaningAppointmentItemForm;
 import org.dragon.rmm.domain.CleaningItemBody;
 import org.dragon.rmm.domain.CleaningItemResult;
 import org.dragon.rmm.domain.CleaningItemVO;
+import org.dragon.rmm.domain.common.Head;
+import org.dragon.rmm.widget.dialog.NewMsgDialog;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -37,6 +44,8 @@ public class CleaningCustomActivity extends Activity {
     private Button confirmAppointmentBtn;
     private Button contactCustomServiceBtn;
     private ImageButton backNavigationImagebutton;
+
+    private List<CleaningItemVO> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +91,7 @@ public class CleaningCustomActivity extends Activity {
             TextView smallCategoryNameTitleTextView = (TextView) checkStartSmallItemView
                     .findViewById(R.id.ssic_small_category_name_title);
             smallCategoryNameTitleTextView.setText(name);
+            checkStartSmallItemView.setTag(ct);
             smallStartItemContent.addView(checkStartSmallItemView, 0);
         }
     }
@@ -115,7 +125,52 @@ public class CleaningCustomActivity extends Activity {
         super.onResume();
     }
 
-    // -------监听器区域----------//
+    /**
+     * 生成成功的弹出框
+     * 
+     * @param phone
+     *            用户的电话号码
+     */
+    private void createSuccessDialog(String phone) {
+        // 生成弹出框
+        final NewMsgDialog dialog = new NewMsgDialog(CleaningCustomActivity.this);
+        LayoutInflater factory = LayoutInflater.from(this);
+        View view = factory.inflate(R.layout.new_msg_dialog, null);
+        dialog.setView(view);
+        dialog.show();
+        String format = getResources().getString(R.string.nmd_msg_content_textview_default_text);
+        dialog.nmdMsgContent.setText(String.format(format, phone));
+        dialog.nmdCloseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    /**
+     * 生成成功的弹出框
+     * 
+     * @param phone
+     *            用户的电话号码
+     */
+    private void createFaildDialog() {
+        // 生成弹出框
+        final NewMsgDialog dialog = new NewMsgDialog(CleaningCustomActivity.this);
+        LayoutInflater factory = LayoutInflater.from(this);
+        View view = factory.inflate(R.layout.new_msg_dialog, null);
+        dialog.setView(view);
+        dialog.show();
+        String format = getResources().getString(R.string.nmd_msg_content_textview_default_faild_text);
+        dialog.nmdMsgContent.setText(format);
+        dialog.nmdCloseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
     // -------监听器区域----------//
     /**
      * 导航返回按钮点击事件
@@ -136,6 +191,36 @@ public class CleaningCustomActivity extends Activity {
 
         @Override
         public void onClick(View v) {
+            List<CleaningItemVO> cis = new ArrayList<CleaningItemVO>();
+            for (int i = 0; i < list.size(); i++) {
+                RelativeLayout smallStartItem = (RelativeLayout) smallStartItemContent.getChildAt(i);
+                CheckBox checkbox = (CheckBox) smallStartItem
+                        .findViewById(R.id.ssic_small_category_checkbox_imageButton);
+                if (checkbox.isChecked()) {
+                    // 如果被选中，那么这个索引的服务就是要被预约提交的
+                    cis.add((CleaningItemVO) smallStartItem.getTag());
+                }
+            }
+            // TODO dengjie 这里需要获取当前用户,这些数据都要进行获取
+            long storeid = 0;
+            String storename = "";
+            double allprice = 0;
+            long userid = 0;
+            String name = "";
+            String phone = "";
+            String address = "";
+            // 进行服务转换，且求总价
+            List<CleaningAppointmentItemForm> services = new ArrayList<CleaningAppointmentItemForm>();
+            for (CleaningItemVO ci : cis) {
+                CleaningAppointmentItemForm cleaningAppointmentItemForm = new CleaningAppointmentItemForm();
+                cleaningAppointmentItemForm.setItemid(ci.getId());
+                cleaningAppointmentItemForm.setName(ci.getName());
+                services.add(cleaningAppointmentItemForm);
+                // 累计总价
+                allprice = allprice + ci.getPrice();
+            }
+            CleaningDAO.createCleanAppointment(storeid, storename, allprice, userid, name, phone, address, services,
+                    createCleanAppointmentCallBack);
 
         }
     };
@@ -174,9 +259,37 @@ public class CleaningCustomActivity extends Activity {
             }.getType());
             // 成功
             CleaningItemBody body = msgList.getBody();
-            List<CleaningItemVO> list = body.getExtra();
+            list = body.getExtra();
             if (msgList != null && body != null && list.size() != 0) {
                 initStarComponents(list);
+            }
+
+        }
+    };
+
+    /**
+     * 发送保洁预约回调函数
+     * 
+     */
+    final GalHttpLoadTextCallBack createCleanAppointmentCallBack = new GalHttpLoadTextCallBack() {
+        @Override
+        public void textLoaded(String text) {
+            // 解析返回的JSON字符串
+            CleaningItemResult msgList = MierJsonUtils.readValue(text, new TypeToken<CleaningItemResult>() {
+            }.getType());
+            // 成功
+            Head head = msgList.getHead();
+            int status = -1;
+            if (head != null) {
+                status = head.getStatus();
+            }
+            if (status == 0) {
+                // 成功
+                // 获取当前用户currentUser,根据用户获取电话号码 TODO dengjie
+                String phone = "";
+                createSuccessDialog(phone);
+            } else {
+                createFaildDialog();
             }
 
         }
