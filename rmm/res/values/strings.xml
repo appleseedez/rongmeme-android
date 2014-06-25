@@ -17,4 +17,76 @@
     <string name="no_location_error">暂时无法获取当前位置</string>
     <string name="nha_no_net_work_toast">亲，没有网络，请返回在设置中打开网络连接才能定位。</string>
 
+	<!-- Common -->
+	<string name="image_content_description">占位图标</string>
+
+    <!-- Portal -->
+    <string name="activity_label_app_portal">AppPortal</string>
+    <string name="label_app_portal_user_center">个人中心</string>
+    <string name="label_app_portal_dry_cleaning">干洗</string>
+    <string name="label_app_portal_scan_barcode">扫一扫</string>
+
+    <!-- Navigator -->
+    <string name="label_navigator_backward">返回</string>
+    <string name="label_navigator_forward"></string>
+    <string name="label_navigator_forward_refresh">刷新</string>
+    <string name="label_navigator_forward_comment">评价</string>
+    <string name="label_navigator_title"></string>
+
+    <!-- Dry Cleaning -->
+    <string name="activity_label_dry_cleaning_portal">干洗</string>
+    <string name="activity_label_dry_cleaning_reservation">干洗预约单</string>
+    <string name="dry_cleaning_navigator_title">干洗列表</string>
+    <string name="dry_cleaning_navigator_forward">选择</string>
+    <string name="dry_cleaning_reserve_title">干洗预约</string>
+    <string name="dry_cleaning_reserve_support">联系客服</string>
+    <string name="dry_cleaning_reserve_telephone">联系电话</string>
+    <string name="dry_cleaning_reserve_address">联系地址</string>
+    <string name="dry_cleaning_reserve_confirmed">确认预定</string>
+    <string name="dry_cleaning_reserve_failture">预定失败</string>
+    <string name="dry_cleaning_reserve_disclaimer">免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明</string>
+    <string name="dry_cleaning_reserve_disclaimer_accept">同意</string>
+    <string name="dry_cleaning_reserve_disclaimer_notification">请查看并同意免责声明</string>
+    <string name="dry_cleaning_reserve_good">物品</string>
+    <string name="dry_cleaning_reserve_amount">数量</string>
+    <string name="dry_cleaning_reserve_price">单价</string>
+    <string name="dry_cleaning_reserve_total_price">总计</string>
+    <string name="dry_cleaning_reserve_notification_part_a">预约单已经发送\n稍后客服人员会通过\n</string>
+    <string name="dry_cleaning_reserve_notification_part_b">\n联系您</string>
+
+    <!-- User Center -->
+    <string name="activity_label_user_center_portal">个人中心</string>
+    <string name="activity_label_user_order_detail">订单详情</string>
+    <string name="activity_label_user_profile">个人设置</string>
+    <string name="user_center_forward_label">个人设置</string>
+    <string name="user_profile_telephone_label">联系电话</string>
+    <string name="user_profile_address_label">联系地址</string>
+    <string name="user_profile_address_changed_success">修改成功</string>
+    <string name="user_profile_address_changed_failture">修改失败</string>
+    <string name="title_activity_order_portal">OrderPortal</string>
+
+    <!-- User Order -->
+    <string name="order_type_text_unknown">未知订单</string>
+    <string name="order_type_text_cleaning">保洁订单</string>
+    <string name="order_type_text_dry_cleaning">干洗订单</string>
+    <string name="order_status_text_unknown">未服务</string>
+    <string name="order_status_text_pending">未服务</string>
+    <string name="order_status_text_unassigned">处理中</string>
+    <string name="order_status_text_serving">服务中</string>
+    <string name="order_status_text_served">已完成</string>
+    <string name="order_status_text_served_text">服务完成</string>
+    <string name="order_status_text_cancelled">取消</string>
+    <string name="order_service_text_title">名称</string>
+    <string name="order_service_text_amount">数量</string>
+    <string name="order_service_text_price">单价</string>
+    <string name="order_service_text_total_price">总计</string>
+
+    <!-- Payment -->
+    <string name="payment_alipay_label">使用支付宝支付</string>
+    <string name="payment_alipay_success">支付成功</string>
+    <string name="payment_alipay_failture">支付成功</string>
+    <string name="payment_order_type_cleaning">蓉么么保洁服务订单</string>
+    <string name="payment_order_type_dry_cleaning">蓉么么干洗服务订单</string>
+    <string name="payment_order_type_hourly_worker">蓉么么钟点工服务订单</string>
+    <string name="payment_order_description">随便说说就好 这是文案</string>
 </resources>

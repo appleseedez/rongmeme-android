@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_full_screen"
+    tools:context="${packageName}.${activityClass}">
+
+    <include android:id="@+id/page_header_layout" layout="@layout/activity_navigator"/>
+
+    <TextView
+        android:id="@+id/telephone_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/page_header_layout"
+        android:text="@string/user_profile_telephone_label"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/telephone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/telephone_label"
+        android:background="@color/backgroud_white"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/address_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/telephone"
+        android:text="@string/user_profile_address_label"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"/>
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/address_label"
+        android:background="@color/backgroud_white"
+        android:inputType="textMultiLine"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="insideInset"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"/>
+
+</RelativeLayout>

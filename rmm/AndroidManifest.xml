@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="19" />
 
     <supports-screens
         android:anyDensity="true"
@@ -63,6 +63,7 @@
         android:smallScreens="true" />
 
     <application
+        android:name="org.dragon.rmm.AppInstance"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/icon_logo"
@@ -230,6 +231,26 @@
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         -->
+        <activity
+            android:name="org.dragon.rmm.ui.drycleaning.DryCleaningPortal"
+            android:label="@string/activity_label_dry_cleaning_portal" >
+        </activity>
+        <activity
+            android:name="org.dragon.rmm.ui.center.UserCenterPortal"
+            android:label="@string/activity_label_user_center_portal" >
+        </activity>
+        <activity
+            android:name="org.dragon.rmm.ui.center.UserOrderDetail"
+            android:label="@string/activity_label_user_order_detail" >
+        </activity>
+        <activity
+            android:name="org.dragon.rmm.ui.center.UserProfile"
+            android:label="@string/activity_label_user_profile" >
+        </activity>
+        <activity
+            android:name="org.dragon.rmm.ui.drycleaning.DryCleaningReservation"
+            android:label="@string/activity_label_dry_cleaning_reservation" >
+        </activity>
     </application>
 
 </manifest>
