@@ -18,6 +18,8 @@ import org.dragon.rmm.utils.StringResource;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -74,7 +76,7 @@ public class DryCleaningReservation extends Activity implements OnClickListener,
 		forward.setBackgroundResource(R.drawable.icon_chat);
 		forward.setOnClickListener(this);
 
-		Button confirmed = (Button) findViewById(R.id.reserve_confirmed);
+		TextView confirmed = (TextView) findViewById(R.id.reserve_confirmed);
 		confirmed.setOnClickListener(this);
 		
 		EditText telephone = (EditText) findViewById(R.id.telephone);
@@ -188,6 +190,7 @@ public class DryCleaningReservation extends Activity implements OnClickListener,
 		request.setSource("app");
 		
 		// USER INFO
+		if(ApiServer.mUser == null) { return; }
 		request.setUserid(ApiServer.mUser.userid);
 		request.setName(ApiServer.mUser.nickname);
 		
@@ -198,7 +201,7 @@ public class DryCleaningReservation extends Activity implements OnClickListener,
 		request.setAddress(address.getText().toString());
 		
 		// STORE INFO
-		// FIXME: BUG NullException
+		if(ApiServer.mShopInfo == null) { return; }
 		request.setStoreid(ApiServer.mShopInfo.id);
 		request.setStorename(ApiServer.mShopInfo.name);
 		
@@ -214,7 +217,7 @@ public class DryCleaningReservation extends Activity implements OnClickListener,
 	
 
 	private void onForwardBtnClick() {
-		
+		startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + ApiServer.mShopInfo.phone)));
 	}
 	
 	private void onBackwordBtnClick() {

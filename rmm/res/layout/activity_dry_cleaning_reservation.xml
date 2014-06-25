@@ -14,7 +14,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_below="@id/page_header_layout"/>
+        android:layout_below="@id/page_header_layout"
+        android:divider="@null"/>
 	
 	<LinearLayout
 	    android:id="@+id/contact_box"
@@ -25,27 +26,6 @@
         android:layout_marginBottom="20dp"
         android:background="@color/backgroud_white"
         android:layout_below="@id/manifest">
-	    <LinearLayout
-	        android:orientation="horizontal"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="10dp">
-		    <ImageView
-		        android:layout_width="20dp"
-		        android:layout_height="30dp"
-		        android:layout_marginLeft="20dp"
-		        android:src="@drawable/icon_contact"
-		        android:contentDescription="@string/image_content_description"/>
-		    <EditText
-		        android:id="@+id/telephone"
-		        android:layout_width="match_parent"
-		        android:layout_height="35dp"
-		        android:layout_marginLeft="20dp"
-       			android:textSize="20sp"
-        		android:textColor="@android:color/white"
-		        android:inputType="phone"/>
-		</LinearLayout>
-
 	    <LinearLayout
 	        android:orientation="horizontal"
 	        android:layout_width="wrap_content"
@@ -65,7 +45,29 @@
 		        android:layout_marginLeft="20dp"
 		        android:inputType="text"
        			android:textSize="20sp"
-        		android:textColor="@android:color/white"/>
+        		android:textColor="@android:color/white"
+        		android:background="@android:color/transparent"/>
+		</LinearLayout>
+		<LinearLayout
+	        android:orientation="horizontal"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dp">
+		    <ImageView
+		        android:layout_width="20dp"
+		        android:layout_height="30dp"
+		        android:layout_marginLeft="20dp"
+		        android:src="@drawable/icon_contact"
+		        android:contentDescription="@string/image_content_description"/>
+		    <EditText
+		        android:id="@+id/telephone"
+		        android:layout_width="match_parent"
+		        android:layout_height="35dp"
+		        android:layout_marginLeft="20dp"
+       			android:textSize="20sp"
+        		android:textColor="@android:color/white"
+        		android:background="@android:color/transparent"
+		        android:inputType="phone"/>
 		</LinearLayout>
 	</LinearLayout>
 	
@@ -77,13 +79,23 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_below="@id/contact_box">
+        <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal"
+	        android:gravity="center"
+	        android:text="@string/dry_cleaning_reserve_disclaimer_title"
+	        android:textSize="20sp"
+        	android:textColor="@android:color/white"/>
 	    <TextView
 	        android:id="@+id/disclaimer"
 	        android:layout_width="match_parent"
 	        android:layout_height="120dp"
 	        android:gravity="center"
+	        android:scrollbars="vertical"
+	        android:scrollbarStyle="insideInset"
 	        android:text="@string/dry_cleaning_reserve_disclaimer"
-	        android:textSize="20sp"
+	        android:textSize="16sp"
         	android:textColor="@android:color/white"/>
 	    <CheckBox
 	        android:id="@+id/disclaimer_accept"
@@ -94,16 +106,15 @@
         	android:textColor="@android:color/white"/>
 	</LinearLayout>
 	
-    <Button
-        android:id="@+id/reserve_confirmed"
-        android:layout_width="150dp"
-        android:layout_height="45dp"
+	<TextView
+	    style="@style/button"
+	    android:id="@+id/reserve_confirmed"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="30dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/icon_send_reservation"/>
+        android:text="@string/dry_cleaning_reserve_send_reservation" />
     
 </RelativeLayout>

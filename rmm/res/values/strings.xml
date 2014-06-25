@@ -44,6 +44,7 @@
     <string name="dry_cleaning_reserve_address">联系地址</string>
     <string name="dry_cleaning_reserve_confirmed">确认预定</string>
     <string name="dry_cleaning_reserve_failture">预定失败</string>
+     <string name="dry_cleaning_reserve_disclaimer_title">免责声明</string>
     <string name="dry_cleaning_reserve_disclaimer">免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明</string>
     <string name="dry_cleaning_reserve_disclaimer_accept">同意</string>
     <string name="dry_cleaning_reserve_disclaimer_notification">请查看并同意免责声明</string>
@@ -51,6 +52,7 @@
     <string name="dry_cleaning_reserve_amount">数量</string>
     <string name="dry_cleaning_reserve_price">单价</string>
     <string name="dry_cleaning_reserve_total_price">总计</string>
+    <string name="dry_cleaning_reserve_send_reservation">发送预约</string>
     <string name="dry_cleaning_reserve_notification_part_a">预约单已经发送\n稍后客服人员会通过\n</string>
     <string name="dry_cleaning_reserve_notification_part_b">\n联系您</string>
 
