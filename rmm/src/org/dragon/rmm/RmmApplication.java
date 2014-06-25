@@ -35,7 +35,7 @@ public class RmmApplication extends Application {
 	/**
 	 * TAG用来描述是哪个类的字符串常量，多用于日志
 	 */
-	private static final String TAG = "MierApplication";
+	private static final String TAG = "RmmApplication";
 	/**
 	 * 蜜儿系统的设置常量类
 	 */
@@ -44,7 +44,7 @@ public class RmmApplication extends Application {
 	/**
 	 * 包
 	 */
-	public static final String PACKAGE_NAME = "org.dragon.hxgj";
+	public static final String PACKAGE_NAME = "org.dragon.rmm";
 
 	/**
 	 * 整个系统第3方的HTTP异步请求都是使用的这个，因为需要第一次初始化其内部的Handler

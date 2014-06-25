@@ -69,22 +69,45 @@
             android:name="org.dragon.rmm.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
 
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>
             -->
         </activity>
 
-        
+        <!-- 保洁 -->
+        <activity
+            android:name="org.dragon.rmm.view.cleaning.CleaningActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.dragon.rmm.view.cleaning.CleaningAppointmentActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.dragon.rmm.view.cleaning.CleaningCustomActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <!-- 钟点工 -->
+        <activity
+            android:name="org.dragon.rmm.view.hourlyemployee.HourlyEmployeeActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.dragon.rmm.view.hourlyemployee.HourlyEmployeeAppointmentActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
 
         <!-- push service client -->
         <receiver android:name="org.dragon.rmm.PushMessageReceiver" >
             <intent-filter>
+
                 <!-- 接收push消息 -->
                 <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
                 <!-- 接收bind,unbind,fetch,delete等反馈消息 -->

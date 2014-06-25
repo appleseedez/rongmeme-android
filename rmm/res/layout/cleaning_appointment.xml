@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/allbg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/ca_top_navigation_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@null"
+        android:gravity="center_vertical" >
+
+        <ImageButton
+            android:id="@+id/ca_back_navigation_imagebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@null"
+            android:contentDescription="@string/back_navigation_imagebutton_desc"
+            android:src="@drawable/back_nav" />
+
+        <TextView
+            android:id="@+id/ca_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:text="@string/cleaning_tv_title_text"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <!-- 功能列表区域 -->
+
+    <TextView
+        android:id="@+id/ca_tip_msg_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="@string/ca_tip_msg_textview_defalut_text"
+        android:textColor="@color/white"
+        android:textSize="20sp" >
+    </TextView>
+
+    <!-- 星级服务 -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical" >
+
+        <LinearLayout
+            android:id="@+id/ca_small_start_item_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <!-- 观看流程按钮 -->
+
+            <Button
+                android:id="@+id/ca_confirm_appointment_btn"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/cleaning_btn_n"
+                android:singleLine="true"
+                android:text="@string/ca_confirm_appointment_btn_text"
+                android:textColor="@color/white" >
+            </Button>
+            <!-- 我要定制 -->
+
+            <Button
+                android:id="@+id/ca_contact_custom_service_btn"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="60dp"
+                android:background="@drawable/cleaning_btn_n"
+                android:singleLine="true"
+                android:text="@string/ca_contact_custom_service_text"
+                android:textColor="@color/white" >
+            </Button>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
