@@ -7,7 +7,6 @@ import org.dragon.rmm.ui.ActLogin;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -62,7 +61,6 @@ public class SplashActivity extends Activity {
      */
     private void createAllCustomPushNotificationStyle() {
         BasicPushNotificationBuilder cBuilder = new BasicPushNotificationBuilder();
-        Resources r = getResources();
         cBuilder.setNotificationVibrate(new long[] {1000,500,500,100,50});
         cBuilder.setStatusbarIcon(R.drawable.simple_notification_icon);
         PushManager.setNotificationBuilder(this, 1, cBuilder);

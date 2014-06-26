@@ -1,6 +1,8 @@
 package org.dragon.rmm.ui;
 
 import org.dragon.rmm.R;
+import org.dragon.rmm.ui.center.UserCenterPortal;
+import org.dragon.rmm.ui.drycleaning.DryCleaningPortal;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -40,10 +42,10 @@ public class ActMain extends Activity implements OnClickListener {
 		case R.id.menu_launcher_1: // 钟点工
 			break;
 		case R.id.menu_launcher_2:// 我的预约
-			// startActivity(new Intent(this, UserCenterPortal.class));
+			 startActivity(new Intent(this, UserCenterPortal.class));
 			break;
 		case R.id.menu_launcher_3:// 干洗
-			// startActivity(new Intent(this, DryCleaningPortal.class));
+			 startActivity(new Intent(this, DryCleaningPortal.class));
 			break;
 		case R.id.menu_launcher_4:// 保洁
 			// -------test begin------

@@ -29,7 +29,7 @@ public class DragImageView extends ImageView {
     private long firstClick = 0;
     // 最后一次点击的时间
     private long lastClick = 0;
-    
+
     private Activity mActivity;
 
     private int screen_W, screen_H;// 可见屏幕的宽高度

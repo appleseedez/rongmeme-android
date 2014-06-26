@@ -272,7 +272,7 @@ public class ImageUtils {
         String newname = DateFormat.format("yyyy-MM-dd kk.mm.ss", System.currentTimeMillis()).toString();
         values.put(MediaStore.Images.Media.TITLE, newname);// 名称，随便
         values.put(MediaStore.Images.Media.DISPLAY_NAME, newname);
-        values.put(MediaStore.Images.Media.DESCRIPTION, "蜜儿保存");// 描述，随便
+        values.put(MediaStore.Images.Media.DESCRIPTION, "保存");// 描述，随便
         values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());// 图像的拍摄时间，显示时根据这个排序
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");// 默认为jpg格式
         values.put(MediaStore.Images.Media.ORIENTATION, 0);//
