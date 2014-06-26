@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ssi_top_navigation_bar"
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/small_category_bg_n"
+    android:gravity="center_vertical" >
+
+    <ImageButton
+        android:id="@+id/ssia_small_category_checkbox_imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:background="@null"
+        android:contentDescription="@string/ssia_small_category_checkbox_imageButton_desc"
+        android:src="@drawable/item_checked" />
+
+    <TextView
+        android:id="@+id/ssia_small_category_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="20dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/ssia_small_category_checkbox_imageButton"
+        android:singleLine="true"
+        android:text="@string/ssia_small_category_name_title_text"
+        android:textColor="@color/R61G85B1"
+        android:textSize="20sp" />
+
+</RelativeLayout>

@@ -9,12 +9,12 @@ import org.dragon.rmm.model.InfoShop;
 import org.dragon.rmm.model.ModelResCommenList;
 import org.dragon.rmm.model.ModelResShop;
 import org.dragon.rmm.ui.adapter.CommentAdapter;
+import org.dragon.rmm.ui.center.UserOrderDetail;
 import org.dragon.rmm.widget.xlistview.XListView;
 import org.dragon.rmm.widget.xlistview.XListView.IXListViewListener;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -138,7 +138,7 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 			finish();
 			break;
 		case R.id.actionbar_next:// 扫一扫
-			// toScanBarcode(arg0);
+			toScanBarcode(arg0);
 			break;
 		case R.id.shop_call:// 打电话
 			startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + ApiServer.mShopInfo.phone)));
@@ -147,30 +147,29 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 
 	}
 
-	// @Override
-	// protected void onActivityResult(int requestCode, int resultCode, Intent
-	// data) {
-	// IntentResult result = IntentIntegrator.parseActivityResult(requestCode,
-	// resultCode, data);
-	// if(result == null) {
-	// super.onActivityResult(requestCode, resultCode, data); return;
-	// }
-	// if(result.getContents() != null) {
-	// Intent intent = new Intent(this, UserOrderDetail.class);
-	// intent.putExtra(UserOrderDetail.INTENT_EXTRA_USER_ORDER_ID,
-	// result.getContents());
-	// startActivity(intent);
-	// }
-	// }
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// IntentResult result =
+		// IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+		// if (result == null) {
+		// super.onActivityResult(requestCode, resultCode, data);
+		// return;
+		// }
+		// if (result.getContents() != null) {
+		// Intent intent = new Intent(this, UserOrderDetail.class);
+		// intent.putExtra(UserOrderDetail.INTENT_EXTRA_USER_ORDER_ID,
+		// result.getContents());
+		// startActivity(intent);
+		// }
+	}
 
-	// 扫描
-	// private void toScanBarcode(View v) {
-	// IntentIntegrator integrator = new IntentIntegrator(this);
-	// integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-	// integrator.setResultDisplayDuration(0);
-	// integrator.setCameraId(0);
-	// integrator.initiateScan();
-	// }
+	private void toScanBarcode(View v) {
+		// IntentIntegrator integrator = new IntentIntegrator(this);
+		// integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+		// integrator.setResultDisplayDuration(0);
+		// integrator.setCameraId(0);
+		// integrator.initiateScan();
+	}
 
 	private ResponseListener mResponseListener = new ResponseListener() {
 

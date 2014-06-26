@@ -5,7 +5,12 @@ import java.io.UnsupportedEncodingException;
 import org.dragon.rmm.model.BaseModel;
 import org.dragon.rmm.model.InfoComment;
 import org.dragon.rmm.model.InfoCommentList;
+import org.dragon.rmm.model.InfoDryCleanReservation;
+import org.dragon.rmm.model.InfoDryCleanServices;
+import org.dragon.rmm.model.InfoEditUserInfo;
 import org.dragon.rmm.model.InfoHeader;
+import org.dragon.rmm.model.InfoOrderOfNo;
+import org.dragon.rmm.model.InfoOrderOfUser;
 import org.dragon.rmm.model.InfoPlace;
 import org.dragon.rmm.model.InfoRegist;
 import org.dragon.rmm.model.InfoShop;
@@ -15,6 +20,7 @@ import org.dragon.rmm.model.InfoVerycode;
 import org.dragon.rmm.model.ModelResUser;
 import org.dragon.rmm.model.ResShop;
 import org.dragon.rmm.model.ResUser;
+import org.dragon.rmm.utils.PreferenceUtils;
 import org.dragon.rmm.volley.BitmapLruCache;
 import org.dragon.rmm.volley.PostRequest;
 
@@ -40,10 +46,12 @@ public class ApiServer {
 	public static ResShop mShopInfo;
 	private static ImageLoader mImageLoader;
 	private static Gson mGson;
+	private Context mContext;
 
 	private ApiServer(Context context) {
 		mQueue = Volley.newRequestQueue(context);
 		mHeader = new InfoHeader();
+		mContext = context;
 	}
 
 	public static ApiServer getInstance(Context context) {
@@ -110,6 +118,7 @@ public class ApiServer {
 					ModelResUser result = ApiServer.getGson().fromJson(response, ModelResUser.class);
 					mHeader.sessionToken = result.head.sessionToken;
 					mUser = result.body;
+					PreferenceUtils.saveUser(mContext, mUser);
 					break;
 				case API_LOGOUT:
 					mHeader.sessionToken = null;
@@ -214,5 +223,65 @@ public class ApiServer {
 	 */
 	public void comment(InfoComment info, ResponseListener reponseListener) {
 		request(ApiMethod.API_COMMENT, info, reponseListener, true);
+	}
+
+	/**
+	 * 查看我的所有订单
+	 * 
+	 * @param info
+	 *            request parameters
+	 * @param listener
+	 *            callback invoked when response has arrived
+	 */
+	public void loadOrdersOfUser(InfoOrderOfUser info, ResponseListener listener) {
+		request(ApiMethod.API_LOAD_ORDERS_OF_USER, info, listener, true);
+	}
+
+	/**
+	 * 查询订单
+	 * 
+	 * @param info
+	 *            request parameters
+	 * @param listener
+	 *            callback invoked when response has arrived
+	 */
+	public void findOrderByNo(InfoOrderOfNo info, ResponseListener listener) {
+		request(ApiMethod.API_FIND_ORDER_BY_NO, info, listener, true);
+	}
+
+	/**
+	 * 编辑常用地址信息
+	 * 
+	 * @param info
+	 *            request parameters
+	 * @param listener
+	 *            callback invoked when response has arrived
+	 */
+	public void editUserInfo(InfoEditUserInfo info, ResponseListener listener) {
+		request(ApiMethod.API_EDIT_USER_INFO, info, listener, true);
+	}
+
+	/**
+	 * 加载干洗信息
+	 * 
+	 * @param info
+	 *            request parameters
+	 * @param listener
+	 *            callback invoked when response has arrived
+	 */
+	public void loadDryCleanServices(InfoDryCleanServices info, ResponseListener listener) {
+		request(ApiMethod.API_LOAD_DRY_CLEAN_SERVICES, info, listener, true);
+	}
+
+	/**
+	 * 生成干洗预约
+	 * 
+	 * @param info
+	 *            request parameters
+	 * @param listener
+	 *            callback invoked when response has arrived
+	 */
+	public void createDryCleanReservation(InfoDryCleanReservation info, ResponseListener listener) {
+		request(ApiMethod.API_CREATE_DRY_CLEAN_APPOINTENT, info, listener, true);
 	}
 }

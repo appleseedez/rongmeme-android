@@ -113,6 +113,11 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 		}
 	}
 
+	@Override
+	public void onBackPressed() {
+		changeShop();
+	}
+
 	private void changeShop() {
 		int index = lvDetail.getCheckedItemPosition();
 		// the position of listview header is 0.

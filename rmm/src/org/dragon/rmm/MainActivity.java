@@ -8,14 +8,19 @@ package org.dragon.rmm;
 
 import org.dragon.core.utils.image.BizImageUtils;
 import org.dragon.core.utils.view.ViewUtils;
+import org.dragon.rmm.view.cleaning.CleaningActivity;
+import org.dragon.rmm.view.hourlyemployee.HourlyEmployeeActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 
 /**
  * 主体入口界面组件，需要判断是否是登陆状态，如果是登陆状态，则直接显示主体界面。如果未登陆则跳转到未登陆橱窗展示界面。
@@ -37,6 +42,10 @@ public class MainActivity extends Activity {
      * 其他地方可以用用主界面组件的这个缩略图后缀生成的工具类
      */
     public static ViewUtils viewUtils;
+    
+    private Button goView;
+    
+    private Button gohourly;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +79,30 @@ public class MainActivity extends Activity {
      * 初始化界面组件
      */
     private void initComponents() {
-
+        goView = (Button)findViewById(R.id.goview);
+        gohourly = (Button)findViewById(R.id.gohourly);
     }
 
     /**
      * 初始化监听器
      */
     private void initLinsteners() {
-
+        goView.setOnClickListener(new View.OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,CleaningActivity.class);
+                startActivity(intent);
+            }
+        });
+        gohourly.setOnClickListener(new View.OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,HourlyEmployeeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
