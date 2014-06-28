@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_full_screen"
+    tools:context="${packageName}.${activityClass}">
+
+    <include android:id="@+id/page_header_layout" layout="@layout/activity_navigator"/>
+    
+	<RelativeLayout
+	    android:id="@+id/user_order_date_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_below="@id/page_header_layout"
+        android:background="@color/backgroud_black">
+	    <TextView
+	        android:id="@+id/user_order_date"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="5dp"
+	        android:layout_centerInParent="true"
+	        android:textSize="18sp"
+	        android:textColor="@android:color/white"/>
+	</RelativeLayout>
+	
+	<ListView
+	    android:id="@+id/manifest"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="20dp"
+        android:layout_below="@id/user_order_date_wrapper"
+        android:background="@color/backgroud_black"/>
+	
+	<LinearLayout
+	    android:orientation="horizontal"
+	    android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       	android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true">
+	    
+<!-- 	    <ImageView
+		    android:id="@+id/serve_done"
+	        android:layout_width="30dp"
+	        android:layout_height="30dp"
+	        android:src="@drawable/icon_serve_done"
+	        android:contentDescription="@string/image_content_description"/> -->
+	
+	    <Button
+	        android:id="@+id/order_payment"
+	        android:layout_width="160dp"
+	        android:layout_height="38dp"
+	        android:textSize="23sp"
+	        android:textColor="@android:color/white"/>
+    
+	</LinearLayout>
+
+
+</RelativeLayout>

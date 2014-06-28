@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_home"
+    android:gravity="center_horizontal|center_vertical"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/icon_login" />
+
+    <EditText
+        android:id="@+id/login_et_user"
+        style="@style/edit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dip"
+        android:layout_marginRight="40dip"
+        android:layout_marginTop="50dip"
+        android:text="13408620260"
+        android:hint="请输入登录账号"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/login_et_pwd"
+        style="@style/edit"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="40dip"
+        android:layout_marginRight="40dip"
+        android:layout_marginTop="30dip"
+        android:text="123456"
+        android:hint="请输入登录密码"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/login_tv_enter"
+        style="@style/button"
+        android:layout_marginTop="36dip"
+        android:text="登录" />
+
+    <TextView
+        android:id="@+id/login_tv_regist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dip"
+        android:layout_marginTop="20dip"
+        android:text="没有账号"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+</LinearLayout>

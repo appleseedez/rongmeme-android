@@ -13,20 +13,15 @@ import org.dragon.rmm.dao.BeanFactory;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.util.Log;
 
 /**
- * 系统的Application，是单一的，可以作为主体程序来使用。使用方法例如： ((MierApplication)
- * getApplication()).requestLocationUpdates(true)
+ * 系统的Application，是单一的，可以作为主体程序来使用。使用方法例如： ((MierApplication) getApplication()).requestLocationUpdates(true)
  * 
  * @author dengjie
  * @since 1.0

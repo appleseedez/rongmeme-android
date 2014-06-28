@@ -2791,3 +2791,106 @@ Command-line arguments:  -os win32 -ws win32 -arch x86 -product com.android.ide.
 
 !ENTRY org.eclipse.ui 4 4 2014-06-26 21:49:57.768
 !MESSAGE Referenced part does not exist yet: org.eclipse.ui.views.ProblemView.
+!SESSION 2014-06-28 10:23:29.643 -----------------------------------------------
+eclipse.buildId=v21.0.1-543035
+java.version=1.6.0_37
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product com.android.ide.eclipse.adt.package.product
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-06-28 10:27:07.246
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Marker id 1 not found.
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:57)
+	at org.eclipse.core.internal.resources.Marker.setAttribute(Marker.java:237)
+	at com.android.ide.eclipse.adt.internal.project.BaseProjectHelper.markProject(BaseProjectHelper.java:210)
+	at com.android.ide.eclipse.adt.internal.project.BaseClasspathContainerInitializer$1.run(BaseClasspathContainerInitializer.java:65)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 376 2014-06-28 10:27:07.247
+!MESSAGE Marker id 1 not found.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-06-28 10:27:07.249
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Marker id 8 not found.
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:57)
+	at org.eclipse.core.internal.resources.Marker.setAttribute(Marker.java:237)
+	at com.android.ide.eclipse.adt.internal.project.BaseProjectHelper.markProject(BaseProjectHelper.java:210)
+	at com.android.ide.eclipse.adt.internal.project.BaseClasspathContainerInitializer$1.run(BaseClasspathContainerInitializer.java:65)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 376 2014-06-28 10:27:07.250
+!MESSAGE Marker id 8 not found.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-06-28 10:27:07.250
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Marker id 5 not found.
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:57)
+	at org.eclipse.core.internal.resources.Marker.setAttribute(Marker.java:237)
+	at com.android.ide.eclipse.adt.internal.project.BaseProjectHelper.markProject(BaseProjectHelper.java:210)
+	at com.android.ide.eclipse.adt.internal.project.BaseClasspathContainerInitializer$1.run(BaseClasspathContainerInitializer.java:65)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 376 2014-06-28 10:27:07.250
+!MESSAGE Marker id 5 not found.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-06-28 10:27:07.253
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Marker id 6 not found.
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:57)
+	at org.eclipse.core.internal.resources.Marker.setAttribute(Marker.java:237)
+	at com.android.ide.eclipse.adt.internal.project.BaseProjectHelper.markProject(BaseProjectHelper.java:210)
+	at com.android.ide.eclipse.adt.internal.project.BaseClasspathContainerInitializer$1.run(BaseClasspathContainerInitializer.java:65)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 376 2014-06-28 10:27:07.253
+!MESSAGE Marker id 6 not found.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-06-28 10:27:07.254
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Marker id 7 not found.
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:57)
+	at org.eclipse.core.internal.resources.Marker.setAttribute(Marker.java:237)
+	at com.android.ide.eclipse.adt.internal.project.BaseProjectHelper.markProject(BaseProjectHelper.java:210)
+	at com.android.ide.eclipse.adt.internal.project.BaseClasspathContainerInitializer$1.run(BaseClasspathContainerInitializer.java:65)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 376 2014-06-28 10:27:07.254
+!MESSAGE Marker id 7 not found.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-06-28 10:27:07.255
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Marker id 4 not found.
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:57)
+	at org.eclipse.core.internal.resources.Marker.setAttribute(Marker.java:237)
+	at com.android.ide.eclipse.adt.internal.project.BaseProjectHelper.markProject(BaseProjectHelper.java:210)
+	at com.android.ide.eclipse.adt.internal.project.BaseClasspathContainerInitializer$1.run(BaseClasspathContainerInitializer.java:65)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 376 2014-06-28 10:27:07.255
+!MESSAGE Marker id 4 not found.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-06-28 10:27:07.256
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Marker id 3 not found.
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:57)
+	at org.eclipse.core.internal.resources.Marker.setAttribute(Marker.java:237)
+	at com.android.ide.eclipse.adt.internal.project.BaseProjectHelper.markProject(BaseProjectHelper.java:210)
+	at com.android.ide.eclipse.adt.internal.project.BaseClasspathContainerInitializer$1.run(BaseClasspathContainerInitializer.java:65)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 376 2014-06-28 10:27:07.256
+!MESSAGE Marker id 3 not found.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-06-28 10:27:07.260
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Marker id 2 not found.
+	at org.eclipse.core.internal.resources.Marker.checkInfo(Marker.java:57)
+	at org.eclipse.core.internal.resources.Marker.setAttribute(Marker.java:237)
+	at com.android.ide.eclipse.adt.internal.project.BaseProjectHelper.markProject(BaseProjectHelper.java:210)
+	at com.android.ide.eclipse.adt.internal.project.BaseClasspathContainerInitializer$1.run(BaseClasspathContainerInitializer.java:65)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.core.resources 4 376 2014-06-28 10:27:07.260
+!MESSAGE Marker id 2 not found.

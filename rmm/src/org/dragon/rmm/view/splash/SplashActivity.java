@@ -3,10 +3,10 @@ package org.dragon.rmm.view.splash;
 import org.dragon.rmm.MainActivity;
 import org.dragon.rmm.R;
 import org.dragon.rmm.push.Utils;
+import org.dragon.rmm.ui.ActLogin;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -38,22 +38,22 @@ public class SplashActivity extends Activity {
         }, SPLASH_DELAY_MILLIS);
         // 百度push初始化
         // 以apikey的方式登录
-        PushManager.startWork(this, PushConstants.LOGIN_TYPE_API_KEY,
-                Utils.getMetaValue(SplashActivity.this, "api_key"));
-        createAllCustomPushNotificationStyle();
+//        PushManager.startWork(this, PushConstants.LOGIN_TYPE_API_KEY,
+//                Utils.getMetaValue(SplashActivity.this, "api_key"));
+//        createAllCustomPushNotificationStyle();
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        PushManager.activityStarted(this);
+      //  PushManager.activityStarted(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        PushManager.activityStoped(this);
+    //    PushManager.activityStoped(this);
     }
 
     /**
@@ -61,7 +61,6 @@ public class SplashActivity extends Activity {
      */
     private void createAllCustomPushNotificationStyle() {
         BasicPushNotificationBuilder cBuilder = new BasicPushNotificationBuilder();
-        Resources r = getResources();
         cBuilder.setNotificationVibrate(new long[] {1000,500,500,100,50});
         cBuilder.setStatusbarIcon(R.drawable.simple_notification_icon);
         PushManager.setNotificationBuilder(this, 1, cBuilder);
@@ -78,7 +77,7 @@ public class SplashActivity extends Activity {
     }
 
     private void goHome() {
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        Intent intent = new Intent(SplashActivity.this, ActLogin.class);
         SplashActivity.this.startActivity(intent);
         SplashActivity.this.finish();
     }
