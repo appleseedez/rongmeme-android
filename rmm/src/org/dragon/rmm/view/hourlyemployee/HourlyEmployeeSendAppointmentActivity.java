@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -44,6 +45,7 @@ public class HourlyEmployeeSendAppointmentActivity extends Activity {
     private ImageFetcher mImageFetcher;
 
     private TextView phoneTextview;
+    private ImageButton backNavigationImagebutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,7 @@ public class HourlyEmployeeSendAppointmentActivity extends Activity {
         sendAppointmentBtn = (Button) findViewById(R.id.hsa_confirm_appointment_btn);
         waiterItemTableContent = (LinearLayout) findViewById(R.id.hsa_waiter_table);
         phoneTextview = (TextView) findViewById(R.id.hsa_phone_textview);
+        backNavigationImagebutton = (ImageButton) findViewById(R.id.hsa_back_navigation_imagebutton);
     }
 
     /**
@@ -159,6 +162,7 @@ public class HourlyEmployeeSendAppointmentActivity extends Activity {
      */
     private void initLinsteners() {
         sendAppointmentBtn.setOnClickListener(sendAppointmentBtnOnClickListener);
+        backNavigationImagebutton.setOnClickListener(backNavigationButtonOnClickListener);
     }
 
     @Override
@@ -182,7 +186,17 @@ public class HourlyEmployeeSendAppointmentActivity extends Activity {
     }
 
     // -------监听器区域----------//
+    /**
+     * 导航返回按钮点击事件
+     * 
+     */
+    OnClickListener backNavigationButtonOnClickListener = new OnClickListener() {
 
+        @Override
+        public void onClick(View v) {
+            finish();
+        }
+    };
     /**
      * 发送预约按钮点击事件
      * 

@@ -46,6 +46,7 @@
     <string name="nmd_msg_content_textview_default_text">预约单已经发送\n稍后客服人员会通过\n%s\n联系您</string>
     <string name="nmd_msg_content_textview_default_faild_text">亲网络不好，请稍等一下</string>
     <string name="nmd_close_btn_desc">弹出框的描述</string>
+    <string name="sss_tv_title_text">选择门店</string>
 
     <item name="cleaning_big_category_tag" type="id"></item>
 
