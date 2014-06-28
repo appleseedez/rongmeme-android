@@ -16,4 +16,24 @@ public class ResShop {
 	public String phone;
 
 	public boolean isSelect;// 店铺是否选中。用于本地数据。
+
+	public ResShop() {
+	}
+
+	public ResShop(long id, String name, String address, String logo, double coordinatex, double coordinatey, String serviceids, String services, String introduce, String serviceconcept,
+			String servicetenets, String phone) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.logo = logo;
+		this.coordinatex = coordinatex;
+		this.coordinatey = coordinatey;
+		this.serviceids = serviceids;
+		this.services = services;
+		this.introduce = introduce;
+		this.serviceconcept = serviceconcept;
+		this.servicetenets = servicetenets;
+		this.phone = phone;
+	}
 }
