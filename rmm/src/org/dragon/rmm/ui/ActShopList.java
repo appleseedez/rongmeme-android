@@ -8,13 +8,13 @@ import org.dragon.rmm.model.InfoPlace;
 import org.dragon.rmm.model.ModelResShopList;
 import org.dragon.rmm.model.ResShop;
 import org.dragon.rmm.ui.adapter.ShopAdapter;
+import org.dragon.rmm.utils.PreferenceUtils;
 import org.dragon.rmm.widget.xlistview.XListView;
 import org.dragon.rmm.widget.xlistview.XListView.IXListViewListener;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,13 +29,6 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 
 public class ActShopList extends Activity implements OnClickListener, IXListViewListener {
-
-	private static final String EXTRA_LONGITUDE = "longitude";
-	private static final String EXTRA_LATITUDE = "latitude";
-	private static final String PREFRENCE = "prefrence";
-	private static final String PREFERENCE_ID = "preferenceId";
-	private static final String PREFERENCE_NAME = "preferenceName";
-	private static final String PREFERENCE_ADDRESS = "preferenceAddress";
 
 	private ApiServer mApiServer;
 	private XListView lvDetail;
@@ -53,8 +46,8 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 	 */
 	public static Intent getIntent(Context context, double longitude, double latitude) {
 		Intent intent = new Intent(context, ActShopList.class);
-		intent.putExtra(EXTRA_LONGITUDE, longitude);
-		intent.putExtra(EXTRA_LATITUDE, latitude);
+		intent.putExtra(PreferenceUtils.EXTRA_LONGITUDE, longitude);
+		intent.putExtra(PreferenceUtils.EXTRA_LATITUDE, latitude);
 		return intent;
 	}
 
@@ -95,7 +88,7 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 				startActivity(ActMain.getIntent(ActShopList.this, mCurrentShop.id));
 				break;
 			case AlertDialog.BUTTON_NEGATIVE:// "取消"第二个按钮取消对话框
-				long oldId = getSharedPreferences(PREFERENCE_ADDRESS, MODE_WORLD_READABLE).getLong(PREFERENCE_ID, -1);
+				long oldId = getSharedPreferences(PreferenceUtils.PREFERENCE_SHOPADDR, MODE_WORLD_READABLE).getLong(PreferenceUtils.PREFERENCE_SHOPID, -1);
 				startActivity(ActMain.getIntent(ActShopList.this, oldId));
 				break;
 			}
@@ -113,12 +106,17 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 		}
 	}
 
+	@Override
+	public void onBackPressed() {
+		changeShop();
+	}
+
 	private void changeShop() {
 		int index = lvDetail.getCheckedItemPosition();
 		// the position of listview header is 0.
 		mCurrentShop = (ResShop) mAdapter.getItem(index - 1);
 		if (mAdapter.getCount() > 0) {
-			long oldId = getSharedPreferences(PREFERENCE_ADDRESS, MODE_WORLD_READABLE).getLong(PREFERENCE_ID, -1);
+			long oldId = getSharedPreferences(PreferenceUtils.PREFERENCE_SHOPADDR, MODE_WORLD_READABLE).getLong(PreferenceUtils.PREFERENCE_SHOPID, -1);
 			if ((-1 == oldId) || (oldId == mCurrentShop.id)) {
 				save(mCurrentShop);
 				startActivity(ActMain.getIntent(ActShopList.this, mCurrentShop.id));
@@ -140,11 +138,11 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 	}
 
 	private void save(ResShop shop) {
-		SharedPreferences sp = getSharedPreferences(PREFRENCE, MODE_WORLD_WRITEABLE);
+		SharedPreferences sp = getSharedPreferences(PreferenceUtils.PREFERENCE, MODE_WORLD_WRITEABLE);
 		Editor edit = sp.edit();
-		edit.putLong(PREFERENCE_ID, shop.id);
-		edit.putString(PREFERENCE_NAME, shop.name);
-		edit.putString(PREFERENCE_ADDRESS, shop.address);
+		edit.putLong(PreferenceUtils.PREFERENCE_SHOPID, shop.id);
+		edit.putString(PreferenceUtils.PREFERENCE_SHOPNAME, shop.name);
+		edit.putString(PreferenceUtils.PREFERENCE_SHOPADDR, shop.address);
 		edit.commit();
 	}
 
@@ -185,8 +183,8 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 
 	@Override
 	public void onRefresh() {
-		double longitude = getIntent().getDoubleExtra(EXTRA_LONGITUDE, -1);
-		double latitude = getIntent().getDoubleExtra(EXTRA_LATITUDE, -1);
+		double longitude = getIntent().getDoubleExtra(PreferenceUtils.EXTRA_LONGITUDE, -1);
+		double latitude = getIntent().getDoubleExtra(PreferenceUtils.EXTRA_LATITUDE, -1);
 		showDialog(0);
 		mApiServer.shopList(new InfoPlace(longitude, latitude), mResponseListener);
 	}

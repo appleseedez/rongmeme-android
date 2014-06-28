@@ -6,6 +6,8 @@ import org.dragon.rmm.ui.center.UserCenterPortal;
 import org.dragon.rmm.ui.drycleaning.DryCleaningPortal;
 import org.dragon.rmm.view.cleaning.CleaningActivity;
 import org.dragon.rmm.view.hourlyemployee.HourlyEmployeeActivity;
+import org.dragon.rmm.ui.center.UserCenterPortal;
+import org.dragon.rmm.ui.drycleaning.DryCleaningPortal;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -107,6 +109,10 @@ public class ActMain extends Activity implements OnClickListener {
 			break;
 		case R.id.menu_launcher_3:// 干洗
 			startActivity(new Intent(this, DryCleaningPortal.class));
+			 startActivity(new Intent(this, UserCenterPortal.class));
+			break;
+		case R.id.menu_launcher_3:// 干洗
+			 startActivity(new Intent(this, DryCleaningPortal.class));
 			break;
 		case R.id.menu_launcher_4:// 保洁
 			Intent intentCleaning = new Intent(ActMain.this, CleaningActivity.class);
@@ -140,11 +146,8 @@ public class ActMain extends Activity implements OnClickListener {
 					backKeyDownlistener);
 			// 显示对话框
 			isExit.show();
-
 		}
-
 		return false;
-
 	}
 
 	/** 监听对话框里面的button点击事件 */

@@ -52,7 +52,7 @@
     <!-- dengjie -->
 
 	<!-- Common -->
-	<string name="image_content_description">占位图标</string>
+	  <string name="image_content_description">占位图标</string>
 
     <!-- Portal -->
     <string name="activity_label_app_portal">AppPortal</string>

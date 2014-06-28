@@ -70,6 +70,7 @@ public class ActShare extends Activity implements OnClickListener {
 		parent.findViewById(R.id.share_app).setOnClickListener(this);
 		parent.findViewById(R.id.share_wechat).setOnClickListener(this);
 		parent.findViewById(R.id.share_sinaweibo).setOnClickListener(this);
+		parent.findViewById(R.id.actionbar_back).setOnClickListener(this);
 		rbRating = (RatingBar) parent.findViewById(R.id.share_rating);
 		TextView date = (TextView) parent.findViewById(R.id.share_date);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd", Locale.CHINA);
