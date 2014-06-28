@@ -2781,3 +2781,13 @@ org.eclipse.core.internal.resources.ResourceException: Resource '/rmm/res' does 
 
 !ENTRY com.android.ide.eclipse.adt 4 0 2014-06-25 21:11:34.770
 !MESSAGE new_msg_dialog.xml: Different corner sizes are not supported in Path.addRoundRect.
+!SESSION 2014-06-26 21:25:24.195 -----------------------------------------------
+eclipse.buildId=v21.0.1-543035
+java.version=1.6.0_37
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product com.android.ide.eclipse.adt.package.product
+
+!ENTRY org.eclipse.ui 4 4 2014-06-26 21:49:57.768
+!MESSAGE Referenced part does not exist yet: org.eclipse.ui.views.ProblemView.
