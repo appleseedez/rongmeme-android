@@ -69,7 +69,6 @@ public class CleaningActivity extends Activity {
 	 * 初始化界面组件
 	 */
 	private void initComponents() {
-		getStarValue();
 		backNavigationImagebutton = (ImageButton) findViewById(R.id.cleaning_back_navigation_imagebutton);
 		cleaningViewFlowBtn = (Button) findViewById(R.id.cleaning_view_flow_btn);
 		cleaningCustomFlowBtn = (Button) findViewById(R.id.cleaning_custom_flow_btn);
