@@ -16,13 +16,12 @@
             android:id="@+id/si_big_category_start_level_imageview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="21dp"
             android:background="@null"
             android:contentDescription="@string/si_big_category_start_level_imageview_desc"
             android:src="@drawable/onestart" />
-
         <TextView
             android:id="@+id/si_big_category_name_title"
             android:layout_width="wrap_content"
@@ -45,6 +44,8 @@
             android:background="@null"
             android:contentDescription="@string/si_big_category_pull_down_imageButton_desc"
             android:src="@drawable/pull_down" />
+
+
     </RelativeLayout>
 
     <LinearLayout

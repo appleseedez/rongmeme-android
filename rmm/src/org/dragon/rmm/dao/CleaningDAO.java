@@ -42,12 +42,12 @@ public class CleaningDAO {
      * @param galHttpLoadTextCallBack
      *            回调函数
      */
-    public static void loadServicePackages(final GalHttpLoadTextCallBack galHttpLoadTextCallBack) {
+    public static void loadServicePackages(String sessionToken, final GalHttpLoadTextCallBack galHttpLoadTextCallBack) {
         String requestUrl = Constants.SERVER_DOMAIN_AND_PORT + "/eclean/loadServicePackages.json";
         // 交给GalHttprequest自动组装url中的参数
         // 设置post内容
         CleaningItemResult res = new CleaningItemResult();
-        Head head = new Head("android", 0, "ab34ciepk3456677");
+        Head head = new Head("android", 0, sessionToken);
         res.setHead(head);
         String json = MierJsonUtils.toJson(res);
 
@@ -62,12 +62,12 @@ public class CleaningDAO {
      * @param galHttpLoadTextCallBack
      *            回调函数
      */
-    public static void loadCleanServices(final GalHttpLoadTextCallBack galHttpLoadTextCallBack) {
+    public static void loadCleanServices(String sessionToken, final GalHttpLoadTextCallBack galHttpLoadTextCallBack) {
         String requestUrl = Constants.SERVER_DOMAIN_AND_PORT + "/eclean/loadCleanServices.json";
         // 交给GalHttprequest自动组装url中的参数
         // 设置post内容
         CleaningItemResult res = new CleaningItemResult();
-        Head head = new Head("android", 0, "ab34ciepk3456677");
+        Head head = new Head("android", 0, sessionToken);
         res.setHead(head);
         String json = MierJsonUtils.toJson(res);
 
@@ -83,12 +83,12 @@ public class CleaningDAO {
      *            回调函数
      */
     public static void createCleanAppointment(long storeid, String storename, double allprice, long userid,
-            String name, String phone, String address, List<CleaningAppointmentItemForm> services,
+            String name, String phone, String address, String sessionToken, List<CleaningAppointmentItemForm> services,
             final GalHttpLoadTextCallBack galHttpLoadTextCallBack) {
         String requestUrl = Constants.SERVER_DOMAIN_AND_PORT + "/eclean/createCleanAppointment.json";
         // 交给GalHttprequest自动组装url中的参数
         // 设置post内容
-        Head head = new Head("android", 0, "ab34ciepk3456677");
+        Head head = new Head("android", 0, sessionToken);
         String servicetype = "bj";
         String source = "app";
         CleaningAppointmentForm form = new CleaningAppointmentForm(head, storeid, servicetype, storename, allprice,

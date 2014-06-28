@@ -115,6 +115,7 @@ public class ApiServer {
 					ModelResUser result = ApiServer.getGson().fromJson(response, ModelResUser.class);
 					mHeader.sessionToken = result.head.sessionToken;
 					mUser = result.body;
+					//正常登录后存储到首选项中
 					break;
 				case API_LOGOUT:
 					mHeader.sessionToken = null;

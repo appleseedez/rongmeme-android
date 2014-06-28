@@ -15,6 +15,7 @@ import org.dragon.rmm.widget.dialog.NewMsgDialog;
 import org.dragon.rmm.widget.waterfall.bitmaputil.ImageFetcher;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -208,13 +209,8 @@ public class HourlyEmployeeSendAppointmentActivity extends Activity {
             List<HourlyEmployeeItemVO> list = (List<HourlyEmployeeItemVO>) getIntent().getSerializableExtra(
                     "hourlyEmployeeItems");
             // TODO dengjie 这里需要获取当前用户,这些数据都要进行获取
-            long storeid = 0;
-            String storename = "";
+
             double allprice = 0;
-            long userid = 0;
-            String name = "";
-            String phone = "";
-            String address = "";
             // 进行服务转换，且求总价
             List<HourlyEmployeeSendAppointmentItemForm> services = new ArrayList<HourlyEmployeeSendAppointmentItemForm>();
             for (HourlyEmployeeItemVO hei : list) {
@@ -225,8 +221,18 @@ public class HourlyEmployeeSendAppointmentActivity extends Activity {
                 // 累计总价
                 allprice = allprice + hei.getPrice();
             }
+            SharedPreferences curUser = getSharedPreferences("curUser", 0);
+            String curSessionToken = curUser.getString("curSessionToken", "");
+            long userid = curUser.getLong("curUserId", 0);
+            String name = curUser.getString("curUserName", "");
+            String phone = curUser.getString("curUserPhone", "");
+            String address = curUser.getString("curUserAddress", "");
+            // 商店
+            SharedPreferences curShop = getSharedPreferences("curShop", 0);
+            long storeid = curShop.getLong("curStoreId", 0);
+            String storename = curShop.getString("curStoreName", "");
             HourlyEmployeeDAO.createHourlyWorkerAppointment(storeid, storename, allprice, userid, name, phone, address,
-                    services, createHourlyWorkerAppointmentCallBack);
+                    curSessionToken, services, createHourlyWorkerAppointmentCallBack);
         }
     };
 

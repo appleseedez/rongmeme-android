@@ -109,10 +109,10 @@ public class ShakeSelectStoreListViewAdapter extends BaseAdapter {
         @Override
         public void onClick(View v) {
             ShakeSelectStoreViewHolder shakeSelectStoreViewHolder = (ShakeSelectStoreViewHolder) v.getTag();
-            SharedPreferences sharedPrefrences = context.getSharedPreferences("user", context.MODE_WORLD_READABLE);// 得到SharedPreferences
+            SharedPreferences sharedPrefrences = context.getSharedPreferences("curShop", context.MODE_WORLD_READABLE);// 得到SharedPreferences
             Editor editor = sharedPrefrences.edit();
             //把选择门店id存储起来
-            editor.putLong("storeid", shakeSelectStoreViewHolder.storeid);
+            editor.putLong("curStoreId", shakeSelectStoreViewHolder.storeid);
         }
     };
 }

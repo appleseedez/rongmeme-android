@@ -13,6 +13,7 @@ import org.dragon.rmm.domain.HourlyEmployeeItemVO;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
@@ -93,7 +94,13 @@ public class HourlyEmployeeActivity extends Activity {
      * onCreate的时候调用的初始化
      */
     private void loadData() {
-        HourlyEmployeeDAO.loadHourlyWorkers(loadDataCallBack);
+        SharedPreferences curUser = getSharedPreferences("curUser", 0);
+        String curSessionToken = curUser.getString("curSessionToken", "");
+        // 商店
+        SharedPreferences curShop = getSharedPreferences("curShop", 0);
+        long storeid = curShop.getLong("curStoreId", 0);
+
+        HourlyEmployeeDAO.loadHourlyWorkers(curSessionToken, storeid, loadDataCallBack);
     }
 
     // ---------组件监听器区-------------//

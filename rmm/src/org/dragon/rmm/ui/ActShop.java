@@ -9,7 +9,6 @@ import org.dragon.rmm.model.InfoShop;
 import org.dragon.rmm.model.ModelResCommenList;
 import org.dragon.rmm.model.ModelResShop;
 import org.dragon.rmm.ui.adapter.CommentAdapter;
-import org.dragon.rmm.ui.center.UserOrderDetail;
 import org.dragon.rmm.widget.xlistview.XListView;
 import org.dragon.rmm.widget.xlistview.XListView.IXListViewListener;
 
@@ -28,8 +27,6 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 public class ActShop extends Activity implements OnClickListener, IXListViewListener {
 
@@ -151,7 +148,7 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+		/*IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 		if (result == null) {
 			super.onActivityResult(requestCode, resultCode, data);
 			return;
@@ -160,15 +157,15 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 			Intent intent = new Intent(this, UserOrderDetail.class);
 			intent.putExtra(UserOrderDetail.INTENT_EXTRA_USER_ORDER_ID, result.getContents());
 			startActivity(intent);
-		}
+		}*/
 	}
 
 	private void toScanBarcode(View v) {
-		IntentIntegrator integrator = new IntentIntegrator(this);
+		/*IntentIntegrator integrator = new IntentIntegrator(this);
 		integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
 		integrator.setResultDisplayDuration(0);
 		integrator.setCameraId(0);
-		integrator.initiateScan();
+		integrator.initiateScan();*/
 	}
 
 	private ResponseListener mResponseListener = new ResponseListener() {

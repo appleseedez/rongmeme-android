@@ -17,6 +17,7 @@ import org.dragon.rmm.widget.dialog.NewMsgDialog;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -200,13 +201,8 @@ public class CleaningAppointmentActivity extends Activity {
             CleaningBigItemVO cleaningBigItem = (CleaningBigItemVO) getIntent().getExtras().get("cleaningBigItem");
             List<CleaningItemVO> cis = cleaningBigItem.getCleaningItems();
             // TODO dengjie 这里需要获取当前用户,这些数据都要进行获取
-            long storeid = 0;
-            String storename = "";
+
             double allprice = 0;
-            long userid = 0;
-            String name = "";
-            String phone = "";
-            String address = "";
             // 进行服务转换，且求总价
             List<CleaningAppointmentItemForm> services = new ArrayList<CleaningAppointmentItemForm>();
             for (CleaningItemVO ci : cis) {
@@ -217,8 +213,18 @@ public class CleaningAppointmentActivity extends Activity {
                 // 累计总价
                 allprice = allprice + ci.getPrice();
             }
-            CleaningDAO.createCleanAppointment(storeid, storename, allprice, userid, name, phone, address, services,
-                    createCleanAppointmentCallBack);
+            SharedPreferences curUser = getSharedPreferences("curUser", 0);
+            String curSessionToken = curUser.getString("curSessionToken", "");
+            long userid = curUser.getLong("curUserId", 0);
+            String name = curUser.getString("curUserName", "");
+            String phone = curUser.getString("curUserPhone", "");
+            String address = curUser.getString("curUserAddress", "");
+            // 商店
+            SharedPreferences curShop = getSharedPreferences("curShop", 0);
+            long storeid = curShop.getLong("curStoreId", 0);
+            String storename = curShop.getString("curStoreName", "");
+            CleaningDAO.createCleanAppointment(storeid, storename, allprice, userid, name, phone, address,
+                    curSessionToken, services, createCleanAppointmentCallBack);
         }
     };
     /**

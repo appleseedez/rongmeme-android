@@ -44,12 +44,13 @@ public class HourlyEmployeeDAO {
      * @param galHttpLoadTextCallBack
      *            回调函数
      */
-    public static void loadHourlyWorkers(final GalHttpLoadTextCallBack galHttpLoadTextCallBack) {
+    public static void loadHourlyWorkers(String sessionToken, long storeid,
+            final GalHttpLoadTextCallBack galHttpLoadTextCallBack) {
         String requestUrl = Constants.SERVER_DOMAIN_AND_PORT + "/eclean/loadHourlyWorkers.json";
         // 交给GalHttprequest自动组装url中的参数
         // 设置post内容
         CommonForm res = new CommonForm();
-        Head head = new Head("android", 0, "ab34ciepk3456677");
+        Head head = new Head("android", 0, sessionToken);
         res.setHead(head);
         Map<String, Object> body = new HashMap<String, Object>();
         // 这个商店的ID是需要获取的
@@ -71,12 +72,12 @@ public class HourlyEmployeeDAO {
      *            回调函数
      */
     public static void createHourlyWorkerAppointment(long storeid, String storename, double allprice, long userid,
-            String name, String phone, String address, List<HourlyEmployeeSendAppointmentItemForm> services,
-            final GalHttpLoadTextCallBack galHttpLoadTextCallBack) {
+            String name, String phone, String address, String sessionToken,
+            List<HourlyEmployeeSendAppointmentItemForm> services, final GalHttpLoadTextCallBack galHttpLoadTextCallBack) {
         String requestUrl = Constants.SERVER_DOMAIN_AND_PORT + "/eclean/createHourlyWorkerAppointment.json";
         // 交给GalHttprequest自动组装url中的参数
         // 设置post内容
-        Head head = new Head("android", 0, "ab34ciepk3456677");
+        Head head = new Head("android", 0, sessionToken);
         String servicetype = "bj";
         String source = "app";
         HourlyEmployeeAppointmentForm form = new HourlyEmployeeAppointmentForm(head, storeid, servicetype, storename,
