@@ -15,7 +15,7 @@ public class InfoDryCleanReservation {
 	
 	private int allprice;
 	
-	private int userid;
+	private long userid;
 	
 	private String name;
 	
@@ -59,11 +59,11 @@ public class InfoDryCleanReservation {
 		this.allprice = allprice;
 	}
 
-	public int getUserid() {
+	public long getUserid() {
 		return userid;
 	}
 
-	public void setUserid(int userid) {
+	public void setUserid(long userid) {
 		this.userid = userid;
 	}
 

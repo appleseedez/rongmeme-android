@@ -1,16 +1,16 @@
 package org.dragon.rmm.model;
 
 public class InfoEditUserInfo {
-	
-	private int userid;
-	
+
+	private long userid;
+
 	private String address;
 
-	public int getUserid() {
+	public long getUserid() {
 		return userid;
 	}
 
-	public void setUserid(int userid) {
+	public void setUserid(long userid) {
 		this.userid = userid;
 	}
 
@@ -21,5 +21,5 @@ public class InfoEditUserInfo {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 }

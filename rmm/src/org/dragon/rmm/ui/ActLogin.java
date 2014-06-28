@@ -26,14 +26,19 @@ public class ActLogin extends Activity implements OnClickListener {
 	private ApiServer mApiServer;
 	private EditText etUser, etPwd;
 	private boolean hasDialog;
+	private boolean isAutoLogin;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mApiServer = ApiServer.getInstance(this);
-		if (checkAutoLogin()) {
-			return;
+		isAutoLogin = checkAutoLogin();
+		if (!isAutoLogin) {
+			setupView();
 		}
+	}
+
+	private void setupView() {
 		View parent = getLayoutInflater().inflate(R.layout.act_login, null);
 		setContentView(parent);
 		parent.findViewById(R.id.login_tv_enter).setOnClickListener(this);
@@ -95,7 +100,16 @@ public class ActLogin extends Activity implements OnClickListener {
 		public void success(ApiMethod api, String response) {
 			switch (api) {
 			case API_LOGIN:
-				PreferenceUtils.save(ActLogin.this, PreferenceUtils.PREFERENCE_USERPWD, MD5Utils.encode(etPwd.getText().toString().trim()));
+				if (!isAutoLogin) {
+					String name = etUser.getText().toString().trim();
+					if (!TextUtils.isEmpty(name)) {
+						PreferenceUtils.save(ActLogin.this, PreferenceUtils.PREFERENCE_USERNAME, name);
+					}
+					String pwd = MD5Utils.encode(etPwd.getText().toString().trim());
+					if (!TextUtils.isEmpty(pwd)) {
+						PreferenceUtils.save(ActLogin.this, PreferenceUtils.PREFERENCE_USERPWD, pwd);
+					}
+				}
 				startActivity(ActShopList.getIntent(ActLogin.this, 104.06, 30.67)); // 根据当前经纬度获取店铺列表
 				finish();
 				break;
@@ -105,6 +119,13 @@ public class ActLogin extends Activity implements OnClickListener {
 
 		@Override
 		public void fail(ApiMethod api, VolleyError error) {
+			switch (api) {
+			case API_LOGIN:
+				if (isAutoLogin) {
+					setupView();
+				}
+				break;
+			}
 			dismiss();
 		}
 	};

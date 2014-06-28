@@ -1,9 +1,9 @@
 package org.dragon.rmm.model;
 
 public class InfoOrderOfUser {
-	
-	private int userid;
-	
+
+	private long userid;
+
 	private String username;
 
 	public String getUsername() {
@@ -14,12 +14,12 @@ public class InfoOrderOfUser {
 		username = name;
 	}
 
-	public int getUserId() {
+	public long getUserId() {
 		return userid;
 	}
 
-	public void setUserId(int id) {
+	public void setUserId(long id) {
 		userid = id;
 	}
-	
+
 }
