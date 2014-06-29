@@ -1,25 +1,25 @@
 package org.dragon.rmm.model;
 
 public class InfoOrderOfUser {
-	
-	private int userid;
-	
-	private String username;
 
-	public String getUsername() {
-		return username;
-	}
+    private long userid;
 
-	public void setUsername(String name) {
-		username = name;
-	}
+    private String username;
 
-	public int getUserId() {
-		return userid;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setUserId(int id) {
-		userid = id;
-	}
-	
+    public void setUsername(String name) {
+        username = name;
+    }
+
+    public long getUserId() {
+        return userid;
+    }
+
+    public void setUserId(long id) {
+        userid = id;
+    }
+
 }

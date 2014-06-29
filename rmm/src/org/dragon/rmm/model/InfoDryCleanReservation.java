@@ -6,25 +6,25 @@ import org.dragon.rmm.ui.drycleaning.model.DryCleaningReservedItem;
 
 
 public class InfoDryCleanReservation {
-	
+
 	private String servicetype;
-	
+
 	private long storeid;
-	
+
 	private String storename;
-	
+
 	private int allprice;
-	
-	private int userid;
-	
+
+	private long userid;
+
 	private String name;
-	
+
 	private String phone;
-	
+
 	private String address;
-	
+
 	private String source;
-	
+
 	private List<DryCleaningReservedItem> services;
 
 	public String getServicetype() {
@@ -59,11 +59,11 @@ public class InfoDryCleanReservation {
 		this.allprice = allprice;
 	}
 
-	public int getUserid() {
+	public long getUserid() {
 		return userid;
 	}
 
-	public void setUserid(int userid) {
+	public void setUserid(long userid) {
 		this.userid = userid;
 	}
 

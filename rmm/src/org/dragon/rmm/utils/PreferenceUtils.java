@@ -6,6 +6,7 @@ import org.dragon.rmm.model.ResUser;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.text.TextUtils;
 
 public class PreferenceUtils {
 
@@ -25,11 +26,12 @@ public class PreferenceUtils {
 	public static final String PREFERENCE_SHOPADDR = "curAddress";
 	public static final String EXTRA_LONGITUDE = "longitude";
 	public static final String EXTRA_LATITUDE = "latitude";
+	public static final String PREFERENCE_SESSIONTOKEN = "curSessionToken";
 
 	public static void saveUser(Context context, ResUser user) {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_WORLD_WRITEABLE);
 		Editor edit = sharedPreferences.edit();
-		edit.putInt(PREFERENCE_USERID, user.userid);
+		edit.putLong(PREFERENCE_USERID, user.userid);
 		edit.putString(PREFERENCE_USERNAME, user.username);
 		// 服务器返回的对象没有密码，所以不保存密码，在登录界面进行保存。
 		edit.putString(PREFERENCE_USERPHONE, user.username);
@@ -39,7 +41,7 @@ public class PreferenceUtils {
 
 	public static ResUser getUser(Context context) {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_WORLD_READABLE);
-		int userid = sharedPreferences.getInt(PREFERENCE_USERID, -1);
+		long userid = sharedPreferences.getLong(PREFERENCE_USERID, -1);
 		if (-1 == userid) {
 			return null;
 		}
@@ -50,6 +52,9 @@ public class PreferenceUtils {
 	}
 
 	public static void save(Context context, String key, String value) {
+		if (TextUtils.isEmpty(key) || TextUtils.isEmpty(value)) {
+			return;
+		}
 		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_WORLD_WRITEABLE);
 		Editor edit = sharedPreferences.edit();
 		edit.putString(key, value);
@@ -71,4 +76,12 @@ public class PreferenceUtils {
 		return shop;
 	}
 
+	public static void saveSessionToken(Context context, String stoken) {
+		save(context, PREFERENCE_SESSIONTOKEN, stoken);
+	}
+
+	public static String getSessionToken(Context context) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_WORLD_READABLE);
+		return sharedPreferences.getString(PREFERENCE_SESSIONTOKEN, null);
+	}
 }

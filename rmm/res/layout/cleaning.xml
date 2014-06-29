@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/cleaning_top_navigation_bar"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="56dip"
         android:background="@null"
         android:gravity="center_vertical" >
 
@@ -31,7 +31,7 @@
             android:singleLine="true"
             android:text="@string/cleaning_tv_title_text"
             android:textColor="@color/white"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <!-- 功能列表区域 -->
