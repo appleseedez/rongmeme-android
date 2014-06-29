@@ -51,6 +51,9 @@ public class UserProfile extends Activity implements OnClickListener, TextWatche
 		
 		EditText address = (EditText) findViewById(R.id.address);
 		address.addTextChangedListener(this);
+		
+		TextView logout = (TextView) findViewById(R.id.user_logout);
+		logout.setOnClickListener(this);
 	}
 	
 	private void requestDataSource() {
@@ -78,13 +81,19 @@ public class UserProfile extends Activity implements OnClickListener, TextWatche
 			} else { 
 				finish();
 			}
+		} else if(view.getId() == R.id.user_logout) {
+			onUserLogoutBtnClick();
 		}
+	}
+
+	private void onUserLogoutBtnClick() {
+		// TODO: user logout
 	}
 
 	@Override
 	public void success(ApiMethod api, String response) {
 		RespEditUserInfo resp = ApiServer.getGson().fromJson(response, RespEditUserInfo.class);
-		if(resp.getBody().getErrorcode().isEmpty()) {
+		if(resp.getBody().getErrorcode().length() == 0) {
 			ApiServer.mUser.address = mAddress;
 			updateViewLayout();
 			Toast.makeText(this, R.string.user_profile_address_changed_success, Toast.LENGTH_SHORT).show();

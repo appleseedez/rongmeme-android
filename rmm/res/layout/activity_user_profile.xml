@@ -63,5 +63,19 @@
         android:gravity="center"
         android:textSize="20sp"
         android:textColor="@android:color/white"/>
-
+    
+	<TextView
+		style="@style/button"
+		android:id="@+id/user_logout"
+		android:layout_width="match_parent"
+		android:layout_height="38dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_marginTop="60dp"
+		android:layout_centerHorizontal="true"
+		android:layout_below="@id/address"
+		android:text="@string/user_profile_logout"
+		android:textSize="23sp"
+		android:textColor="@android:color/white"/>
+	
 </RelativeLayout>

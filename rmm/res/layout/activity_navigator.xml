@@ -6,8 +6,8 @@
 
     <Button
         android:id="@+id/navigator_backward"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_margin="10dp"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
@@ -20,13 +20,13 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:text="@string/label_navigator_title"
-        android:textSize="28sp"
+        android:textSize="26sp"
         android:textColor="@android:color/white"/>
 
     <Button
         android:id="@+id/navigator_forward"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_margin="10dp"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"/>

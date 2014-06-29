@@ -20,6 +20,7 @@ import org.dragon.rmm.ui.widget.ProgreadListActivity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DryCleaningPortal extends ProgreadListActivity<DryCleaningService> {
 	
@@ -128,6 +129,11 @@ public class DryCleaningPortal extends ProgreadListActivity<DryCleaningService> 
 
 	@Override
 	protected void onForwardBtnClick() {
+		
+		if(mReservedItems.isEmpty()) {
+			Toast.makeText(this, R.string.dry_cleaning_reserve_notification, Toast.LENGTH_SHORT).show(); return;
+		}
+		
 		Intent intent = new Intent(this, DryCleaningReservation.class);
 		
 		List<DryCleaningReservedItem> items = new ArrayList<DryCleaningReservedItem>();

@@ -10,6 +10,7 @@ import org.dragon.core.galhttprequest.GalHttpRequest;
 import org.dragon.core.location.BestLocationListener;
 import org.dragon.core.location.LocationException;
 import org.dragon.rmm.dao.BeanFactory;
+import org.dragon.rmm.utils.StringResource;
 
 import android.app.Application;
 import android.content.Context;
@@ -77,6 +78,8 @@ public class RmmApplication extends Application {
 		// exists on disk.
 		mIsFirstRun = checkIfIsFirstRun();
 
+		// Initialize resource utilities
+		StringResource.setContext(getBaseContext());
 	}
 
 	/**
@@ -97,6 +100,9 @@ public class RmmApplication extends Application {
 		Intent musicIntent = new Intent("org.dragon.service.MUSIC");
 		stopService(musicIntent);
 		super.onTerminate();
+		
+		// Cleanup resource utilities
+		StringResource.setContext(null);
 	}
 
 	/**
