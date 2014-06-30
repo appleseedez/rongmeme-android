@@ -12,6 +12,7 @@ import org.dragon.rmm.model.RespOrderOfUser;
 import org.dragon.rmm.ui.center.model.UserOrder;
 import org.dragon.rmm.ui.center.model.UserOrderUtils;
 import org.dragon.rmm.ui.widget.ProgreadListActivity;
+import org.dragon.rmm.utils.PreferenceUtils;
 
 import android.content.Intent;
 import android.view.View;
@@ -54,8 +55,8 @@ public class UserCenterPortal extends ProgreadListActivity<UserOrder> {
 	protected void requestDataSource() {
 		InfoOrderOfUser req = new InfoOrderOfUser();
 		
-		req.setUserId(ApiServer.mUser.userid);
-		req.setUsername(ApiServer.mUser.username);
+		req.setUserId(PreferenceUtils.getUser(this).userid);
+		req.setUsername(PreferenceUtils.getUser(this).username);
 		
 		ApiServer.getInstance(this).loadOrdersOfUser(req , this);
 	}

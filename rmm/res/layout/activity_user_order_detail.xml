@@ -32,7 +32,8 @@
         android:layout_height="200dp"
         android:layout_margin="20dp"
         android:layout_below="@id/user_order_date_wrapper"
-        android:background="@color/backgroud_black"/>
+        android:background="@color/backgroud_black"
+        android:divider="@null"/>
 	
     <TextView
         style="@style/button"
@@ -57,6 +58,7 @@
 		android:layout_centerHorizontal="true"
 		android:layout_alignParentBottom="true"
 		android:drawableLeft="@drawable/icon_serve_done"
+		android:gravity="center"
 		android:textSize="23sp"
 		android:textColor="@android:color/white"/>
 

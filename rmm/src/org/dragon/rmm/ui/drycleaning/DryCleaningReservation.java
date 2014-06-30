@@ -14,6 +14,7 @@ import org.dragon.rmm.model.RespDryCleanReservation;
 import org.dragon.rmm.ui.drycleaning.model.DryCleaningReservedItem;
 import org.dragon.rmm.ui.drycleaning.model.DryCleaningReservedList;
 import org.dragon.rmm.ui.drycleaning.model.DryCleaningUtils;
+import org.dragon.rmm.utils.PreferenceUtils;
 import org.dragon.rmm.utils.StringResource;
 
 import android.app.Activity;
@@ -80,10 +81,10 @@ public class DryCleaningReservation extends Activity implements OnClickListener,
 		confirmed.setOnClickListener(this);
 		
 		EditText telephone = (EditText) findViewById(R.id.telephone);
-		telephone.setText(ApiServer.mUser.username);
+		telephone.setText(PreferenceUtils.getUser(this).username);
 		
 		EditText address = (EditText) findViewById(R.id.address);
-		address.setText(ApiServer.mUser.address);
+		address.setText(PreferenceUtils.getUser(this).address);
 	}
 	
 	private void initSimleAdapter() {
@@ -190,9 +191,9 @@ public class DryCleaningReservation extends Activity implements OnClickListener,
 		request.setSource("app");
 		
 		// USER INFO
-		if(ApiServer.mUser == null) { return; }
-		request.setUserid(ApiServer.mUser.userid);
-		request.setName(ApiServer.mUser.nickname);
+		if(PreferenceUtils.getUser(this) == null) { return; }
+		request.setUserid(PreferenceUtils.getUser(this).userid);
+		request.setName(PreferenceUtils.getUser(this).nickname);
 		
 		EditText telephone = (EditText) findViewById(R.id.telephone);
 		request.setPhone(telephone.getText().toString());
@@ -201,9 +202,9 @@ public class DryCleaningReservation extends Activity implements OnClickListener,
 		request.setAddress(address.getText().toString());
 		
 		// STORE INFO
-		if(ApiServer.mShopInfo == null) { return; }
-		request.setStoreid(ApiServer.mShopInfo.id);
-		request.setStorename(ApiServer.mShopInfo.name);
+		if(PreferenceUtils.getShop(this) == null) { return; }
+		request.setStoreid(PreferenceUtils.getShop(this).id);
+		request.setStorename(PreferenceUtils.getShop(this).name);
 		
 		List<DryCleaningReservedItem> items = mDataSource.getReservedItems();
 		request.setServices(items);
@@ -217,7 +218,7 @@ public class DryCleaningReservation extends Activity implements OnClickListener,
 	
 
 	private void onForwardBtnClick() {
-		startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + ApiServer.mShopInfo.phone)));
+		startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + PreferenceUtils.getShop(this).phone)));
 	}
 	
 	private void onBackwordBtnClick() {

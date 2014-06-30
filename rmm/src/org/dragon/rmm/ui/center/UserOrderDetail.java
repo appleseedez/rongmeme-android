@@ -18,6 +18,7 @@ import org.dragon.rmm.ui.center.model.UserOrderConsts;
 import org.dragon.rmm.ui.center.model.UserOrderServer;
 import org.dragon.rmm.ui.center.model.UserOrderService;
 import org.dragon.rmm.ui.center.model.UserOrderUtils;
+import org.dragon.rmm.utils.PreferenceUtils;
 import org.dragon.rmm.utils.StringResource;
 
 import android.app.Activity;
@@ -192,7 +193,7 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 				UserOrderServer server = servers.get(0);
 				startActivity(ActShare.getIntent(
 						this,
-						ApiServer.mShopInfo.id,
+						PreferenceUtils.getShop(this).id,
 						mUserOrder.getId(),
 						server.getAvatar(),
 						server.getName(),

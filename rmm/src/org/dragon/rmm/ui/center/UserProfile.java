@@ -6,6 +6,7 @@ import org.dragon.rmm.api.ApiServer;
 import org.dragon.rmm.api.ResponseListener;
 import org.dragon.rmm.model.InfoEditUserInfo;
 import org.dragon.rmm.model.RespEditUserInfo;
+import org.dragon.rmm.utils.PreferenceUtils;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -59,7 +60,7 @@ public class UserProfile extends Activity implements OnClickListener, TextWatche
 	private void requestDataSource() {
 		InfoEditUserInfo request = new InfoEditUserInfo();
 		
-		request.setUserid(ApiServer.mUser.userid);
+		request.setUserid(PreferenceUtils.getUser(this).userid);
 		request.setAddress(mAddress);
 		
 		ApiServer.getInstance(this).editUserInfo(request, this);
@@ -67,10 +68,10 @@ public class UserProfile extends Activity implements OnClickListener, TextWatche
 	
 	private void updateViewLayout() {
 		TextView telephone = (TextView) findViewById(R.id.telephone);
-		telephone.setText(ApiServer.mUser.username);
+		telephone.setText(PreferenceUtils.getUser(this).username);
 		
 		EditText address = (EditText) findViewById(R.id.address);
-		address.setText(ApiServer.mUser.address);
+		address.setText(PreferenceUtils.getUser(this).address);
 	}
 
 	@Override
@@ -94,7 +95,8 @@ public class UserProfile extends Activity implements OnClickListener, TextWatche
 	public void success(ApiMethod api, String response) {
 		RespEditUserInfo resp = ApiServer.getGson().fromJson(response, RespEditUserInfo.class);
 		if(resp.getBody().getErrorcode().length() == 0) {
-			ApiServer.mUser.address = mAddress;
+			PreferenceUtils.getUser(this).address = mAddress;
+			PreferenceUtils.save(this, PreferenceUtils.PREFERENCE_USERADDR, mAddress);
 			updateViewLayout();
 			Toast.makeText(this, R.string.user_profile_address_changed_success, Toast.LENGTH_SHORT).show();
 		} else {
