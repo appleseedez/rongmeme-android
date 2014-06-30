@@ -37,84 +37,84 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 
 public class UserOrderDetail extends Activity implements OnClickListener, ResponseListener {
-	
-	public static final String INTENT_EXTRA_USER_ORDER    = "extra_user_order";
-	
+
+	public static final String INTENT_EXTRA_USER_ORDER = "extra_user_order";
+
 	public static final String INTENT_EXTRA_USER_ORDER_ID = "extra_user_order_id";
-	
-	public final String UID_SERVICE_ITEM_TITLE   = "service_item_title";
-	
-	public final String UID_SERVICE_ITEM_AMOUNT  = "service_item_amount";
-	
-	public final String UID_SERVICE_ITEM_PRICE   = "service_item_price";
+
+	public final String UID_SERVICE_ITEM_TITLE = "service_item_title";
+
+	public final String UID_SERVICE_ITEM_AMOUNT = "service_item_amount";
+
+	public final String UID_SERVICE_ITEM_PRICE = "service_item_price";
 
 	private UserOrder mUserOrder;
-	
+
 	private SimpleAdapter mSimpleAdapter;
-	
+
 	private List<HashMap<String, Object>> mDataSet;
-	
+
 	private Handler mHandler;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
+
 		setContentView(R.layout.activity_user_order_detail);
-		
+
 		initViewLayout();
 		initSimleAdapter();
-		
+
 		String bundle = getIntent().getStringExtra(INTENT_EXTRA_USER_ORDER);
-		if(bundle != null) {
+		if (bundle != null) {
 			mUserOrder = UserOrderUtils.fromJson(bundle);
 			updateDataSetAndViewLayout();
 		} else {
 			String id = getIntent().getStringExtra(INTENT_EXTRA_USER_ORDER_ID);
 			requestDataSource(id);
 		}
-		
+
 		mHandler = new Handler(new PaymentHandler());
 	}
-	
+
 	private void initViewLayout() {
-		Button backward = (Button) findViewById(R.id.navigator_backward);
+		TextView backward = (TextView) findViewById(R.id.navigator_backward);
 		backward.setOnClickListener(this);
-		
-		Button forward = (Button) findViewById(R.id.navigator_forward);
+
+		TextView forward = (TextView) findViewById(R.id.navigator_forward);
 		forward.setOnClickListener(this);
 	}
-	
+
 	private void initSimleAdapter() {
-		
+
 		mDataSet = new ArrayList<HashMap<String, Object>>();
-		
+
 		String[] fields = { UID_SERVICE_ITEM_TITLE, UID_SERVICE_ITEM_AMOUNT, UID_SERVICE_ITEM_PRICE };
 		int[] elements = { R.id.service_item_title, R.id.service_item_amount, R.id.service_item_price };
-		
-		mSimpleAdapter  = new SimpleAdapter(this, mDataSet, R.layout.activity_user_order_detail_item, fields, elements);
-		
+
+		mSimpleAdapter = new SimpleAdapter(this, mDataSet, R.layout.activity_user_order_detail_item, fields, elements);
+
 		View header = getLayoutInflater().inflate(R.layout.activity_user_order_detail_header, null);
 		View footer = getLayoutInflater().inflate(R.layout.activity_user_order_detail_footer, null);
-		
+
 		ListView listView = (ListView) findViewById(R.id.manifest);
-		
+
 		listView.addHeaderView(header);
 		listView.addFooterView(footer);
-		
+
 		listView.setAdapter(mSimpleAdapter);
 	}
-	
+
 	private void updateDataSetAndViewLayout() {
 		mDataSet.clear();
-		
+
 		TextView title = (TextView) findViewById(R.id.navigator_title);
 		title.setText(UserOrderUtils.getOrderTypeText(mUserOrder));
-		
-		Button forward = (Button) findViewById(R.id.navigator_forward);
-		if(mUserOrder.getStatus() == UserOrderConsts.ORDER_STATUS_SREVED) {
+
+		TextView forward = (TextView) findViewById(R.id.navigator_forward);
+		if (mUserOrder.getStatus() == UserOrderConsts.ORDER_STATUS_SREVED) {
 			forward.setBackgroundResource(R.drawable.icon_share);
 		} else {
 			forward.setBackgroundResource(R.drawable.icon_refresh);
@@ -122,8 +122,8 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 
 		TextView notify = (TextView) findViewById(R.id.notify_serve_done);
 		TextView payment = (TextView) findViewById(R.id.order_payment);
-		
-		if(mUserOrder.getStatus() == UserOrderConsts.ORDER_STATUS_SREVED) {
+
+		if (mUserOrder.getStatus() == UserOrderConsts.ORDER_STATUS_SREVED) {
 			notify.setText(R.string.order_status_text_served_text);
 			payment.setVisibility(View.INVISIBLE);
 		} else {
@@ -131,28 +131,28 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 			payment.setText(R.string.payment_alipay_label);
 			payment.setOnClickListener(this);
 		}
-		
+
 		TextView date = (TextView) findViewById(R.id.user_order_date);
 		date.setText(mUserOrder.getUpdatetime());
-		
+
 		List<UserOrderService> services = mUserOrder.getServices();
-		
+
 		double totalPrice = 0;
-		for(UserOrderService service : services) {
+		for (UserOrderService service : services) {
 			HashMap<String, Object> item = new HashMap<String, Object>();
-			
-			item.put(UID_SERVICE_ITEM_TITLE , service.getName());
+
+			item.put(UID_SERVICE_ITEM_TITLE, service.getName());
 			item.put(UID_SERVICE_ITEM_AMOUNT, service.getAmount());
-			item.put(UID_SERVICE_ITEM_PRICE , String.valueOf(service.getPrice()));
-			
+			item.put(UID_SERVICE_ITEM_PRICE, String.valueOf(service.getPrice()));
+
 			totalPrice += service.getAmount() * service.getPrice();
-			
+
 			mDataSet.add(item);
 		}
-		
+
 		TextView tvTotalPrice = (TextView) findViewById(R.id.total_price);
 		tvTotalPrice.setText(String.valueOf(totalPrice));
-		
+
 		mSimpleAdapter.notifyDataSetChanged();
 	}
 
@@ -175,28 +175,24 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 		Payment payment = new Payment(this, mHandler);
 		payment.pay(mUserOrder);
 	}
-	
+
 	private void requestDataSource(String id) {
 		InfoOrderOfNo request = new InfoOrderOfNo();
-		
+
 		request.setOrderno(id);
-		
+
 		ApiServer.getInstance(this).findOrderByNo(request, this);
 	}
 
 	private void onForwardBtnClick() {
-		if(mUserOrder.getStatus() == UserOrderConsts.ORDER_STATUS_SREVED) {
-			// FIXME: 1. how to make comments if severs of specific order don't exist ?
-			//         2. is it still to display the first one in server list ?
+		if (mUserOrder.getStatus() == UserOrderConsts.ORDER_STATUS_SREVED) {
+			// FIXME: 1. how to make comments if severs of specific order don't
+			// exist ?
+			// 2. is it still to display the first one in server list ?
 			List<UserOrderServer> servers = mUserOrder.getServers();
-			if(servers != null && !servers.isEmpty()) {
+			if (servers != null && !servers.isEmpty()) {
 				UserOrderServer server = servers.get(0);
-				startActivity(ActShare.getIntent(
-						this,
-						PreferenceUtils.getShop(this).id,
-						mUserOrder.getId(),
-						server.getAvatar(),
-						server.getName(),
+				startActivity(ActShare.getIntent(this, PreferenceUtils.getShop(this).id, mUserOrder.getId(), server.getAvatar(), server.getName(),
 						StringResource.getString(R.string.order_service_comments_list)));
 			}
 		} else {
@@ -210,9 +206,11 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 
 	@Override
 	public void success(ApiMethod api, String response) {
-		if(api != ApiMethod.API_FIND_ORDER_BY_NO) { return; }
+		if (api != ApiMethod.API_FIND_ORDER_BY_NO) {
+			return;
+		}
 		RespOrderOfNo resp = ApiServer.getGson().fromJson(response, RespOrderOfNo.class);
-		if(resp.getBody() != null) {
+		if (resp.getBody() != null) {
 			mUserOrder = resp.getBody();
 			updateDataSetAndViewLayout();
 		}
@@ -221,7 +219,7 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 	@Override
 	public void fail(ApiMethod api, VolleyError error) {
 	}
-	
+
 	class PaymentHandler implements Handler.Callback {
 
 		@Override
@@ -230,13 +228,13 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 			switch (msg.what) {
 			case Payment.REQUEST_PAYMENT_ALIPAY:
 				String content = result.getResult();
-				if(content != null && !(content.length() == 0)) {
+				if (content != null && !(content.length() == 0)) {
 					Toast.makeText(UserOrderDetail.this, result.getResult(), Toast.LENGTH_SHORT).show();
 				}
 				break;
 			}
 			return true;
 		}
-		
+
 	}
 }

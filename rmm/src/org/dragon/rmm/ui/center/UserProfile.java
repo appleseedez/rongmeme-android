@@ -5,10 +5,14 @@ import org.dragon.rmm.api.ApiMethod;
 import org.dragon.rmm.api.ApiServer;
 import org.dragon.rmm.api.ResponseListener;
 import org.dragon.rmm.model.InfoEditUserInfo;
+import org.dragon.rmm.model.InfoUserLogout;
+import org.dragon.rmm.model.ResUser;
 import org.dragon.rmm.model.RespEditUserInfo;
+import org.dragon.rmm.ui.ActLogin;
 import org.dragon.rmm.utils.PreferenceUtils;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,76 +29,110 @@ import com.android.volley.VolleyError;
 public class UserProfile extends Activity implements OnClickListener, TextWatcher, ResponseListener {
 
 	private boolean mAddressHasChanged;
-	
+	private ApiServer mApiServer;
 	private String mAddress;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		mApiServer = ApiServer.getInstance(this);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
+
 		setContentView(R.layout.activity_user_profile);
-		
+
 		initViewLayout();
 		updateViewLayout();
 	}
-	
+
 	private void initViewLayout() {
-		Button backward = (Button) findViewById(R.id.navigator_backward);
+		TextView backward = (TextView) findViewById(R.id.navigator_backward);
 		backward.setOnClickListener(this);
-		
+
 		TextView title = (TextView) findViewById(R.id.navigator_title);
 		title.setText(R.string.activity_label_user_profile);
-		
-		Button forward = (Button) findViewById(R.id.navigator_forward);
+
+		TextView forward = (TextView) findViewById(R.id.navigator_forward);
 		forward.setVisibility(View.INVISIBLE);
-		
+
 		EditText address = (EditText) findViewById(R.id.address);
 		address.addTextChangedListener(this);
-		
+
 		TextView logout = (TextView) findViewById(R.id.user_logout);
 		logout.setOnClickListener(this);
 	}
-	
+
 	private void requestDataSource() {
 		InfoEditUserInfo request = new InfoEditUserInfo();
-		
+
 		request.setUserid(PreferenceUtils.getUser(this).userid);
 		request.setAddress(mAddress);
-		
-		ApiServer.getInstance(this).editUserInfo(request, this);
+
+		mApiServer.editUserInfo(request, this);
 	}
-	
+
 	private void updateViewLayout() {
 		TextView telephone = (TextView) findViewById(R.id.telephone);
 		telephone.setText(PreferenceUtils.getUser(this).username);
-		
+
 		EditText address = (EditText) findViewById(R.id.address);
 		address.setText(PreferenceUtils.getUser(this).address);
 	}
 
 	@Override
 	public void onClick(View view) {
-		if(view.getId() == R.id.navigator_backward) {
-			if(mAddressHasChanged) {
+		if (view.getId() == R.id.navigator_backward) {
+			if (mAddressHasChanged) {
 				requestDataSource();
-			} else { 
+			} else {
 				finish();
 			}
-		} else if(view.getId() == R.id.user_logout) {
+		} else if (view.getId() == R.id.user_logout) {
 			onUserLogoutBtnClick();
 		}
 	}
 
 	private void onUserLogoutBtnClick() {
 		// TODO: user logout
+		ResUser user = PreferenceUtils.getUser(this);
+		InfoUserLogout info = new InfoUserLogout(user.userid, user.username);
+		mApiServer.logout(info, this);
 	}
 
 	@Override
 	public void success(ApiMethod api, String response) {
+		switch (api) {
+		case API_LOGOUT:
+			logout();
+			break;
+		default:
+			changeUserInfo(response);
+			break;
+		}
+	}
+
+	@Override
+	public void fail(ApiMethod api, VolleyError error) {
+		switch (api) {
+		case API_LOGOUT:
+			logout();
+			break;
+		default:
+			if (mAddressHasChanged) {
+				Toast.makeText(this, R.string.user_profile_address_changed_failture, Toast.LENGTH_SHORT).show();
+				finish();
+			}
+			break;
+		}
+	}
+
+	private void logout() {
+		PreferenceUtils.saveUser(UserProfile.this, new ResUser("", "", -1, "", ""));
+		startActivity(new Intent(UserProfile.this, ActLogin.class));
+	}
+
+	private void changeUserInfo(String response) {
 		RespEditUserInfo resp = ApiServer.getGson().fromJson(response, RespEditUserInfo.class);
-		if(resp.getBody().getErrorcode().length() == 0) {
+		if (resp.getBody().getErrorcode().length() == 0) {
 			PreferenceUtils.getUser(this).address = mAddress;
 			PreferenceUtils.save(this, PreferenceUtils.PREFERENCE_USERADDR, mAddress);
 			updateViewLayout();
@@ -102,14 +140,8 @@ public class UserProfile extends Activity implements OnClickListener, TextWatche
 		} else {
 			Toast.makeText(this, R.string.user_profile_address_changed_failture, Toast.LENGTH_SHORT).show();
 		}
-		
-		if(mAddressHasChanged) { finish(); }
-	}
 
-	@Override
-	public void fail(ApiMethod api, VolleyError error) {
-		if(mAddressHasChanged) {
-			Toast.makeText(this, R.string.user_profile_address_changed_failture, Toast.LENGTH_SHORT).show();
+		if (mAddressHasChanged) {
 			finish();
 		}
 	}
@@ -120,13 +152,13 @@ public class UserProfile extends Activity implements OnClickListener, TextWatche
 
 	@Override
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
-		if(mAddress == null) {
+		if (mAddress == null) {
 			mAddress = ((EditText) findViewById(R.id.address)).getText().toString();
 			return;
 		}
-		
+
 		String address = ((EditText) findViewById(R.id.address)).getText().toString();
-		if(!address.equals(mAddress)) {
+		if (!address.equals(mAddress)) {
 			mAddressHasChanged = true;
 		}
 	}

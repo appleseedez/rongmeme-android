@@ -33,52 +33,52 @@ import com.android.volley.VolleyError;
  * @author Bots
  */
 public abstract class ProgreadListActivity<T> extends ListActivity implements OnClickListener, ResponseListener {
-	
+
 	private SimpleAdapter mSimpleAdapter;
 	private List<HashMap<String, Object>> mDataSet;
 	private List<T> mDataSource;
-	
+
 	int[] mElements;
 	String[] mFields;
-	
+
 	private View mProgressBar;
-	
-	private int mLayoutResId    = -1;
+
+	private int mLayoutResId = -1;
 	private int mSubLayoutResId = -1;
-	
-	private int mNavigatorTitleLabel     = -1;
-	private int mNavigatorForwardIcon   = -1;
-	private int mNavigatorBackwardIcon  = -1;
-	
+
+	private int mNavigatorTitleLabel = -1;
+	private int mNavigatorForwardIcon = -1;
+	private int mNavigatorBackwardIcon = -1;
+
 	public ProgreadListActivity(int layout, int subLayout) {
 		mLayoutResId = layout;
 		mSubLayoutResId = subLayout;
 	}
-	
+
 	protected void setBackwardIcon(int backward) {
 		mNavigatorBackwardIcon = backward;
 	}
-	
+
 	protected void setForwardIcon(int forward) {
 		mNavigatorForwardIcon = forward;
 	}
-	
+
 	protected void setTitleLabel(int label) {
-		mNavigatorTitleLabel  = label;
+		mNavigatorTitleLabel = label;
 	}
-	
+
 	protected void setFields(String[] fields) {
 		mFields = fields;
 	}
-	
+
 	protected void setElements(int[] elements) {
 		mElements = elements;
 	}
-	
+
 	public T getData(long index) {
 		T data = null;
-		if(mDataSource != null) {
-			data = mDataSource.get((int)index);
+		if (mDataSource != null) {
+			data = mDataSource.get((int) index);
 		}
 		return data;
 	}
@@ -88,43 +88,42 @@ public abstract class ProgreadListActivity<T> extends ListActivity implements On
 		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
-		if(mLayoutResId == -1) {
+
+		if (mLayoutResId == -1) {
 			throw new RuntimeException("miss layout resource id");
 		}
-		
+
 		View layout = getLayoutInflater().inflate(mLayoutResId, null);
 		setContentView(layout);
-		
+
 		mProgressBar = layout.findViewById(android.R.id.progress);
 
-		Button backward = (Button) layout.findViewById(R.id.navigator_backward);
-		if(backward == null) {
+		TextView backward = (TextView) layout.findViewById(R.id.navigator_backward);
+		if (backward == null) {
 			throw new RuntimeException("not include page header definition in layout xml file");
 		}
-		
-		if(mNavigatorBackwardIcon != -1) {
+
+		if (mNavigatorBackwardIcon != -1) {
 			backward.setBackgroundResource(mNavigatorBackwardIcon);
 		}
-		
+
 		backward.setOnClickListener(this);
 
-		if(mNavigatorTitleLabel != -1) {
+		if (mNavigatorTitleLabel != -1) {
 			TextView label = (TextView) layout.findViewById(R.id.navigator_title);
 			label.setText(mNavigatorTitleLabel);
 		}
-		
-		if(mNavigatorForwardIcon != -1) {
-			Button forward = (Button) layout.findViewById(R.id.navigator_forward);
+
+		if (mNavigatorForwardIcon != -1) {
+			TextView forward = (TextView) layout.findViewById(R.id.navigator_forward);
 			forward.setBackgroundResource(mNavigatorForwardIcon);
 			forward.setOnClickListener(this);
 		}
 
 		mSimpleAdapter = initSimpleAdapter(getBaseContext());
 		setListAdapter(mSimpleAdapter);
-		
-//		getListView().setDivider(getResources().getDrawable(R.drawable.line));
-		
+		// getListView().setDivider(getResources().getDrawable(R.drawable.line));
+
 		updateInternalDataSource();
 	}
 
@@ -134,7 +133,7 @@ public abstract class ProgreadListActivity<T> extends ListActivity implements On
 		mDataSource = new ArrayList<T>();
 
 		updateDataSetInternally();
-		
+
 		SimpleAdapter simpleAdapter = new SimpleAdapter(context, mDataSet, mSubLayoutResId, mFields, mElements);
 
 		ListBinder listAdapter = new ListBinder();
@@ -153,12 +152,14 @@ public abstract class ProgreadListActivity<T> extends ListActivity implements On
 			mDataSet.add(mapping);
 		}
 	}
-	
+
 	/**
 	 * Establish relationship between data set and view elements
 	 * 
-	 * @param data what to display
-	 * @param mapping where to display
+	 * @param data
+	 *            what to display
+	 * @param mapping
+	 *            where to display
 	 */
 	protected abstract void updateDataSet(T data, HashMap<String, Object> mapping);
 
@@ -166,44 +167,49 @@ public abstract class ProgreadListActivity<T> extends ListActivity implements On
 		mProgressBar.setVisibility(View.VISIBLE);
 		requestDataSource();
 	}
-	
+
 	/**
-	 * trigger a transaction that accesses network or data storage for retrieving data
+	 * trigger a transaction that accesses network or data storage for
+	 * retrieving data
 	 */
 	protected abstract void requestDataSource();
-	
+
 	/**
 	 * update own data source after retrieving data
 	 * 
-	 * @param bundle data retrieved
-	 * @param dataSource data source that needs to fulfill
+	 * @param bundle
+	 *            data retrieved
+	 * @param dataSource
+	 *            data source that needs to fulfill
 	 */
 	protected abstract void updateDataSource(ApiMethod which, String bundle, List<T> dataSource);
-	
+
 	protected boolean updateViewValue(int id, View view, Object data) {
 		return false;
 	}
-	
+
 	class ListBinder implements SimpleAdapter.ViewBinder {
 		@Override
 		public boolean setViewValue(View view, Object data, String textRepresentation) {
 			return updateViewValue(view.getId(), view, data);
 		}
 	}
-	
+
 	protected void onBackwordBtnClick() {
 		finish();
 	}
-	
-	protected void onForwardBtnClick() {}
-	
+
+	protected void onForwardBtnClick() {
+	}
+
 	protected void updateViewLayout() {
 		updateDataSetInternally();
 		mSimpleAdapter.notifyDataSetChanged();
 	}
 
-	protected void onClick(int id, View view) {}
-	
+	protected void onClick(int id, View view) {
+	}
+
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
@@ -225,7 +231,7 @@ public abstract class ProgreadListActivity<T> extends ListActivity implements On
 
 		updateDataSource(api, response, mDataSource);
 		updateDataSetInternally();
-		
+
 		mSimpleAdapter.notifyDataSetChanged();
 	}
 

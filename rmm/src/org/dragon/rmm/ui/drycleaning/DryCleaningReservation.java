@@ -67,13 +67,13 @@ public class DryCleaningReservation extends Activity implements OnClickListener,
 	
 	private void initViewLayout() {
 		
-		Button backward = (Button) findViewById(R.id.navigator_backward);
+		TextView backward = (TextView) findViewById(R.id.navigator_backward);
 		backward.setOnClickListener(this);
 
 		TextView label = (TextView) findViewById(R.id.navigator_title);
 		label.setText(R.string.dry_cleaning_reserve_title);
 		
-		Button forward = (Button) findViewById(R.id.navigator_forward);
+		TextView forward = (TextView) findViewById(R.id.navigator_forward);
 		forward.setBackgroundResource(R.drawable.icon_chat);
 		forward.setOnClickListener(this);
 

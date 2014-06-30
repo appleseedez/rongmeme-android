@@ -3,20 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_full_screen"
-    tools:context="${packageName}.${activityClass}">
+    tools:context="${packageName}.${activityClass}" >
 
-    <include android:id="@+id/page_header_layout" layout="@layout/activity_navigator" />
-    
+    <include
+        android:id="@+id/page_header_layout"
+        layout="@layout/activity_navigator" />
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/page_header_layout"/>
-    
+        android:layout_below="@id/page_header_layout"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="1dip" />
+
     <ProgressBar
-		    android:id="@android:id/progress"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_centerInParent="true"/>
+        android:id="@android:id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>
