@@ -8,6 +8,7 @@ import org.dragon.rmm.model.InfoCommentList;
 import org.dragon.rmm.model.InfoShop;
 import org.dragon.rmm.model.ModelResCommenList;
 import org.dragon.rmm.model.ModelResShop;
+import org.dragon.rmm.model.ResShop;
 import org.dragon.rmm.ui.adapter.CommentAdapter;
 import org.dragon.rmm.widget.xlistview.XListView;
 import org.dragon.rmm.widget.xlistview.XListView.IXListViewListener;
@@ -36,7 +37,7 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 	private TextView tvName, tvExtra, tvFWLN, tvFWZZ, tvCommentTitle;
 	private ViewGroup vgServices;
 	private CommentAdapter mAdapter;
-
+	private ResShop mShopInfo;
 	private int mPage = 0;
 	private final int mPSize = ApiServer.PSIZE;
 
@@ -85,15 +86,15 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 	}
 
 	private void refreshShopInfo(ModelResShop shop) {
-		ApiServer.mShopInfo = shop.body;
+		mShopInfo = shop.body;
 		imIcon.setDefaultImageResId(R.drawable.icon_login);
-		imIcon.setImageUrl(ApiServer.mShopInfo.logo, ApiServer.getImageLoader(this));
-		tvName.setText(ApiServer.mShopInfo.name);
-		tvExtra.setText(ApiServer.mShopInfo.address);
-		tvFWLN.setText(ApiServer.mShopInfo.serviceconcept);
-		tvFWZZ.setText(ApiServer.mShopInfo.servicetenets);
-		String[] serverIds = ApiServer.mShopInfo.serviceids.split(",");
-		String[] serverNames = ApiServer.mShopInfo.services.split(",");
+		imIcon.setImageUrl(mShopInfo.logo, ApiServer.getImageLoader(this));
+		tvName.setText(mShopInfo.name);
+		tvExtra.setText(mShopInfo.address);
+		tvFWLN.setText(mShopInfo.serviceconcept);
+		tvFWZZ.setText(mShopInfo.servicetenets);
+		String[] serverIds = mShopInfo.serviceids.split(",");
+		String[] serverNames = mShopInfo.services.split(",");
 		vgServices.removeAllViews();
 		if (serverIds.length == serverNames.length) {
 			for (int i = 0; i < serverIds.length; i++) {
@@ -137,10 +138,10 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 			finish();
 			break;
 		case R.id.actionbar_next:// 扫一扫
-			 toScanBarcode(arg0);
+			toScanBarcode(arg0);
 			break;
 		case R.id.shop_call:// 打电话
-			startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + ApiServer.mShopInfo.phone)));
+			startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mShopInfo.phone)));
 			break;
 		}
 
@@ -148,24 +149,24 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		/*IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-		if (result == null) {
-			super.onActivityResult(requestCode, resultCode, data);
-			return;
-		}
-		if (result.getContents() != null) {
-			Intent intent = new Intent(this, UserOrderDetail.class);
-			intent.putExtra(UserOrderDetail.INTENT_EXTRA_USER_ORDER_ID, result.getContents());
-			startActivity(intent);
-		}*/
+		/*
+		 * IntentResult result =
+		 * IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+		 * if (result == null) { super.onActivityResult(requestCode, resultCode,
+		 * data); return; } if (result.getContents() != null) { Intent intent =
+		 * new Intent(this, UserOrderDetail.class);
+		 * intent.putExtra(UserOrderDetail.INTENT_EXTRA_USER_ORDER_ID,
+		 * result.getContents()); startActivity(intent); }
+		 */
 	}
 
 	private void toScanBarcode(View v) {
-		/*IntentIntegrator integrator = new IntentIntegrator(this);
-		integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-		integrator.setResultDisplayDuration(0);
-		integrator.setCameraId(0);
-		integrator.initiateScan();*/
+		/*
+		 * IntentIntegrator integrator = new IntentIntegrator(this);
+		 * integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+		 * integrator.setResultDisplayDuration(0); integrator.setCameraId(0);
+		 * integrator.initiateScan();
+		 */
 	}
 
 	private ResponseListener mResponseListener = new ResponseListener() {

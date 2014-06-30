@@ -18,8 +18,6 @@ import org.dragon.rmm.model.InfoUserLogin;
 import org.dragon.rmm.model.InfoUserLogout;
 import org.dragon.rmm.model.InfoVerycode;
 import org.dragon.rmm.model.ModelResUser;
-import org.dragon.rmm.model.ResShop;
-import org.dragon.rmm.model.ResUser;
 import org.dragon.rmm.utils.PreferenceUtils;
 import org.dragon.rmm.volley.BitmapLruCache;
 import org.dragon.rmm.volley.PostRequest;
@@ -42,8 +40,6 @@ public class ApiServer {
 	private static ApiServer mInstance;
 	private RequestQueue mQueue;
 	private InfoHeader mHeader;
-	public static ResUser mUser;
-	public static ResShop mShopInfo;
 	private static ImageLoader mImageLoader;
 	private static Gson mGson;
 
@@ -52,6 +48,7 @@ public class ApiServer {
 	private ApiServer(Context context) {
 		mQueue = Volley.newRequestQueue(context);
 		mHeader = new InfoHeader();
+		mHeader.sessionToken = PreferenceUtils.getSessionToken(context);
 		mContext = context;
 	}
 
@@ -118,11 +115,7 @@ public class ApiServer {
 				case API_LOGIN:
 					ModelResUser result = ApiServer.getGson().fromJson(response, ModelResUser.class);
 					mHeader.sessionToken = result.head.sessionToken;
-					mUser = result.body;
-					// PreferenceUtils.save(mContext,
-					// PreferenceUtils.PREFERENCE_USERID,
-					// String.valueOf(mUser.userid));
-					PreferenceUtils.saveUser(mContext, mUser);
+					PreferenceUtils.saveUser(mContext, result.body);
 					PreferenceUtils.saveSessionToken(mContext, mHeader.sessionToken);
 					break;
 				case API_LOGOUT:
