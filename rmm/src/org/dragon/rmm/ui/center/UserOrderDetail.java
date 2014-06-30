@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 import org.dragon.rmm.R;
 import org.dragon.rmm.api.ApiMethod;
 import org.dragon.rmm.api.ApiServer;
@@ -16,8 +15,10 @@ import org.dragon.rmm.payment.Result;
 import org.dragon.rmm.ui.ActShare;
 import org.dragon.rmm.ui.center.model.UserOrder;
 import org.dragon.rmm.ui.center.model.UserOrderConsts;
+import org.dragon.rmm.ui.center.model.UserOrderServer;
 import org.dragon.rmm.ui.center.model.UserOrderService;
 import org.dragon.rmm.ui.center.model.UserOrderUtils;
+import org.dragon.rmm.utils.StringResource;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -118,14 +119,16 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 			forward.setBackgroundResource(R.drawable.icon_refresh);
 		}
 
-		Button payment = (Button) findViewById(R.id.order_payment);
-		payment.setOnClickListener(this);
+		TextView notify = (TextView) findViewById(R.id.notify_serve_done);
+		TextView payment = (TextView) findViewById(R.id.order_payment);
+		
 		if(mUserOrder.getStatus() == UserOrderConsts.ORDER_STATUS_SREVED) {
-			payment.setText(R.string.order_status_text_served_text);
-			payment.setClickable(false);
-			payment.setBackgroundResource(0);
+			notify.setText(R.string.order_status_text_served_text);
+			payment.setVisibility(View.INVISIBLE);
 		} else {
-			payment.setBackgroundResource(R.drawable.icon_alipay);
+			notify.setVisibility(View.INVISIBLE);
+			payment.setText(R.string.payment_alipay_label);
+			payment.setOnClickListener(this);
 		}
 		
 		TextView date = (TextView) findViewById(R.id.user_order_date);
@@ -182,14 +185,19 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 
 	private void onForwardBtnClick() {
 		if(mUserOrder.getStatus() == UserOrderConsts.ORDER_STATUS_SREVED) {
-			// TODO: Share & Comments
-			startActivity(ActShare.getIntent(
-					this,
-					ApiServer.mShopInfo.id,
-					mUserOrder.getId(),
-					"http://pic14.nipic.com/20110512/5793673_203706569388_2.jpg",
-					"二号服务员",
-					"服务很好\n质量很好\n人品很好\n很细心"));
+			// FIXME: 1. how to make comments if severs of specific order don't exist ?
+			//         2. is it still to display the first one in server list ?
+			List<UserOrderServer> servers = mUserOrder.getServers();
+			if(servers != null && !servers.isEmpty()) {
+				UserOrderServer server = servers.get(0);
+				startActivity(ActShare.getIntent(
+						this,
+						ApiServer.mShopInfo.id,
+						mUserOrder.getId(),
+						server.getAvatar(),
+						server.getName(),
+						StringResource.getString(R.string.order_service_comments_list)));
+			}
 		} else {
 			requestDataSource(mUserOrder.getOrderno());
 		}

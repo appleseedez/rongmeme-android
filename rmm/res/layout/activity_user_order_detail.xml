@@ -34,31 +34,30 @@
         android:layout_below="@id/user_order_date_wrapper"
         android:background="@color/backgroud_black"/>
 	
-	<LinearLayout
-	    android:orientation="horizontal"
-	    android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       	android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="60dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true">
-	    
-<!-- 	    <ImageView
-		    android:id="@+id/serve_done"
-	        android:layout_width="30dp"
-	        android:layout_height="30dp"
-	        android:src="@drawable/icon_serve_done"
-	        android:contentDescription="@string/image_content_description"/> -->
-	
-	    <Button
-	        android:id="@+id/order_payment"
-	        android:layout_width="160dp"
-	        android:layout_height="38dp"
-	        android:textSize="23sp"
-	        android:textColor="@android:color/white"/>
+    <TextView
+        style="@style/button"
+		android:id="@+id/order_payment"
+		android:layout_width="160dp"
+		android:layout_height="38dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_marginBottom="60dp"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentBottom="true"
+		android:textSize="23sp"
+		android:textColor="@android:color/white"/>
     
-	</LinearLayout>
-
+    <TextView
+		android:id="@+id/notify_serve_done"
+		android:layout_width="160dp"
+		android:layout_height="38dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_marginBottom="60dp"
+		android:layout_centerHorizontal="true"
+		android:layout_alignParentBottom="true"
+		android:drawableLeft="@drawable/icon_serve_done"
+		android:textSize="23sp"
+		android:textColor="@android:color/white"/>
 
 </RelativeLayout>
