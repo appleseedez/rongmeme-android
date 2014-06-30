@@ -1,81 +1,46 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_full_screen"
-    tools:context="${packageName}.${activityClass}">
+    android:orientation="vertical" >
 
-    <include android:id="@+id/page_header_layout" layout="@layout/activity_navigator"/>
-
-    <TextView
-        android:id="@+id/telephone_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/page_header_layout"
-        android:text="@string/user_profile_telephone_label"
-        android:textSize="24sp"
-        android:textColor="@android:color/white"/>
+    <include
+        android:id="@+id/page_header_layout"
+        layout="@layout/activity_navigator" />
 
     <TextView
         android:id="@+id/telephone"
+        style="@style/edit"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/telephone_label"
-        android:background="@color/backgroud_white"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="@android:color/white"/>
-
-    <TextView
-        android:id="@+id/address_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/telephone"
-        android:text="@string/user_profile_address_label"
-        android:textSize="24sp"
-        android:textColor="@android:color/white"/>
+        android:layout_marginTop="50dp"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/white" />
 
     <EditText
         android:id="@+id/address"
+        style="@style/edit"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/address_label"
-        android:background="@color/backgroud_white"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_n"
+        android:gravity="top|left"
+        android:hint="请输入联系地址"
         android:inputType="textMultiLine"
-        android:scrollbars="vertical"
         android:scrollbarStyle="insideInset"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="@android:color/white"/>
-    
-	<TextView
-		style="@style/button"
-		android:id="@+id/user_logout"
-		android:layout_width="match_parent"
-		android:layout_height="38dp"
-		android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp"
-		android:layout_marginTop="60dp"
-		android:layout_centerHorizontal="true"
-		android:layout_below="@id/address"
-		android:text="@string/user_profile_logout"
-		android:textSize="23sp"
-		android:textColor="@android:color/white"/>
-	
-</RelativeLayout>
+        android:scrollbars="vertical"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/user_logout"
+        style="@style/button"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        android:text="@string/user_profile_logout" />
+
+</LinearLayout>

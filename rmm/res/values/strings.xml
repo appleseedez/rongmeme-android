@@ -100,7 +100,7 @@
     <string name="user_profile_address_label">联系地址</string>
     <string name="user_profile_address_changed_success">修改成功</string>
     <string name="user_profile_address_changed_failture">修改失败</string>
-    <string name="user_profile_logout">注销</string>
+    <string name="user_profile_logout">注　销</string>
 
     <!-- User Order -->
     <string name="order_type_text_unknown">未知订单</string>
