@@ -88,7 +88,7 @@
             style="@style/title.small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@null"
             android:button="@drawable/btn_check_agree"
             android:text="@string/dry_cleaning_reserve_disclaimer_accept" />
@@ -101,7 +101,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="@string/dry_cleaning_reserve_send_reservation" />
 
 </RelativeLayout>

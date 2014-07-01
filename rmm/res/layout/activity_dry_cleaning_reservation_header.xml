@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
     
     <TextView
-        android:layout_width="wrap_content"
+        style="@style/title"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp"
-        android:text="@string/dry_cleaning_reserve_good"
-        android:textSize="22sp"
-        android:textColor="@android:color/white"/>
+        android:layout_weight="2"
+        android:gravity="left"
+        android:text="@string/dry_cleaning_reserve_good"/>
     
     <TextView
-        android:layout_width="wrap_content"
+        style="@style/title"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/dry_cleaning_reserve_amount"
-        android:textSize="22sp"
-        android:textColor="@android:color/white"/>
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/dry_cleaning_reserve_amount"/>
     
     <TextView
-        android:layout_width="wrap_content"
+        style="@style/title"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:text="@string/dry_cleaning_reserve_price"
-        android:textSize="22sp"
-        android:textColor="@android:color/white"/>
+        android:layout_weight="1"
+        android:gravity="right"
+        android:text="@string/dry_cleaning_reserve_price"/>
     
-</RelativeLayout>
+</LinearLayout>
