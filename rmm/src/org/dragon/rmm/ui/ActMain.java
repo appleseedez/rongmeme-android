@@ -45,6 +45,15 @@ public class ActMain extends Activity implements OnClickListener {
 		return intent;
 	}
 
+	private Handler mHandler = new Handler(new Handler.Callback() {
+
+		@Override
+		public boolean handleMessage(Message msg) {
+			startActivity(new Intent(ActMain.this, ActShopList.class));
+			return true;
+		}
+	});
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,9 +67,7 @@ public class ActMain extends Activity implements OnClickListener {
 		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
-		int[] ids = { R.id.menu_launcher_1, R.id.menu_launcher_2,
-				R.id.menu_launcher_3, R.id.menu_launcher_4,
-				R.id.menu_launcher_5 };
+		int[] ids = { R.id.menu_launcher_1, R.id.menu_launcher_2, R.id.menu_launcher_3, R.id.menu_launcher_4, R.id.menu_launcher_5 };
 		for (int i = 0; i < ids.length; i++) {
 			parent.findViewById(ids[i]).setOnClickListener(this);
 		}
@@ -70,9 +77,7 @@ public class ActMain extends Activity implements OnClickListener {
 	protected void onResume() {
 		super.onResume();
 		if (sensorManager != null) {// 注册监听器
-			sensorManager.registerListener(sensorEventListener,
-					sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-					SensorManager.SENSOR_DELAY_NORMAL);
+			sensorManager.registerListener(sensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
 			// 第一个参数是Listener，第二个参数是所得传感器类型，第三个参数值获取传感器信息的频率
 		}
 	}
@@ -100,7 +105,7 @@ public class ActMain extends Activity implements OnClickListener {
 		switch (arg0.getId()) {
 		case R.id.menu_launcher_1: // 钟点工
 			Intent intentHourlyEmployee = new Intent(ActMain.this, HourlyEmployeeActivity.class);
-            startActivity(intentHourlyEmployee);
+			startActivity(intentHourlyEmployee);
 			break;
 		case R.id.menu_launcher_2:// 我的预约
 			startActivity(new Intent(this, UserCenterPortal.class));
@@ -110,7 +115,7 @@ public class ActMain extends Activity implements OnClickListener {
 			break;
 		case R.id.menu_launcher_4:// 保洁
 			Intent intentCleaning = new Intent(ActMain.this, CleaningActivity.class);
-            startActivity(intentCleaning);
+			startActivity(intentCleaning);
 			break;
 		case R.id.menu_launcher_5:// 商铺
 			long id = getIntent().getLongExtra(ActMain.EXTRA_ID, -1);
@@ -134,10 +139,8 @@ public class ActMain extends Activity implements OnClickListener {
 			// 设置对话框消息
 			isExit.setMessage("确定要退出吗");
 			// 添加选择按钮并注册监听
-			isExit.setButton(DialogInterface.BUTTON_POSITIVE, "确定",
-					backKeyDownlistener);
-			isExit.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
-					backKeyDownlistener);
+			isExit.setButton(DialogInterface.BUTTON_POSITIVE, "确定", backKeyDownlistener);
+			isExit.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", backKeyDownlistener);
 			// 显示对话框
 			isExit.show();
 
@@ -176,12 +179,9 @@ public class ActMain extends Activity implements OnClickListener {
 			Log.i(TAG, "x轴方向的重力加速度" + x + "；y轴方向的重力加速度" + y + "；z轴方向的重力加速度" + z);
 			// 一般在这三个方向的重力加速度达到40就达到了摇晃手机的状态。
 			int medumValue = 19;// 三星 i9250怎么晃都不会超过20，没办法，只设置19了
-			if (Math.abs(x) > medumValue || Math.abs(y) > medumValue
-					|| Math.abs(z) > medumValue) {
+			if (Math.abs(x) > medumValue || Math.abs(y) > medumValue || Math.abs(z) > medumValue) {
 				vibrator.vibrate(200);
-				Message msg = new Message();
-				msg.what = SENSOR_SHAKE;
-				handler.sendMessage(msg);
+				mHandler.sendMessage(mHandler.obtainMessage(SENSOR_SHAKE));
 			}
 		}
 
@@ -191,26 +191,17 @@ public class ActMain extends Activity implements OnClickListener {
 		}
 	};
 
-	/**
-	 * 动作执行
+	/*
+	 * {
+	 * 
+	 * @Override public void handleMessage(Message msg) {
+	 * super.handleMessage(msg); switch (msg.what) { case SENSOR_SHAKE: //
+	 * Location location = rmmApplication.getLastKnownLocation(); //
+	 * Toast.makeText( // ActMain.this, // "检测到摇晃，执行操作！纬度为：" +
+	 * location.getLatitude() + "经度：" // + location.getLongitude(),
+	 * Toast.LENGTH_SHORT) // .show(); // Log.i(TAG, "检测到摇晃，执行操作！");
+	 * startActivity(new Intent(ActMain.this, ActShopList.class)); break; } }
+	 * 
+	 * };
 	 */
-	Handler handler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case SENSOR_SHAKE:
-				Location location = rmmApplication.getLastKnownLocation();
-				Toast.makeText(
-						ActMain.this,
-						"检测到摇晃，执行操作！纬度为：" + location.getLatitude() + "经度："
-								+ location.getLongitude(), Toast.LENGTH_SHORT)
-						.show();
-				Log.i(TAG, "检测到摇晃，执行操作！");
-				break;
-			}
-		}
-
-	};
 }

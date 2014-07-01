@@ -69,7 +69,18 @@ public class ShopAdapter extends BaseAdapter {
 		notifyDataSetChanged();
 	}
 
-	public void append(ResShop[] data) {
+	public void append(ResShop data) {
+		if (null == data) {
+			return;
+		}
+		if (null == mData) {
+			mData = new ArrayList<ResShop>();
+		}
+		mData.add(data);
+		notifyDataSetChanged();
+	}
+
+	public void append(ResShop[] data, long except) {
 		if (null == data || data.length == 0) {
 			return;
 		}
@@ -77,7 +88,10 @@ public class ShopAdapter extends BaseAdapter {
 			mData = new ArrayList<ResShop>();
 		}
 		for (int i = 0; i < data.length; i++) {
-			mData.add(data[i]);
+			ResShop item = data[i];
+			if (item.id != except) {
+				mData.add(item);
+			}
 		}
 		notifyDataSetChanged();
 	}

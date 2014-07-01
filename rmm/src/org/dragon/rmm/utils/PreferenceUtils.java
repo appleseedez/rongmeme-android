@@ -61,6 +61,11 @@ public class PreferenceUtils {
 		edit.commit();
 	}
 
+	public static String getValue(Context context, String key) {
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_WORLD_READABLE);
+		return sharedPreferences.getString(key, "");
+	}
+
 	public static ResShop getShop(Context context) {
 		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_WORLD_READABLE);
 		long shopid = sharedPreferences.getLong(PREFERENCE_SHOPID, -1);

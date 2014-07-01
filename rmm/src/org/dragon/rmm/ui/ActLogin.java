@@ -110,7 +110,7 @@ public class ActLogin extends Activity implements OnClickListener {
 						PreferenceUtils.save(ActLogin.this, PreferenceUtils.PREFERENCE_USERPWD, pwd);
 					}
 				}
-				startActivity(ActShopList.getIntent(ActLogin.this, 104.06, 30.67)); // 根据当前经纬度获取店铺列表
+				startActivity(new Intent(ActLogin.this, ActShopList.class)); // 根据当前经纬度获取店铺列表
 				finish();
 				break;
 			}

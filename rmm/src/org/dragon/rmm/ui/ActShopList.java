@@ -1,6 +1,7 @@
 package org.dragon.rmm.ui;
 
 import org.dragon.rmm.R;
+import org.dragon.rmm.RmmApplication;
 import org.dragon.rmm.api.ApiMethod;
 import org.dragon.rmm.api.ApiServer;
 import org.dragon.rmm.api.ResponseListener;
@@ -15,12 +16,13 @@ import org.dragon.rmm.widget.xlistview.XListView.IXListViewListener;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -35,21 +37,6 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 	private ShopAdapter mAdapter;
 
 	private ResShop mCurrentShop;
-
-	/**
-	 * @param context
-	 * @param longitude
-	 *            经度
-	 * @param latitude
-	 *            纬度
-	 * @return
-	 */
-	public static Intent getIntent(Context context, double longitude, double latitude) {
-		Intent intent = new Intent(context, ActShopList.class);
-		intent.putExtra(PreferenceUtils.EXTRA_LONGITUDE, longitude);
-		intent.putExtra(PreferenceUtils.EXTRA_LATITUDE, latitude);
-		return intent;
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +64,13 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 	}
 
 	private void refreshShopList(ModelResShopList shoplist) {
-		mAdapter.append(shoplist.body);
+		ResShop lastShop = PreferenceUtils.getShop(this);
+		long except = -1;
+		if (null != lastShop) {
+			except = lastShop.id;
+			mAdapter.append(lastShop);// 加入上次保存的店铺
+		}
+		mAdapter.append(shoplist.body, except);
 		lvDetail.setItemChecked(1, true); // the position of listview header is
 	}
 
@@ -183,10 +176,32 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 
 	@Override
 	public void onRefresh() {
-		double longitude = getIntent().getDoubleExtra(PreferenceUtils.EXTRA_LONGITUDE, -1);
-		double latitude = getIntent().getDoubleExtra(PreferenceUtils.EXTRA_LATITUDE, -1);
 		showDialog(0);
-		mApiServer.shopList(new InfoPlace(longitude, latitude), mResponseListener);
+		new AsyncTask<Void, Void, InfoPlace>() {
+
+			@Override
+			protected InfoPlace doInBackground(Void... params) {
+				Location location = ((RmmApplication) getApplication()).getLastKnownLocation();
+				String preLongitude = PreferenceUtils.getValue(ActShopList.this, PreferenceUtils.EXTRA_LONGITUDE);
+				String preLatitude = PreferenceUtils.getValue(ActShopList.this, PreferenceUtils.EXTRA_LATITUDE);
+				double longitude = -1;
+				double latitude = -1;
+				if (null != location) {
+					longitude = location.getLongitude();
+					latitude = location.getLatitude();
+				} else if (!TextUtils.isEmpty(preLongitude) && !TextUtils.isEmpty(preLatitude)) {
+					longitude = Double.parseDouble(preLongitude);
+					latitude = Double.parseDouble(preLatitude);
+				}
+				return new InfoPlace(longitude, latitude);
+			}
+
+			@Override
+			protected void onPostExecute(InfoPlace result) {
+				mApiServer.shopList(result, mResponseListener);
+			}
+		}.execute();
+
 	}
 
 	@Override
