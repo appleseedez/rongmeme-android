@@ -105,8 +105,7 @@ public class Payment {
 		sb.append(getBody(order));
 		
 		sb.append("\"&total_fee=\"");
-//		sb.append(order.getAllprice() / 10.0);
-		sb.append(0.01);
+		sb.append(order.getAllprice());
 		
 		sb.append("\"&notify_url=\"");
 		sb.append("http%3A%2F%2F218.244.130.240:8080/eclean/alipay/noticeEcleanServer.do");
