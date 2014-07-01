@@ -47,12 +47,17 @@
 
     <TextView
         android:id="@+id/notify_serve_done"
-        style="@style/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="60dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:drawableLeft="@drawable/icon_serve_done" />
+        android:drawableLeft="@drawable/icon_serve_done"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"/>
 
 </RelativeLayout>
