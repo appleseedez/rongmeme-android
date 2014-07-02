@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/ssi_top_navigation_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="#44aaaaaa"
+        android:gravity="center_vertical" >
+
+        <CheckBox
+            android:id="@+id/ssic_small_category_checkbox_imageButton"
+            style="@style/CustomCheckboxTheme"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:scaleType="center" />
+
+        <TextView
+            android:id="@+id/ssic_small_category_name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="1dp"
+            android:layout_toRightOf="@id/ssic_small_category_checkbox_imageButton"
+            android:singleLine="true"
+            android:text="@string/ssia_small_category_name_title_text"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:background="@null" >
+    </View>
+
+</LinearLayout>

@@ -40,7 +40,6 @@
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
             android:background="@null"
             android:contentDescription="@string/si_big_category_pull_down_imageButton_desc"
             android:src="@drawable/pull_down" />

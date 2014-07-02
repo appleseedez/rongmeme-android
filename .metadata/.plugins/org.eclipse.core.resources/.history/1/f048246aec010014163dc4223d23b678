@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">蓉么么</string>
+    <string name="menu_settings">Settings</string>
+    <string name="pull_to_refresh_tap_label">Tap to refresh</string>
+    <string name="pull_to_refresh_refreshing_label">刷新</string>
+    <string name="pull_to_refresh_footer_refreshing_label">加载中</string>
+    <string name="refresh_down_text">下拉刷新</string>
+    <string name="refresh_release_text">松开后刷新</string>
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载...</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="no_network_connected_status_pop">亲网络不给力啊</string>
+    <string name="no_location_error">暂时无法获取当前位置</string>
+    <string name="nha_no_net_work_toast">亲，没有网络，请返回在设置中打开网络连接才能定位。</string>
+    <!-- dengjie -->
+    <string name="back_navigation_imagebutton_desc">返回按钮</string>
+    <string name="cleaning_tv_title_text">保洁</string>
+    <string name="cleaning_view_flow_btn_text">观看流程</string>
+    <string name="cleaning_custom_flow_btn_text">我要定制</string>
+    <string name="si_big_category_start_level_imageview_desc">保洁星级服务大类icon</string>
+    <string name="si_big_category_pull_down_imageButton_desc">保洁星级下拉按钮icon</string>
+    <string name="ssi_small_category_name_title_text">服务项目</string>
+    <string name="ssi_small_category_checkbox_imageButton_desc">勾选框</string>
+    <string name="he_tv_title_text">钟点工</string>
+    <string name="he_next_flow_button_desc">钟点工下一步按钮</string>
+    <string name="employee_default_nickname_text">钟艳</string>
+    <string name="employee_head_portrait_imageview_des">钟点工的圆角头像</string>
+    <string name="ca_tip_msg_textview_defalut_text">您选择了一星保洁服务</string>
+    <string name="ca_confirm_appointment_btn_text">确认预约</string>
+    <string name="ca_contact_custom_service_text">联系客服</string>
+    <string name="ssia_small_category_checkbox_imageButton_desc">勾选框</string>
+    <string name="ssia_small_category_name_title_text">服务项目</string>
+    <string name="cc_confirm_appointment_btn_text">确认预约</string>
+    <string name="cc_contact_custom_service_text">联系客服</string>
+    <string name="cc_tip_msg_textview_defalut_text">请选择您需要的服务</string>
+    <string name="cc_tv_title_text">自选服务</string>
+    <string name="hsa_tv_title_text">预约</string>
+    <string name="hsa_tip_msg_textview_defalut_text">您已选择以下服务人员</string>
+    <string name="hsa_send_appointment_btn_text">发送预约</string>
+    <string name="hsa_phone_textview_hint">请输入手机号码</string>
+    <string name="nmd_msg_content_textview_default_text">预约单已经发送\n稍后客服人员会通过\n%s\n联系您</string>
+    <string name="nmd_msg_content_textview_default_faild_text">亲网络不好，请稍等一下</string>
+    <string name="nmd_close_btn_desc">弹出框的描述</string>
+    <string name="sss_tv_title_text">选择门店</string>
+    <string name="he_send_appointment_no_phone_error">请输入手机号</string>
+    <string name="confirm_custom_appointment_no_check">请选择服务内容</string>
+
+    <item name="cleaning_big_category_tag" type="id"></item>
+
+    <!-- dengjie -->
+
+	<!-- Common -->
+	  <string name="image_content_description">占位图标</string>
+
+    <!-- Portal -->
+    <string name="activity_label_app_portal">AppPortal</string>
+    <string name="label_app_portal_user_center">个人中心</string>
+    <string name="label_app_portal_dry_cleaning">干洗</string>
+    <string name="label_app_portal_scan_barcode">扫一扫</string>
+
+    <!-- Navigator -->
+    <string name="label_navigator_backward">返回</string>
+    <string name="label_navigator_forward"></string>
+    <string name="label_navigator_forward_refresh">刷新</string>
+    <string name="label_navigator_forward_comment">评价</string>
+    <string name="label_navigator_title"></string>
+
+    <!-- Dry Cleaning -->
+    <string name="activity_label_dry_cleaning_portal">干洗</string>
+    <string name="activity_label_dry_cleaning_reservation">干洗预约单</string>
+    <string name="dry_cleaning_navigator_title">干洗列表</string>
+    <string name="dry_cleaning_navigator_forward">选择</string>
+    <string name="dry_cleaning_reserve_title">干洗预约</string>
+    <string name="dry_cleaning_reserve_support">联系客服</string>
+    <string name="dry_cleaning_reserve_telephone">联系电话</string>
+    <string name="dry_cleaning_reserve_address">联系地址</string>
+    <string name="dry_cleaning_reserve_confirmed">确认预定</string>
+    <string name="dry_cleaning_reserve_failture">预定失败</string>
+     <string name="dry_cleaning_reserve_disclaimer_title">免责声明</string>
+    <string name="dry_cleaning_reserve_disclaimer">免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明</string>
+    <string name="dry_cleaning_reserve_disclaimer_accept">同意</string>
+    <string name="dry_cleaning_reserve_disclaimer_notification">请查看并同意免责声明</string>
+    <string name="dry_cleaning_reserve_good">物品</string>
+    <string name="dry_cleaning_reserve_amount">数量</string>
+    <string name="dry_cleaning_reserve_price">单价</string>
+    <string name="dry_cleaning_reserve_total_price">总计</string>
+    <string name="dry_cleaning_reserve_send_reservation">发送预约</string>
+    <string name="dry_cleaning_reserve_notification_part_a">预约单已经发送\n稍后客服人员会通过\n</string>
+    <string name="dry_cleaning_reserve_notification_part_b">\n联系您</string>
+
+    <!-- User Center -->
+    <string name="activity_label_user_center_portal">个人中心</string>
+    <string name="activity_label_user_order_detail">订单详情</string>
+    <string name="activity_label_user_profile">个人设置</string>
+    <string name="user_center_forward_label">个人设置</string>
+    <string name="user_profile_telephone_label">联系电话</string>
+    <string name="user_profile_address_label">联系地址</string>
+    <string name="user_profile_address_changed_success">修改成功</string>
+    <string name="user_profile_address_changed_failture">修改失败</string>
+    <string name="title_activity_order_portal">OrderPortal</string>
+
+    <!-- User Order -->
+    <string name="order_type_text_unknown">未知订单</string>
+    <string name="order_type_text_cleaning">保洁订单</string>
+    <string name="order_type_text_dry_cleaning">干洗订单</string>
+    <string name="order_status_text_unknown">未服务</string>
+    <string name="order_status_text_pending">未服务</string>
+    <string name="order_status_text_unassigned">处理中</string>
+    <string name="order_status_text_serving">服务中</string>
+    <string name="order_status_text_served">已完成</string>
+    <string name="order_status_text_served_text">服务完成</string>
+    <string name="order_status_text_cancelled">取消</string>
+    <string name="order_service_text_title">名称</string>
+    <string name="order_service_text_amount">数量</string>
+    <string name="order_service_text_price">单价</string>
+    <string name="order_service_text_total_price">总计</string>
+
+    <!-- Payment -->
+    <string name="payment_alipay_label">使用支付宝支付</string>
+    <string name="payment_alipay_success">支付成功</string>
+    <string name="payment_alipay_failture">支付成功</string>
+    <string name="payment_order_type_cleaning">蓉么么保洁服务订单</string>
+    <string name="payment_order_type_dry_cleaning">蓉么么干洗服务订单</string>
+    <string name="payment_order_type_hourly_worker">蓉么么钟点工服务订单</string>
+    <string name="payment_order_description">随便说说就好 这是文案</string>
+</resources>

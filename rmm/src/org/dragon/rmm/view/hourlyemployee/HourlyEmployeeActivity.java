@@ -23,6 +23,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -132,6 +133,10 @@ public class HourlyEmployeeActivity extends Activity {
                 if (mAdapter.mChecked.get(i)) {
                     hei.add(listItems.get(i));
                 }
+            }
+            if(hei==null||hei.size()==0){
+                Toast.makeText(HourlyEmployeeActivity.this, R.string.next_flow_no_check, Toast.LENGTH_SHORT).show();
+                return;
             }
             Intent intent = new Intent(HourlyEmployeeActivity.this, HourlyEmployeeSendAppointmentActivity.class);
             intent.putExtra("hourlyEmployeeItems", (Serializable) hei);

@@ -1,74 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="60dp"
-    android:background="@drawable/cell_back_normal" >
-
-    <org.dragon.rmm.widget.image.RoundCornerImageView
-        android:id="@+id/employeeHeadPortraitImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:contentDescription="@string/employee_head_portrait_imageview_des"
-        android:gravity="center"
-        android:layerType="software"
-        android:scaleType="fitXY"
-        android:src="@drawable/default_head_portrait" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
 
     <RelativeLayout
-        android:id="@+id/employeeInfoContentRelativeLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/employeeHeadPortraitImageView"
-        android:gravity="center_vertical" >
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/cell_back_normal" >
 
-        <TextView
-            android:id="@+id/employeeNameTextView"
+        <org.dragon.rmm.widget.image.RoundCornerImageView
+            android:id="@+id/employeeHeadPortraitImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/employee_head_portrait_imageview_des"
+            android:gravity="center"
+            android:layerType="software"
+            android:scaleType="fitXY"
+            android:src="@drawable/default_head_portrait" />
+
+        <RelativeLayout
+            android:id="@+id/employeeInfoContentRelativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/employeeHeadPortraitImageView"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/employeeNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/employee_default_nickname_text"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/priceRangeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/employeeNameTextView"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/skillsTextView"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/employeeNameTextView"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/employeeCheckBox"
+            style="@style/CustomCheckboxTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="@string/employee_default_nickname_text"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/priceRangeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/employeeNameTextView"
-            android:singleLine="true"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
-
-        <TextView
-            android:id="@+id/skillsTextView"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/employeeNameTextView"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:scaleType="center" />
     </RelativeLayout>
 
-    <CheckBox
-        android:id="@+id/employeeCheckBox"
-        style="@style/CustomCheckboxTheme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="20dp"
-        android:clickable="false"
-        android:focusable="false"
-        android:scaleType="center" />
-
-</RelativeLayout>
+</LinearLayout>

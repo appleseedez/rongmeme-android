@@ -11,7 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 
-import com.alipay.android.app.sdk.AliPay;
+//import com.alipay.android.app.sdk.AliPay;
 
 public class Payment {
 	
@@ -53,17 +53,17 @@ public class Payment {
 		
 		@Override
 		public void run() {
-			AliPay alipay = new AliPay(mContext, mHandler);
-			
-//			alipay.setSandBox(true);
-
-			String result = alipay.pay(mOrderInfo);
-			System.out.println("[ALIPAY] result : " + result);
-			
-			Message msg = new Message();
-			msg.what = REQUEST_PAYMENT_ALIPAY;
-			msg.obj = result;
-			mHandler.sendMessage(msg);
+//			AliPay alipay = new AliPay(mContext, mHandler);
+//			
+////			alipay.setSandBox(true);
+//
+//			String result = alipay.pay(mOrderInfo);
+//			System.out.println("[ALIPAY] result : " + result);
+//			
+//			Message msg = new Message();
+//			msg.what = REQUEST_PAYMENT_ALIPAY;
+//			msg.obj = result;
+//			mHandler.sendMessage(msg);
 		}
 	}
 	

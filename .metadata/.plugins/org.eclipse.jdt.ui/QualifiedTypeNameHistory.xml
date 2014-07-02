@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.dragon.rmm.R.color"/>
+<fullyQualifiedTypeName name="org.dragon.rmm.R.id"/>
+<fullyQualifiedTypeName name="org.dragon.rmm.R.drawable"/>
+<fullyQualifiedTypeName name="java.util.Collections"/>
+<fullyQualifiedTypeName name="org.dragon.rmm.view.cleaning.CleaningCustomActivity"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="org.dragon.rmm.view.hourlyemployee.HourlyEmployeeActivity"/>
+<fullyQualifiedTypeName name="android.widget.LinearLayout"/>
+</qualifiedTypeNameHistroy>

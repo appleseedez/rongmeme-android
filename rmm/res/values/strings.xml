@@ -47,6 +47,8 @@
     <string name="nmd_close_btn_desc">弹出框的描述</string>
     <string name="sss_tv_title_text">选择门店</string>
     <string name="he_send_appointment_no_phone_error">请输入手机号</string>
+    <string name="confirm_custom_appointment_no_check">请选择服务内容</string>
+    <string name="next_flow_no_check">请选择钟点工</string>
 
     <item name="cleaning_big_category_tag" type="id"></item>
 

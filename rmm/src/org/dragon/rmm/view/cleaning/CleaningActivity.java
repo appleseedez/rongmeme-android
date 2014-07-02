@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
@@ -257,9 +258,20 @@ public class CleaningActivity extends Activity {
 
         @Override
         public void onClick(View v) {
+            ImageButton pullDownImageButton = (ImageButton) v;
             View starItem = (View) v.getParent().getParent();
             View starSmallContent = starItem.findViewById(R.id.si_small_category_content);
-            starSmallContent.setVisibility(View.VISIBLE);
+            RelativeLayout bigStarItem = (RelativeLayout)starItem.findViewById(R.id.si_top_navigation_bar);
+            if (starSmallContent.getVisibility() == View.GONE) {
+                bigStarItem.setBackgroundColor(getResources().getColor(R.color.white));
+                pullDownImageButton.setImageResource(R.drawable.horizontalline);
+                starSmallContent.setVisibility(View.VISIBLE);
+            } else {
+                bigStarItem.setBackgroundResource(R.drawable.big_category_bg_n);
+                pullDownImageButton.setImageResource(R.drawable.pull_down);
+                starSmallContent.setVisibility(View.GONE);
+            }
+
         }
     };
 
@@ -303,7 +315,7 @@ public class CleaningActivity extends Activity {
             return o1.getStarlevel() - o2.getStarlevel();
         }
     }
-    
+
     public class IntegerComparator implements Comparator<Integer> {
 
         public int compare(Integer o1, Integer o2) {
