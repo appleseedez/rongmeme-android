@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="title">#ba4c62</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blue">#6BADF6</color>
+    <!-- 自定义的颜色，通用颜色 -->
+    <!-- R:180 G:174 B:165 距离可以删除-->
+    
+    <!-- R197G191B186 -->
+    <color name="R197G191B186">#C5BFBA</color>
+    <color name="R199G183B161">#C7B7A1</color>
+    <color name="R144G140B131">#6B6557</color>
+    <color name="R96G99B102">#606366</color>
+    <color name="R219G185B111">#DBB96F</color>
+    <color name="R61G85B1">#3D5501</color>
+
+	<color name="backgroud_black">#66222222</color>
+	<color name="backgroud_white">#66FFFFFF</color>
+        
+	<color name="R61G85B1">#618510</color>
+</resources>
