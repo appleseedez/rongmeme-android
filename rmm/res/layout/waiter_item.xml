@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="80dp"
-    android:layout_height="120dp"
+    android:layout_width="100dp"
+    android:layout_height="130dp"
     android:background="@null"
     android:gravity="center"
     android:orientation="vertical" >
 
-    <org.dragon.itel.widget.image.RoundCornerImageView
+    <org.dragon.rmm.widget.image.RoundCornerImageView
         android:id="@+id/wi_employeeHeadPortraitImageView"
         android:layout_width="45dp"
         android:layout_height="45dp"
@@ -23,6 +23,7 @@
         android:layout_height="40dp"
         android:gravity="center"
         android:text="钟点工"
+        android:textColor="@color/white"
         android:textSize="18sp" />
 
 </LinearLayout>
