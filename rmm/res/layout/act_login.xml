@@ -19,7 +19,6 @@
         android:layout_marginLeft="40dip"
         android:layout_marginRight="40dip"
         android:layout_marginTop="50dip"
-        android:text="13408620260"
         android:hint="请输入登录账号"
         android:inputType="phone" />
 
@@ -30,7 +29,6 @@
         android:layout_marginLeft="40dip"
         android:layout_marginRight="40dip"
         android:layout_marginTop="30dip"
-        android:text="123456"
         android:hint="请输入登录密码"
         android:inputType="textPassword" />
 

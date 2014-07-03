@@ -94,16 +94,11 @@
 
             <Button
                 android:id="@+id/hsa_confirm_appointment_btn"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
+                style="@style/button"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/cleaning_btn_n"
-                android:singleLine="true"
-                android:text="@string/hsa_send_appointment_btn_text"
-                android:textColor="@color/white"
-                android:textSize="18sp" >
+                android:text="@string/hsa_send_appointment_btn_text" >
             </Button>
             <!-- 联系客服 -->
         </LinearLayout>

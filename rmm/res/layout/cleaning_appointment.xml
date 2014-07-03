@@ -41,8 +41,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:text="@string/ca_tip_msg_textview_defalut_text"
         android:textColor="@color/white"
         android:textSize="20sp" >
@@ -67,29 +67,18 @@
 
             <Button
                 android:id="@+id/ca_confirm_appointment_btn"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
+                style="@style/button"
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/cleaning_btn_n"
-                android:singleLine="true"
-                android:text="@string/ca_confirm_appointment_btn_text"
-                android:textColor="@color/white"
-                android:textSize="18sp" >
-            </Button>
+                android:text="@string/ca_confirm_appointment_btn_text" />
+
             <!-- 我要定制 -->
 
             <Button
                 android:id="@+id/ca_contact_custom_service_btn"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
+                style="@style/button"
                 android:layout_marginBottom="60dp"
-                android:background="@drawable/cleaning_btn_n"
-                android:singleLine="true"
-                android:text="@string/ca_contact_custom_service_text"
-                android:textColor="@color/white"
-                android:textSize="18sp" >
-            </Button>
+                android:text="@string/ca_contact_custom_service_text" />
         </LinearLayout>
     </ScrollView>
 
