@@ -9,7 +9,7 @@
         android:id="@+id/cleaning_top_navigation_bar"
         android:layout_width="fill_parent"
         android:layout_height="56dip"
-        android:background="@null"
+        android:background="#66222222"
         android:gravity="center_vertical" >
 
         <ImageButton
@@ -31,7 +31,7 @@
             android:singleLine="true"
             android:text="@string/cleaning_tv_title_text"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="22sp" />
     </RelativeLayout>
 
     <!-- 功能列表区域 -->
@@ -56,26 +56,28 @@
 
             <Button
                 android:id="@+id/cleaning_view_flow_btn"
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="50dp"
                 android:background="@drawable/cleaning_btn_n"
                 android:singleLine="true"
                 android:text="@string/cleaning_view_flow_btn_text"
-                android:textColor="@color/white" >
+                android:textColor="@color/white"
+                android:textSize="18sp" >
             </Button>
             <!-- 我要定制 -->
 
             <Button
                 android:id="@+id/cleaning_custom_flow_btn"
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="60dp"
                 android:background="@drawable/cleaning_btn_n"
                 android:singleLine="true"
                 android:text="@string/cleaning_custom_flow_btn_text"
-                android:textColor="@color/white" >
+                android:textColor="@color/white"
+                android:textSize="18sp" >
             </Button>
         </LinearLayout>
     </ScrollView>

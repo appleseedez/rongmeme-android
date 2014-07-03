@@ -35,6 +35,9 @@ public class BeanFactory {
      */
     public static void setContextForAllDAOs(Context c) {
         UserInfoDAO.context = c;
+        HourlyEmployeeDAO.context=c;
+        CleaningDAO.context=c;
+        ShakeStoreDAO.context=c;
     }
 
     /**

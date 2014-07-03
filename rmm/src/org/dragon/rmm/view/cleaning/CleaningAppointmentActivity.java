@@ -9,10 +9,11 @@ import org.dragon.rmm.Constants;
 import org.dragon.rmm.R;
 import org.dragon.rmm.dao.CleaningDAO;
 import org.dragon.rmm.domain.CleaningAppointmentItemForm;
+import org.dragon.rmm.domain.CleaningAppointmentResult;
 import org.dragon.rmm.domain.CleaningBigItemVO;
-import org.dragon.rmm.domain.CleaningItemResult;
 import org.dragon.rmm.domain.CleaningItemVO;
 import org.dragon.rmm.domain.common.Head;
+import org.dragon.rmm.utils.PreferenceUtils;
 import org.dragon.rmm.widget.dialog.NewMsgDialog;
 
 import android.app.Activity;
@@ -213,16 +214,15 @@ public class CleaningAppointmentActivity extends Activity {
                 // 累计总价
                 allprice = allprice + ci.getPrice();
             }
-            SharedPreferences curUser = getSharedPreferences("curUser", 0);
-            String curSessionToken = curUser.getString("curSessionToken", "");
-            long userid = curUser.getLong("curUserId", 0);
-            String name = curUser.getString("curUserName", "");
-            String phone = curUser.getString("curUserPhone", "");
-            String address = curUser.getString("curUserAddress", "");
+            SharedPreferences curSp = getSharedPreferences(PreferenceUtils.PREFERENCE, 0);
+            String curSessionToken = curSp.getString("curSessionToken", "");
+            long userid = curSp.getLong("curUserId", 0);
+            String name = curSp.getString("curUserName", "");
+            String phone = curSp.getString("curUserPhone", "");
+            String address = curSp.getString("curUserAddress", "");
             // 商店
-            SharedPreferences curShop = getSharedPreferences("curShop", 0);
-            long storeid = curShop.getLong("curStoreId", 0);
-            String storename = curShop.getString("curStoreName", "");
+            long storeid = curSp.getLong("curStoreId", 0);
+            String storename = curSp.getString("curStoreName", "");
             CleaningDAO.createCleanAppointment(storeid, storename, allprice, userid, name, phone, address,
                     curSessionToken, services, createCleanAppointmentCallBack);
         }
@@ -258,7 +258,7 @@ public class CleaningAppointmentActivity extends Activity {
         @Override
         public void textLoaded(String text) {
             // 解析返回的JSON字符串
-            CleaningItemResult msgList = MierJsonUtils.readValue(text, new TypeToken<CleaningItemResult>() {
+            CleaningAppointmentResult msgList = MierJsonUtils.readValue(text, new TypeToken<CleaningAppointmentResult>() {
             }.getType());
             // 成功
             Head head = msgList.getHead();

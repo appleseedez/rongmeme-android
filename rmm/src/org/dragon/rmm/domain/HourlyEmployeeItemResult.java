@@ -6,6 +6,8 @@
  */
 package org.dragon.rmm.domain;
 
+import java.util.List;
+
 import org.dragon.rmm.domain.common.Head;
 
 /**
@@ -28,7 +30,7 @@ public class HourlyEmployeeItemResult implements java.io.Serializable {
     /**
      * 结果对象封装携带的附件
      */
-    private HourlyEmployeeItemBody body;
+    private List<HourlyEmployeeItemVO> body;
 
     public Head getHead() {
         return head;
@@ -38,11 +40,11 @@ public class HourlyEmployeeItemResult implements java.io.Serializable {
         this.head = head;
     }
 
-    public HourlyEmployeeItemBody getBody() {
+    public List<HourlyEmployeeItemVO> getBody() {
         return body;
     }
 
-    public void setBody(HourlyEmployeeItemBody body) {
+    public void setBody(List<HourlyEmployeeItemVO> body) {
         this.body = body;
     }
 

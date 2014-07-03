@@ -7,10 +7,11 @@ import org.dragon.core.galhttprequest.GalHttpRequest.GalHttpLoadTextCallBack;
 import org.dragon.core.utils.json.MierJsonUtils;
 import org.dragon.rmm.R;
 import org.dragon.rmm.dao.HourlyEmployeeDAO;
-import org.dragon.rmm.domain.HourlyEmployeeItemResult;
+import org.dragon.rmm.domain.HourlyEmployeeAppointmentResult;
 import org.dragon.rmm.domain.HourlyEmployeeItemVO;
 import org.dragon.rmm.domain.HourlyEmployeeSendAppointmentItemForm;
 import org.dragon.rmm.domain.common.Head;
+import org.dragon.rmm.utils.PreferenceUtils;
 import org.dragon.rmm.widget.dialog.NewMsgDialog;
 import org.dragon.rmm.widget.waterfall.bitmaputil.ImageFetcher;
 
@@ -30,6 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -128,9 +130,10 @@ public class HourlyEmployeeSendAppointmentActivity extends Activity {
     private void initWaiterComponents() {
         List<HourlyEmployeeItemVO> list = (List<HourlyEmployeeItemVO>) getIntent().getSerializableExtra(
                 "hourlyEmployeeItems");
-        for (int i = 0; i < list.size(); i++) {
+        TableRow tablerow = null;
+        for (int i = 1; i <= list.size(); i++) {
             // 遍历生成item的
-            HourlyEmployeeItemVO hei = list.get(i);
+            HourlyEmployeeItemVO hei = list.get(i - 1);
             String name = hei.getName();
 
             LinearLayout waiterItemView = (LinearLayout) getLayoutInflater().inflate(R.layout.waiter_item, null);
@@ -147,14 +150,15 @@ public class HourlyEmployeeSendAppointmentActivity extends Activity {
             }
 
             employeeName.setText(name);
-
-            TableRow tablerow = new TableRow(HourlyEmployeeSendAppointmentActivity.this);
-            for (int j = 0; j < 2; j++) {
+            if (i % 3 == 1) {
+                // 当是3的倍数的时候，就开始生成新的行
+                tablerow = new TableRow(HourlyEmployeeSendAppointmentActivity.this);
+                tablerow.addView(waiterItemView);
+                waiterItemTableContent.addView(tablerow, new TableLayout.LayoutParams(LayoutParams.FILL_PARENT,
+                        LayoutParams.WRAP_CONTENT));
+            } else {
                 tablerow.addView(waiterItemView);
             }
-            waiterItemTableContent.addView(tablerow, new TableLayout.LayoutParams(LayoutParams.FILL_PARENT,
-                    LayoutParams.WRAP_CONTENT));
-
         }
     }
 
@@ -206,6 +210,13 @@ public class HourlyEmployeeSendAppointmentActivity extends Activity {
 
         @Override
         public void onClick(View v) {
+            // String phone = curSp.getString("curUserPhone", "");
+            String phone = phoneTextview.getText().toString().trim();
+            if (TextUtils.isEmpty(phone)) {
+                Toast.makeText(HourlyEmployeeSendAppointmentActivity.this, R.string.he_send_appointment_no_phone_error,
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
             List<HourlyEmployeeItemVO> list = (List<HourlyEmployeeItemVO>) getIntent().getSerializableExtra(
                     "hourlyEmployeeItems");
             // TODO dengjie 这里需要获取当前用户,这些数据都要进行获取
@@ -221,16 +232,15 @@ public class HourlyEmployeeSendAppointmentActivity extends Activity {
                 // 累计总价
                 allprice = allprice + hei.getPrice();
             }
-            SharedPreferences curUser = getSharedPreferences("curUser", 0);
-            String curSessionToken = curUser.getString("curSessionToken", "");
-            long userid = curUser.getLong("curUserId", 0);
-            String name = curUser.getString("curUserName", "");
-            String phone = curUser.getString("curUserPhone", "");
-            String address = curUser.getString("curUserAddress", "");
+            SharedPreferences curSp = getSharedPreferences(PreferenceUtils.PREFERENCE, 0);
+            String curSessionToken = curSp.getString("curSessionToken", "");
+            long userid = curSp.getLong("curUserId", 0);
+            String name = curSp.getString("curUserName", "");
+
+            String address = curSp.getString("curUserAddress", "");
             // 商店
-            SharedPreferences curShop = getSharedPreferences("curShop", 0);
-            long storeid = curShop.getLong("curStoreId", 0);
-            String storename = curShop.getString("curStoreName", "");
+            long storeid = curSp.getLong("curStoreId", 0);
+            String storename = curSp.getString("curStoreName", "");
             HourlyEmployeeDAO.createHourlyWorkerAppointment(storeid, storename, allprice, userid, name, phone, address,
                     curSessionToken, services, createHourlyWorkerAppointmentCallBack);
         }
@@ -245,8 +255,9 @@ public class HourlyEmployeeSendAppointmentActivity extends Activity {
         @Override
         public void textLoaded(String text) {
             // 解析返回的JSON字符串
-            HourlyEmployeeItemResult msgList = MierJsonUtils.readValue(text, new TypeToken<HourlyEmployeeItemResult>() {
-            }.getType());
+            HourlyEmployeeAppointmentResult msgList = MierJsonUtils.readValue(text,
+                    new TypeToken<HourlyEmployeeAppointmentResult>() {
+                    }.getType());
             // 成功
             Head head = msgList.getHead();
             int status = -1;

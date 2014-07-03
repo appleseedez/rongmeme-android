@@ -22,7 +22,9 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.dragon.core.galhttprequest.GalDownLoadTask.GalDownLoadTaskListener;
 import org.dragon.core.utils.net.NetUtils;
 import org.dragon.rmm.R;
@@ -486,7 +488,8 @@ public class GalHttpRequest {
                     // 不带参数的POST，一般内容体发送都是JSON字符串，采用StringEntity。否则采用参数提交，UrlEncodedFormEntity。
                     if (key.equals(NO_PARAMETERS)) {
                         request.addHeader("Content-Type", "application/json");
-                        request.setEntity(new StringEntity(value, "UTF-8"));
+                        StringEntity se = new StringEntity(value, "UTF-8");
+                        request.setEntity(se);
                     } else {
                         nameValuePairs.add(new BasicNameValuePair(key, value));
                         request.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));

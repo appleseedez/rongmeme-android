@@ -6,6 +6,7 @@
  */
 package org.dragon.rmm.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dragon.core.galhttprequest.GalHttpRequest;
@@ -13,8 +14,10 @@ import org.dragon.core.galhttprequest.GalHttpRequest.GalHttpLoadTextCallBack;
 import org.dragon.core.utils.json.MierJsonUtils;
 import org.dragon.rmm.Constants;
 import org.dragon.rmm.domain.CleaningAppointmentForm;
+import org.dragon.rmm.domain.CleaningAppointmentFormBody;
 import org.dragon.rmm.domain.CleaningAppointmentItemForm;
 import org.dragon.rmm.domain.CleaningItemResult;
+import org.dragon.rmm.domain.CleaningItemVO;
 import org.dragon.rmm.domain.common.Head;
 
 import android.content.Context;
@@ -47,8 +50,9 @@ public class CleaningDAO {
         // 交给GalHttprequest自动组装url中的参数
         // 设置post内容
         CleaningItemResult res = new CleaningItemResult();
-        Head head = new Head("android", 0, sessionToken);
+        Head head = new Head(1, 0, sessionToken);
         res.setHead(head);
+        res.setBody(new ArrayList<CleaningItemVO>());
         String json = MierJsonUtils.toJson(res);
 
         GalHttpRequest request = GalHttpRequest.requestWithURL(context, requestUrl);
@@ -67,8 +71,9 @@ public class CleaningDAO {
         // 交给GalHttprequest自动组装url中的参数
         // 设置post内容
         CleaningItemResult res = new CleaningItemResult();
-        Head head = new Head("android", 0, sessionToken);
+        Head head = new Head(1, 0, sessionToken);
         res.setHead(head);
+        res.setBody(new ArrayList<CleaningItemVO>());
         String json = MierJsonUtils.toJson(res);
 
         GalHttpRequest request = GalHttpRequest.requestWithURL(context, requestUrl);
@@ -88,11 +93,12 @@ public class CleaningDAO {
         String requestUrl = Constants.SERVER_DOMAIN_AND_PORT + "/eclean/createCleanAppointment.json";
         // 交给GalHttprequest自动组装url中的参数
         // 设置post内容
-        Head head = new Head("android", 0, sessionToken);
+        Head head = new Head(1, 0, sessionToken);
         String servicetype = "bj";
         String source = "app";
-        CleaningAppointmentForm form = new CleaningAppointmentForm(head, storeid, servicetype, storename, allprice,
+        CleaningAppointmentFormBody body = new CleaningAppointmentFormBody(storeid, servicetype, storename, allprice,
                 userid, name, phone, address, source, services);
+        CleaningAppointmentForm form = new CleaningAppointmentForm(head, body);
 
         String json = MierJsonUtils.toJson(form);
 

@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ssi_top_navigation_bar"
     android:layout_width="fill_parent"
-    android:layout_height="50dp"
+    android:layout_height="60dp"
     android:background="@drawable/small_category_bg_n"
-    android:gravity="center_vertical" >
+     >
 
     <TextView
         android:id="@+id/ssi_small_category_name_title"
@@ -14,8 +14,8 @@
         android:layout_marginLeft="20dp"
         android:singleLine="true"
         android:text="@string/ssi_small_category_name_title_text"
-        android:textColor="@color/R61G85B1"
-        android:textSize="20sp" />
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
     <ImageButton
         android:id="@+id/ssi_small_category_checkbox_imageButton"
@@ -27,5 +27,9 @@
         android:background="@null"
         android:contentDescription="@string/ssi_small_category_checkbox_imageButton_desc"
         android:src="@drawable/item_checked" />
-
+   <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:background="@null" >
+    </View>
 </RelativeLayout>

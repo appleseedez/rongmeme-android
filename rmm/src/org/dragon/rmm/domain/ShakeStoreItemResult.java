@@ -17,12 +17,12 @@ import org.dragon.rmm.domain.common.Head;
  * @version 1.0, 2012-08-28
  * @since 1.0
  */
-public class CleaningItemResult implements java.io.Serializable {
+public class ShakeStoreItemResult implements java.io.Serializable {
 
     /**
-     * 序列化
+     * 
      */
-    private static final long serialVersionUID = 2668356569227527827L;
+    private static final long serialVersionUID = 2856006461790419940L;
     /**
      * 成功、失败需要发送携带的字符串信息给前端
      */
@@ -30,7 +30,7 @@ public class CleaningItemResult implements java.io.Serializable {
     /**
      * 结果对象封装携带的附件
      */
-    private List<CleaningItemVO> body;
+    private List<ShakeStoreItemVO> body;
 
     public Head getHead() {
         return head;
@@ -40,11 +40,11 @@ public class CleaningItemResult implements java.io.Serializable {
         this.head = head;
     }
 
-    public List<CleaningItemVO> getBody() {
+    public List<ShakeStoreItemVO> getBody() {
         return body;
     }
 
-    public void setBody(List<CleaningItemVO> body) {
+    public void setBody(List<ShakeStoreItemVO> body) {
         this.body = body;
     }
 

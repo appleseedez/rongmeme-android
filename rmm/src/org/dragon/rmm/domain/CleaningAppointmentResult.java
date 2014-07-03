@@ -6,8 +6,6 @@
  */
 package org.dragon.rmm.domain;
 
-import java.util.List;
-
 import org.dragon.rmm.domain.common.Head;
 
 /**
@@ -17,7 +15,7 @@ import org.dragon.rmm.domain.common.Head;
  * @version 1.0, 2012-08-28
  * @since 1.0
  */
-public class CleaningItemResult implements java.io.Serializable {
+public class CleaningAppointmentResult implements java.io.Serializable {
 
     /**
      * 序列化
@@ -30,7 +28,7 @@ public class CleaningItemResult implements java.io.Serializable {
     /**
      * 结果对象封装携带的附件
      */
-    private List<CleaningItemVO> body;
+    private CleaningItemVO body;
 
     public Head getHead() {
         return head;
@@ -40,11 +38,11 @@ public class CleaningItemResult implements java.io.Serializable {
         this.head = head;
     }
 
-    public List<CleaningItemVO> getBody() {
+    public CleaningItemVO getBody() {
         return body;
     }
 
-    public void setBody(List<CleaningItemVO> body) {
+    public void setBody(CleaningItemVO body) {
         this.body = body;
     }
 

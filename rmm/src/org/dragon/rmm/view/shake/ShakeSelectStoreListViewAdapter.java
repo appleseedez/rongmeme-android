@@ -3,7 +3,8 @@ package org.dragon.rmm.view.shake;
 import java.util.List;
 
 import org.dragon.rmm.R;
-import org.dragon.rmm.domain.StoresVO;
+import org.dragon.rmm.domain.ShakeStoreItemVO;
+import org.dragon.rmm.utils.PreferenceUtils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,7 +24,7 @@ import android.widget.TextView;
  */
 public class ShakeSelectStoreListViewAdapter extends BaseAdapter {
 
-    private List<StoresVO> data;
+    private List<ShakeStoreItemVO> data;
     /**
      * LayoutInflater 类是代码实现中获取布局文件的主要形式 LayoutInflater layoutInflater = LayoutInflater.from(context); View convertView
      * = layoutInflater.inflate(); LayoutInflater的使用,在实际开发种LayoutInflater这个类还是非常有用的,它的作用类似于 findViewById(),
@@ -32,7 +33,7 @@ public class ShakeSelectStoreListViewAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private Context context;
 
-    public ShakeSelectStoreListViewAdapter(Context context, List<StoresVO> data) {
+    public ShakeSelectStoreListViewAdapter(Context context, List<ShakeStoreItemVO> data) {
         this.context = context;
         this.data = data;
         this.layoutInflater = LayoutInflater.from(context);
@@ -109,10 +110,14 @@ public class ShakeSelectStoreListViewAdapter extends BaseAdapter {
         @Override
         public void onClick(View v) {
             ShakeSelectStoreViewHolder shakeSelectStoreViewHolder = (ShakeSelectStoreViewHolder) v.getTag();
-            SharedPreferences sharedPrefrences = context.getSharedPreferences("curShop", context.MODE_WORLD_READABLE);// 得到SharedPreferences
+            SharedPreferences sharedPrefrences = context.getSharedPreferences(PreferenceUtils.PREFERENCE, context.MODE_WORLD_READABLE);// 得到SharedPreferences
             Editor editor = sharedPrefrences.edit();
             //把选择门店id存储起来
-            editor.putLong("curStoreId", shakeSelectStoreViewHolder.storeid);
+            editor.putLong(PreferenceUtils.PREFERENCE_SHOPID, shakeSelectStoreViewHolder.storeid);
+            editor.putString(PreferenceUtils.PREFERENCE_SHOPNAME, shakeSelectStoreViewHolder.storeNameTextView.getText().toString());
+            editor.putString(PreferenceUtils.PREFERENCE_SHOPADDR, shakeSelectStoreViewHolder.storeAddressTextView.getText().toString());
+            ShakeSelectStoreActivity sssa = (ShakeSelectStoreActivity)context;
+            sssa.finish();
         }
     };
 }

@@ -9,10 +9,11 @@ import org.dragon.rmm.Constants;
 import org.dragon.rmm.R;
 import org.dragon.rmm.dao.CleaningDAO;
 import org.dragon.rmm.domain.CleaningAppointmentItemForm;
-import org.dragon.rmm.domain.CleaningItemBody;
+import org.dragon.rmm.domain.CleaningAppointmentResult;
 import org.dragon.rmm.domain.CleaningItemResult;
 import org.dragon.rmm.domain.CleaningItemVO;
 import org.dragon.rmm.domain.common.Head;
+import org.dragon.rmm.utils.PreferenceUtils;
 import org.dragon.rmm.widget.dialog.NewMsgDialog;
 
 import android.app.Activity;
@@ -30,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -81,8 +83,8 @@ public class CleaningCustomActivity extends Activity {
     }
 
     public void loadCleanServices() {
-        SharedPreferences curUser = getSharedPreferences("curUser", 0);
-        String curSessionToken = curUser.getString("curSessionToken", "");
+        SharedPreferences curSp = getSharedPreferences(PreferenceUtils.PREFERENCE, 0);
+        String curSessionToken = curSp.getString("curSessionToken", "");
         CleaningDAO.loadCleanServices(curSessionToken, loadCleanServicesCallBack);
     }
 
@@ -196,7 +198,7 @@ public class CleaningCustomActivity extends Activity {
         public void onClick(View v) {
             List<CleaningItemVO> cis = new ArrayList<CleaningItemVO>();
             for (int i = 0; i < list.size(); i++) {
-                RelativeLayout smallStartItem = (RelativeLayout) smallStartItemContent.getChildAt(i);
+                LinearLayout smallStartItem = (LinearLayout) smallStartItemContent.getChildAt(i);
                 CheckBox checkbox = (CheckBox) smallStartItem
                         .findViewById(R.id.ssic_small_category_checkbox_imageButton);
                 if (checkbox.isChecked()) {
@@ -204,9 +206,13 @@ public class CleaningCustomActivity extends Activity {
                     cis.add((CleaningItemVO) smallStartItem.getTag());
                 }
             }
-            
+            if (cis == null || cis.size() == 0) {
+                Toast.makeText(CleaningCustomActivity.this, R.string.confirm_custom_appointment_no_check,
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
             // 进行服务转换，且求总价
-            double allprice=0;
+            double allprice = 0;
             List<CleaningAppointmentItemForm> services = new ArrayList<CleaningAppointmentItemForm>();
             for (CleaningItemVO ci : cis) {
                 CleaningAppointmentItemForm cleaningAppointmentItemForm = new CleaningAppointmentItemForm();
@@ -216,19 +222,18 @@ public class CleaningCustomActivity extends Activity {
                 // 累计总价
                 allprice = allprice + ci.getPrice();
             }
-            SharedPreferences curUser = getSharedPreferences("curUser", 0);
-            String curSessionToken = curUser.getString("curSessionToken", "");
-            long userid = curUser.getLong("curUserId", 0);
-            String name = curUser.getString("curUserName", "");
-            String phone = curUser.getString("curUserPhone", "");
-            String address = curUser.getString("curUserAddress", "");
-            //商店
-            SharedPreferences curShop = getSharedPreferences("curShop", 0);
-            long storeid = curShop.getLong("curStoreId", 0);
-            String storename = curShop.getString("curStoreName", "");
-            
-            CleaningDAO.createCleanAppointment(storeid, storename, allprice, userid, name, phone, address,curSessionToken, services,
-                    createCleanAppointmentCallBack);
+            SharedPreferences curSp = getSharedPreferences(PreferenceUtils.PREFERENCE, 0);
+            String curSessionToken = curSp.getString("curSessionToken", "");
+            long userid = curSp.getLong("curUserId", 0);
+            String name = curSp.getString("curUserName", "");
+            String phone = curSp.getString("curUserPhone", "");
+            String address = curSp.getString("curUserAddress", "");
+            // 商店
+            long storeid = curSp.getLong("curStoreId", 0);
+            String storename = curSp.getString("curStoreName", "");
+
+            CleaningDAO.createCleanAppointment(storeid, storename, allprice, userid, name, phone, address,
+                    curSessionToken, services, createCleanAppointmentCallBack);
 
         }
     };
@@ -266,9 +271,8 @@ public class CleaningCustomActivity extends Activity {
             CleaningItemResult msgList = MierJsonUtils.readValue(text, new TypeToken<CleaningItemResult>() {
             }.getType());
             // 成功
-            CleaningItemBody body = msgList.getBody();
-            list = body.getExtra();
-            if (msgList != null && body != null && list.size() != 0) {
+            list = msgList.getBody();
+            if (msgList != null && list.size() != 0) {
                 initStarComponents(list);
             }
 
@@ -283,8 +287,9 @@ public class CleaningCustomActivity extends Activity {
         @Override
         public void textLoaded(String text) {
             // 解析返回的JSON字符串
-            CleaningItemResult msgList = MierJsonUtils.readValue(text, new TypeToken<CleaningItemResult>() {
-            }.getType());
+            CleaningAppointmentResult msgList = MierJsonUtils.readValue(text,
+                    new TypeToken<CleaningAppointmentResult>() {
+                    }.getType());
             // 成功
             Head head = msgList.getHead();
             int status = -1;

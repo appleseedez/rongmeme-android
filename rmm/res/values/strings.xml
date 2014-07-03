@@ -46,13 +46,16 @@
     <string name="nmd_msg_content_textview_default_faild_text">亲网络不好，请稍等一下</string>
     <string name="nmd_close_btn_desc">弹出框的描述</string>
     <string name="sss_tv_title_text">选择门店</string>
+    <string name="he_send_appointment_no_phone_error">请输入手机号</string>
+    <string name="confirm_custom_appointment_no_check">请选择服务内容</string>
+    <string name="next_flow_no_check">请选择钟点工</string>
 
     <item name="cleaning_big_category_tag" type="id"></item>
 
     <!-- dengjie -->
 
 	<!-- Common -->
-	<string name="image_content_description">占位图标</string>
+	  <string name="image_content_description">占位图标</string>
 
     <!-- Portal -->
     <string name="activity_label_app_portal">AppPortal</string>
@@ -78,8 +81,8 @@
     <string name="dry_cleaning_reserve_address">联系地址</string>
     <string name="dry_cleaning_reserve_confirmed">确认预定</string>
     <string name="dry_cleaning_reserve_failture">预定失败</string>
-    <string name="dry_cleaning_reserve_disclaimer_title">免责声明</string>
-    <string name="dry_cleaning_reserve_disclaimer">免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明</string>
+     <string name="dry_cleaning_reserve_disclaimer_title">免责声明</string>
+    <string name="dry_cleaning_reserve_disclaimer">免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明</string>
     <string name="dry_cleaning_reserve_disclaimer_accept">同意</string>
     <string name="dry_cleaning_reserve_disclaimer_notification">请查看并同意免责声明</string>
     <string name="dry_cleaning_reserve_good">物品</string>
@@ -89,7 +92,6 @@
     <string name="dry_cleaning_reserve_send_reservation">发送预约</string>
     <string name="dry_cleaning_reserve_notification_part_a">预约单已经发送\n稍后客服人员会通过\n</string>
     <string name="dry_cleaning_reserve_notification_part_b">\n联系您</string>
-    <string name="dry_cleaning_reserve_notification">请先选择物品哟</string>
 
     <!-- User Center -->
     <string name="activity_label_user_center_portal">个人中心</string>
@@ -98,9 +100,10 @@
     <string name="user_center_forward_label">个人设置</string>
     <string name="user_profile_telephone_label">联系电话</string>
     <string name="user_profile_address_label">联系地址</string>
+    <string name="user_profile_logout">注　销</string>
     <string name="user_profile_address_changed_success">修改成功</string>
     <string name="user_profile_address_changed_failture">修改失败</string>
-    <string name="user_profile_logout">注　销</string>
+    <string name="title_activity_order_portal">OrderPortal</string>
 
     <!-- User Order -->
     <string name="order_type_text_unknown">未知订单</string>
@@ -117,7 +120,6 @@
     <string name="order_service_text_amount">数量</string>
     <string name="order_service_text_price">单价</string>
     <string name="order_service_text_total_price">总计</string>
-    <string name="order_service_comments_list">"服务很好\n质量很好\n人品很好\n很细心"</string>
 
     <!-- Payment -->
     <string name="payment_alipay_label">使用支付宝支付</string>
@@ -127,4 +129,7 @@
     <string name="payment_order_type_dry_cleaning">蓉么么干洗服务订单</string>
     <string name="payment_order_type_hourly_worker">蓉么么钟点工服务订单</string>
     <string name="payment_order_description">随便说说就好 这是文案</string>
+      <string name="dry_cleaning_reserve_notification">请先选择物品哟</string>
+       <string name="order_service_comments_list">"服务很好\n质量很好\n人品很好\n很细心"</string>
+    
 </resources>

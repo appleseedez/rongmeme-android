@@ -1,8 +1,6 @@
 package org.dragon.rmm.view.splash;
 
-import org.dragon.rmm.MainActivity;
 import org.dragon.rmm.R;
-import org.dragon.rmm.push.Utils;
 import org.dragon.rmm.ui.ActLogin;
 
 import android.app.Activity;
@@ -11,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.baidu.android.pushservice.BasicPushNotificationBuilder;
-import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 
 /**

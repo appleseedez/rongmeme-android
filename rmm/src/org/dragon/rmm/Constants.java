@@ -23,7 +23,7 @@ public class Constants {
     /**
      * 服务器IP地址或者域名,当多台的时候则是域名并且加上端口
      */
-    public static final String SERVER_DOMAIN_AND_PORT = "http://218.244.130.240:8080/";
+    public static final String SERVER_DOMAIN_AND_PORT = "http://218.244.130.240:8080";
     /**
      * 发布作品的时候，计算GEOHASH通过经纬度生成的整体字符串长度，越长越精确.
      */

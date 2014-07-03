@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dragon.rmm.R;
-import org.dragon.rmm.domain.StoresVO;
+import org.dragon.rmm.domain.ShakeStoreItemVO;
 
 import android.app.Activity;
 import android.content.res.Configuration;
@@ -23,7 +23,7 @@ public class ShakeSelectStoreActivity extends Activity {
 
     private ShakeSelectStoreListViewAdapter mAdapter;
 
-    private List<StoresVO> listItems = new ArrayList<StoresVO>();
+    private List<ShakeStoreItemVO> listItems = new ArrayList<ShakeStoreItemVO>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,7 +90,7 @@ public class ShakeSelectStoreActivity extends Activity {
         // TODO dengjie 将前面摇一摇出来的数据获取出来然后赋值
         // 从新刷新需要清空现有的数据
         listItems.clear();
-        listItems.addAll((List<StoresVO>) getIntent().getSerializableExtra("nearbyStores"));
+        listItems.addAll((List<ShakeStoreItemVO>) getIntent().getSerializableExtra("nearbyStores"));
         mAdapter.notifyDataSetChanged();
     }
 

@@ -1,5 +1,6 @@
 package org.dragon.rmm.view.hourlyemployee;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dragon.rmm.R;
@@ -34,7 +35,7 @@ public class HourlyEmployeeListViewAdapter extends BaseAdapter {
     private Context context;
 
     private ImageFetcher mImageFetcher;
-    List<Boolean> mChecked;
+    List<Boolean> mChecked = new ArrayList<Boolean>();
 
     public HourlyEmployeeListViewAdapter(Context context, List<HourlyEmployeeItemVO> data) {
         this.context = context;
@@ -69,6 +70,7 @@ public class HourlyEmployeeListViewAdapter extends BaseAdapter {
      * android绘制每一列的时候，都会调用这个方法
      */
     public View getView(int position, View convertView, ViewGroup parent) {
+        mChecked.add(false);
         HourlyEmployeeViewHolder mailListViewHolder = null;
         if (convertView == null) {
             mailListViewHolder = new HourlyEmployeeViewHolder();
@@ -99,7 +101,7 @@ public class HourlyEmployeeListViewAdapter extends BaseAdapter {
         bingUiAndData(mailListViewHolder, position);
         // 给每一行帮顶点击事件，点击后跳转到该用户的用户详细情况页面
         // convertView.setOnClickListener(convertViewOnClickListener);
-        mailListViewHolder.employeeCheckBox.setChecked(mChecked.get(position));
+        //mailListViewHolder.employeeCheckBox.setChecked(mChecked.get(position));
         return convertView;
     }
 
@@ -107,6 +109,7 @@ public class HourlyEmployeeListViewAdapter extends BaseAdapter {
      * 将UI和数据进行绑定
      */
     private void bingUiAndData(HourlyEmployeeViewHolder mailListViewHolder, int position) {
+        
         // 获取头像
         String headPortraitUrlPath = data.get(position).getAvatar();
         if (!TextUtils.isEmpty(headPortraitUrlPath)) {

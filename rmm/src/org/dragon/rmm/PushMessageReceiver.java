@@ -1,6 +1,7 @@
 package org.dragon.rmm;
 
 import org.dragon.rmm.push.Utils;
+import org.dragon.rmm.ui.ActMain;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -42,7 +43,7 @@ public class PushMessageReceiver extends BroadcastReceiver {
             Intent responseIntent = null;
             responseIntent = new Intent(Utils.ACTION_MESSAGE);
             responseIntent.putExtra(Utils.EXTRA_MESSAGE, message);
-            responseIntent.setClass(context, MainActivity.class);
+            responseIntent.setClass(context, ActMain.class);
             responseIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(responseIntent);
 
@@ -68,7 +69,7 @@ public class PushMessageReceiver extends BroadcastReceiver {
 
             Intent aIntent = new Intent();
             aIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            aIntent.setClass(context, MainActivity.class);
+            aIntent.setClass(context, ActMain.class);
             String title = intent.getStringExtra(PushConstants.EXTRA_NOTIFICATION_TITLE);
             aIntent.putExtra(PushConstants.EXTRA_NOTIFICATION_TITLE, title);
             String content = intent.getStringExtra(PushConstants.EXTRA_NOTIFICATION_CONTENT);

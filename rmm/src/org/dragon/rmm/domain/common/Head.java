@@ -22,7 +22,7 @@ public class Head implements java.io.Serializable {
     /**
      * 信号的类型
      */
-    private String signalType;
+    private int signalType;
     /**
      * 状态
      */
@@ -32,17 +32,17 @@ public class Head implements java.io.Serializable {
      */
     private String sessionToken;
 
-    public Head(String signalType, int status, String sessionToken) {
+    public Head(int signalType, int status, String sessionToken) {
         this.signalType = signalType;
         this.status = status;
         this.sessionToken = sessionToken;
     }
 
-    public String getSignalType() {
+    public int getSignalType() {
         return signalType;
     }
 
-    public void setSignalType(String signalType) {
+    public void setSignalType(int signalType) {
         this.signalType = signalType;
     }
 
