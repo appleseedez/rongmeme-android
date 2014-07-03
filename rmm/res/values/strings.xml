@@ -82,7 +82,10 @@
     <string name="dry_cleaning_reserve_confirmed">确认预定</string>
     <string name="dry_cleaning_reserve_failture">预定失败</string>
      <string name="dry_cleaning_reserve_disclaimer_title">免责声明</string>
-    <string name="dry_cleaning_reserve_disclaimer">免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明免责声明</string>
+    <string name="dry_cleaning_reserve_disclaimer">亲爱的用户：请您选择干洗服务前，务必仔细阅读并透彻理解本声明。如果您选择干洗服务，您的行 为将被视为对本声明全部内容的认可。\n
+1、我司所提供的干洗服务，是由第三方服务机构提供具体的干洗服务。我司仅负责将您的干洗物品 打包送洗。\n
+2、在打包的过程中我司工作人员会仔细与您核对送洗物品并当面封存。若送洗物品存在无法洗护的 情况，将由第三方服务机构和您联系并妥善处理。\n
+3、若存在未确认情况下送洗物品出现损毁，责任将由第三方服务公司全权承担。我司会尽一切努力 与您一道解决问题并仅剩该义务。\n谢谢您的理解和支持！</string>
     <string name="dry_cleaning_reserve_disclaimer_accept">同意</string>
     <string name="dry_cleaning_reserve_disclaimer_notification">请查看并同意免责声明</string>
     <string name="dry_cleaning_reserve_good">物品</string>

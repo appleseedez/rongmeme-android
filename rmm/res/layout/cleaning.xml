@@ -64,20 +64,17 @@
                 android:singleLine="true"
                 android:text="@string/cleaning_view_flow_btn_text"
                 android:textColor="@color/white"
-                android:textSize="18sp" >
+                android:textSize="18sp"
+                android:visibility="gone" >
             </Button>
             <!-- 我要定制 -->
 
             <Button
                 android:id="@+id/cleaning_custom_flow_btn"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
+                style="@style/button"
                 android:layout_marginBottom="60dp"
-                android:background="@drawable/cleaning_btn_n"
-                android:singleLine="true"
-                android:text="@string/cleaning_custom_flow_btn_text"
-                android:textColor="@color/white"
-                android:textSize="18sp" >
+                android:layout_marginTop="50dp"
+                android:text="@string/cleaning_custom_flow_btn_text" >
             </Button>
         </LinearLayout>
     </ScrollView>

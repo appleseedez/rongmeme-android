@@ -4,83 +4,63 @@
     android:layout_height="70dp"
     android:layout_marginTop="5dp"
     android:background="@drawable/icon_item_bg"
-    tools:context="${packageName}.${activityClass}">
+    tools:context="${packageName}.${activityClass}" >
 
-   <!--  <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:contentDescription="@string/image_content_description"/> -->
-    
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp">
-        
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical" >
+
         <TextView
-	        android:id="@+id/title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="5dp"
-	        android:textSize="20sp" 
-	        android:textColor="@android:color/white"/>
-    
-    	<TextView
-	       android:id="@+id/price"
-	       android:layout_width="wrap_content"
-	       android:layout_height="wrap_content"
-	       android:layout_marginTop="5dp"
-	        android:layout_marginBottom="5dp"
-	       android:textSize="14sp"
-	       android:textColor="@android:color/white"/>
+            android:id="@+id/title"
+            style="@style/title"
+            android:layout_marginTop="5dp" />
+
+        <TextView
+            android:id="@+id/price"
+            style="@style/title.small"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp" />
     </LinearLayout>
-    
+
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp">
-        
-        <TextView
-	        android:id="@+id/subtotal"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center_vertical"
-	        android:textSize="14sp"
-	        android:textColor="@android:color/white"/>
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal" >
 
-		<Button
-	        android:id="@+id/subtraction"
-	        android:layout_width="26dp"
-	        android:layout_height="26dp"
-	        android:layout_marginLeft="10dp"
-	        android:layout_gravity="center_vertical"
-	        android:background="@drawable/icon_substraction"/>
-    
-	    <TextView
-	        android:id="@+id/amount"
-	        android:layout_width="30dp"
-	        android:layout_height="30dp"
-	        android:layout_marginLeft="5dp"
-	        android:layout_gravity="center_vertical"
-	        android:background="@drawable/icon_amount"
-	        android:gravity="center"
-	        android:textSize="14sp"
-	        android:textColor="@android:color/white"/>
-    
-	    <Button
-	        android:id="@+id/addition"
-	        android:layout_width="26dp"
-	        android:layout_height="26dp"
-	        android:layout_marginLeft="5dp"
-	        android:layout_gravity="center_vertical"
-	        android:background="@drawable/icon_addition"/>
+        <TextView
+            android:id="@+id/subtotal"
+            style="@style/title.small"
+            android:layout_gravity="center_vertical" />
+
+        <Button
+            android:id="@+id/subtraction"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/icon_substraction" />
+
+        <TextView
+            android:id="@+id/amount"
+            style="@style/title.small"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/icon_amount" />
+
+        <Button
+            android:id="@+id/addition"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/icon_addition" />
     </LinearLayout>
-    
+
 </RelativeLayout>
