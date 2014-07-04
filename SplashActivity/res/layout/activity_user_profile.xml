@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_full_screen"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/page_header_layout"
+        layout="@layout/activity_navigator" />
+
+    <TextView
+        android:id="@+id/telephone"
+        style="@style/edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/address"
+        style="@style/edit"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_n"
+        android:gravity="top|left"
+        android:hint="请输入联系地址"
+        android:inputType="textMultiLine"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="vertical"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/user_logout"
+        style="@style/button"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        android:text="@string/user_profile_logout" />
+
+</LinearLayout>

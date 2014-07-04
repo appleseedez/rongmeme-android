@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/si_top_navigation_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/big_category_bg_n" >
+
+        <ImageView
+            android:id="@+id/si_big_category_start_level_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="21dp"
+            android:background="@null"
+            android:contentDescription="@string/si_big_category_start_level_imageview_desc"
+            android:src="@drawable/onestart" />
+
+        <TextView
+            android:id="@+id/si_big_category_name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/si_big_category_start_level_imageview"
+            android:singleLine="true"
+            android:text="@string/cleaning_tv_title_text"
+            android:textColor="@color/R61G85B1"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/si_big_category_pull_down_imageButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:contentDescription="@string/si_big_category_pull_down_imageButton_desc"
+            android:src="@drawable/pull_down" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:background="@null" >
+    </View>
+
+    <LinearLayout
+        android:id="@+id/si_small_category_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone" >
+    </LinearLayout>
+
+</LinearLayout>
