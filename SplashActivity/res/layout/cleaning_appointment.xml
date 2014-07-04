@@ -31,7 +31,7 @@
             android:singleLine="true"
             android:text="@string/cleaning_tv_title_text"
             android:textColor="@color/white"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <!-- 功能列表区域 -->
@@ -45,7 +45,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/ca_tip_msg_textview_defalut_text"
         android:textColor="@color/white"
-        android:textSize="20sp" >
+        android:textSize="16sp" >
     </TextView>
 
     <!-- 星级服务 -->

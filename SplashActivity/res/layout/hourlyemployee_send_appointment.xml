@@ -31,7 +31,7 @@
             android:singleLine="true"
             android:text="@string/hsa_tv_title_text"
             android:textColor="@color/white"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <!-- 功能列表区域 -->
@@ -57,7 +57,7 @@
                 android:layout_marginTop="40dp"
                 android:text="@string/hsa_tip_msg_textview_defalut_text"
                 android:textColor="@color/white"
-                android:textSize="20sp" >
+                android:textSize="16sp" >
             </TextView>
 
             <!-- 服务人员 -->
@@ -88,7 +88,7 @@
                 android:singleLine="true"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="20sp" >
+                android:textSize="16sp" >
             </EditText>
             <!-- 确认预约按钮 -->
 
