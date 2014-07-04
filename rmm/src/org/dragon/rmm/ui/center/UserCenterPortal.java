@@ -22,19 +22,21 @@ import android.widget.TextView;
 
 public class UserCenterPortal extends ProgreadListActivity<UserOrder> {
 	
-	public final String UID_ICON   = "icon";
+	public final String UID_ORDER_ICON     = "order_icon";
 	
-	public final String UID_TITLE  = "title";
+	public final String UID_ORDER_TITLE    = "order_title";
 	
-	public final String UID_DATE   = "date";
+	public final String UID_ORDER_ID       = "order_id";
 	
-	public final String UID_STATUS = "status";
+	public final String UID_ORDER_DATE     = "order_date";
+	
+	public final String UID_ORDER_STATUS   = "order_status";
 	
 	public UserCenterPortal() {
 		super(R.layout.activity_user_center_portal, R.layout.activity_user_center_portal_item);
 		
-		String[] fields = { UID_ICON, UID_TITLE, UID_DATE, UID_STATUS};
-		int[] elements = { R.id.icon, R.id.title, R.id.date, R.id.status };
+		String[] fields = { UID_ORDER_ICON, UID_ORDER_TITLE, UID_ORDER_ID, UID_ORDER_DATE, UID_ORDER_STATUS};
+		int[] elements = { R.id.order_icon, R.id.order_title, R.id.order_id, R.id.order_date, R.id.order_status };
 		
 		setFields(fields);
 		setElements(elements);
@@ -45,10 +47,11 @@ public class UserCenterPortal extends ProgreadListActivity<UserOrder> {
 
 	@Override
 	protected void updateDataSet(UserOrder data, HashMap<String, Object> mapping) {
-		mapping.put(UID_ICON   , UserOrderUtils.getIconResourceId(data));
-		mapping.put(UID_TITLE  , UserOrderUtils.getOrderTypeText(data));
-		mapping.put(UID_DATE   , data.getUpdatetime().split(" ")[0]);
-		mapping.put(UID_STATUS , UserOrderUtils.getOrderStatusText(data));
+		mapping.put(UID_ORDER_ICON   , UserOrderUtils.getIconResourceId(data));
+		mapping.put(UID_ORDER_TITLE  , UserOrderUtils.getOrderTypeText(data));
+		mapping.put(UID_ORDER_ID     , UserOrderUtils.getOrderIdFixedWidth(data));
+		mapping.put(UID_ORDER_DATE   , UserOrderUtils.getOrderDateText(data));
+		mapping.put(UID_ORDER_STATUS , UserOrderUtils.getOrderStatusText(data));
 	}
 
 	@Override
@@ -71,16 +74,19 @@ public class UserCenterPortal extends ProgreadListActivity<UserOrder> {
 	@Override
 	protected boolean updateViewValue(int id, View view, Object data) {
 		switch (id) {
-		case R.id.icon:
+		case R.id.order_icon:
 			((ImageView) view).setImageResource((Integer)data);
 			break;
-		case R.id.title:
+		case R.id.order_title:
 			((TextView) view).setText((String) data);
 			break;
-		case R.id.date:
+		case R.id.order_id:
 			((TextView) view).setText((String) data);
 			break;
-		case R.id.status:
+		case R.id.order_date:
+			((TextView) view).setText((String) data);
+			break;
+		case R.id.order_status:
 			((TextView) view).setText((String) data);
 			break;
 		}

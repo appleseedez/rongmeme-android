@@ -5,36 +5,136 @@
     android:background="@drawable/bg_full_screen"
     tools:context="${packageName}.${activityClass}" >
 
-    <include
-        android:id="@+id/page_header_layout"
-        layout="@layout/activity_navigator" />
-
-    <RelativeLayout
-        android:id="@+id/user_order_date_wrapper"
+    <include android:id="@+id/navigator_layout" layout="@layout/activity_navigator" />
+    
+    <LinearLayout
+        android:id="@+id/order_info_box"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/page_header_layout"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="60dp"
-        android:background="@color/backgroud_black" >
+        android:layout_height="wrap_content"
+        android:layout_below="@id/navigator_layout">
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+       		android:layout_marginLeft="30dp"
+            android:src="@drawable/icon_order_cleaning_type"
+            android:contentDescription="@string/image_content_description"/>
+        
+        <LinearLayout
+            android:orientation="vertical"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_marginLeft="30dp"
+        	android:layout_gravity="center_vertical">
+            
+            <TextView
+                android:id="@+id/order_total_price"
+                style="@style/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            
+            <TextView
+                android:id="@+id/order_status"
+                style="@style/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"/>
+            
+        </LinearLayout>
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/contact_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/order_info_box"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/backgroud_white"
+        android:orientation="vertical"
+        android:paddingBottom="5dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="5dip" >
+        
+        <TextView
+            android:id="@+id/order_date"
+            style="@style/title"
+            android:gravity="left|center_vertical"
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/icon_map_pin"
+            android:drawablePadding="15dip"
+            android:minHeight="35dp"
+            android:textColor="@android:color/white" />
 
         <TextView
-            android:id="@+id/user_order_date"
+            android:id="@+id/user_address"
             style="@style/title"
-            android:layout_centerInParent="true"
-            android:layout_margin="5dp" />
-    </RelativeLayout>
+            android:gravity="left|center_vertical"
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/icon_map_pin"
+            android:drawablePadding="15dip"
+            android:minHeight="35dp"
+            android:textColor="@android:color/white" />
 
-    <ListView
-        android:id="@+id/manifest"
+        <TextView
+            android:id="@+id/user_telephone"
+            style="@style/title"
+            android:gravity="left|center_vertical"
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/icon_contact"
+            android:drawablePadding="15dip"
+            android:minHeight="35dp"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/order_server_label"
+        style="@style/title"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@id/user_order_date_wrapper"
-        android:layout_margin="20dp"
-        android:background="@color/backgroud_black"
-        android:cacheColorHint="@android:color/transparent"
-        android:divider="@null" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:gravity="left"
+        android:layout_below="@id/contact_box"
+        android:text="@string/order_server_text_label"
+        android:textSize="20sp"/>
+    
+    <LinearLayout
+        android:id="@+id/order_server_box"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@id/order_server_label">
+        
+        <TextView
+            android:id="@+id/order_server_a"
+            style="@style/order_server_empty"
+            android:layout_weight="1"/>
+        
+        <TextView
+            android:id="@+id/order_server_b"
+            style="@style/order_server_empty"
+            android:layout_weight="1"/>
+        
+        <TextView
+            android:id="@+id/order_server_c"
+            style="@style/order_server_empty"
+            android:layout_weight="1"/>
+                
+        <TextView
+            android:id="@+id/order_server_d"
+            style="@style/order_server_empty"
+            android:layout_weight="1"/>       
+    </LinearLayout>
 
     <TextView
         android:id="@+id/order_payment"
@@ -43,7 +143,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="60dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="20dp"/>
 
     <TextView
         android:id="@+id/notify_serve_done"
@@ -58,6 +158,7 @@
         android:drawablePadding="10dp"
         android:gravity="center"
         android:textSize="18sp"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

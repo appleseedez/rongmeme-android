@@ -1,7 +1,5 @@
 package org.dragon.rmm.ui.center;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.dragon.rmm.R;
@@ -16,31 +14,31 @@ import org.dragon.rmm.ui.ActShare;
 import org.dragon.rmm.ui.center.model.UserOrder;
 import org.dragon.rmm.ui.center.model.UserOrderConsts;
 import org.dragon.rmm.ui.center.model.UserOrderServer;
-import org.dragon.rmm.ui.center.model.UserOrderService;
 import org.dragon.rmm.ui.center.model.UserOrderUtils;
 import org.dragon.rmm.utils.PreferenceUtils;
 import org.dragon.rmm.utils.StringResource;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.NetworkImageView;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 public class UserOrderDetail extends Activity implements OnClickListener, ResponseListener {
 
 	public static final String INTENT_EXTRA_USER_ORDER = "extra_user_order";
 
-	public static final String INTENT_EXTRA_USER_ORDER_ID = "extra_user_order_id";
+	public static final String INTENT_EXTRA_USER_ORDER_BARCODE_SCAN_MODE = "extra_user_order_barcode_scan_mode";
 
 	public final String UID_SERVICE_ITEM_TITLE = "service_item_title";
 
@@ -49,10 +47,6 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 	public final String UID_SERVICE_ITEM_PRICE = "service_item_price";
 
 	private UserOrder mUserOrder;
-
-	private SimpleAdapter mSimpleAdapter;
-
-	private List<HashMap<String, Object>> mDataSet;
 
 	private Handler mHandler;
 
@@ -65,15 +59,13 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 		setContentView(R.layout.activity_user_order_detail);
 
 		initViewLayout();
-		initSimleAdapter();
 
 		String bundle = getIntent().getStringExtra(INTENT_EXTRA_USER_ORDER);
 		if (bundle != null) {
 			mUserOrder = UserOrderUtils.fromJson(bundle);
-			updateDataSetAndViewLayout();
-		} else {
-			String id = getIntent().getStringExtra(INTENT_EXTRA_USER_ORDER_ID);
-			requestDataSource(id);
+			updateViewLayout();
+		} else if(getIntent().getBooleanExtra(INTENT_EXTRA_USER_ORDER_BARCODE_SCAN_MODE, false)) {
+			startBarcodeScanner();
 		}
 
 		mHandler = new Handler(new PaymentHandler());
@@ -87,28 +79,11 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 		forward.setOnClickListener(this);
 	}
 
-	private void initSimleAdapter() {
-
-		mDataSet = new ArrayList<HashMap<String, Object>>();
-
-		String[] fields = { UID_SERVICE_ITEM_TITLE, UID_SERVICE_ITEM_AMOUNT, UID_SERVICE_ITEM_PRICE };
-		int[] elements = { R.id.service_item_title, R.id.service_item_amount, R.id.service_item_price };
-
-		mSimpleAdapter = new SimpleAdapter(this, mDataSet, R.layout.activity_user_order_detail_item, fields, elements);
-
-		View header = getLayoutInflater().inflate(R.layout.activity_user_order_detail_header, null);
-		View footer = getLayoutInflater().inflate(R.layout.activity_user_order_detail_footer, null);
-
-		ListView listView = (ListView) findViewById(R.id.manifest);
-
-		listView.addHeaderView(header);
-		listView.addFooterView(footer);
-
-		listView.setAdapter(mSimpleAdapter);
-	}
-
-	private void updateDataSetAndViewLayout() {
-		mDataSet.clear();
+	private void updateViewLayout() {
+		
+		if(!vaildateUserOrder()) {
+			Toast.makeText(this, R.string.order_status_text_invalidate, Toast.LENGTH_SHORT).show(); finish();
+		}
 
 		TextView title = (TextView) findViewById(R.id.navigator_title);
 		title.setText(UserOrderUtils.getOrderTypeText(mUserOrder));
@@ -125,35 +100,69 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 
 		if (mUserOrder.getStatus() == UserOrderConsts.ORDER_STATUS_SREVED) {
 			notify.setText(R.string.order_status_text_served_text);
+			notify.setVisibility(View.VISIBLE);
 			payment.setVisibility(View.INVISIBLE);
 		} else {
 			notify.setVisibility(View.INVISIBLE);
 			payment.setText(R.string.payment_alipay_label);
 			payment.setOnClickListener(this);
+			payment.setVisibility(View.VISIBLE);
 		}
 
-		TextView date = (TextView) findViewById(R.id.user_order_date);
-		date.setText(mUserOrder.getUpdatetime());
-
-		List<UserOrderService> services = mUserOrder.getServices();
-
-		double totalPrice = 0;
-		for (UserOrderService service : services) {
-			HashMap<String, Object> item = new HashMap<String, Object>();
-
-			item.put(UID_SERVICE_ITEM_TITLE, service.getName());
-			item.put(UID_SERVICE_ITEM_AMOUNT, service.getAmount());
-			item.put(UID_SERVICE_ITEM_PRICE, String.valueOf(service.getPrice()));
-
-			totalPrice += service.getAmount() * service.getPrice();
-
-			mDataSet.add(item);
+		TextView totalPrice = (TextView) findViewById(R.id.order_total_price);
+		totalPrice.setText("￥ " + mUserOrder.getAllprice());
+		
+		TextView status = (TextView) findViewById(R.id.order_status);
+		status.setText(UserOrderUtils.getOrderTypeText(mUserOrder) + UserOrderUtils.getOrderStatusText(mUserOrder));
+		
+		TextView orderDate = (TextView) findViewById(R.id.order_date);
+		orderDate.setText(mUserOrder.getUpdatetime());
+		
+		TextView userAddress = (TextView) findViewById(R.id.user_address);
+		userAddress.setText(PreferenceUtils.getUser(this).address);
+		
+		TextView userTelephone = (TextView) findViewById(R.id.user_telephone);
+		userTelephone.setText(PreferenceUtils.getUser(this).username);
+		
+		updateOrderServerViewLayout();
+	}
+	
+	private void updateOrderServerViewLayout() {
+		List<UserOrderServer> servers = mUserOrder.getServers();
+		if(servers.size() >= 1) {
+			setServerViewLayout(R.id.order_server_a, servers.get(0));
 		}
+		if(servers.size() >= 2) {
+			setServerViewLayout(R.id.order_server_b, servers.get(1));
+		}
+		if(servers.size() >= 3) {
+			setServerViewLayout(R.id.order_server_c, servers.get(2));
+		}
+		if(servers.size() >= 4) {
+			setServerViewLayout(R.id.order_server_d, servers.get(3));
+		}
+	}
+	
+	private void setServerViewLayout(int resId, UserOrderServer server) {
+		TextView view = (TextView) findViewById(resId);
+		view.setText(server.getName());
+		NetworkImageView imageView = new NetworkImageView(this);
+		imageView.setImageUrl(server.getAvatar(), ApiServer.getImageLoader(this));
+	}
+	
+	private void startBarcodeScanner() {
+		IntentIntegrator integrator = new IntentIntegrator(this);
+		integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+		integrator.setResultDisplayDuration(0); integrator.setCameraId(0);
+		integrator.initiateScan(); 
+	}
 
-		TextView tvTotalPrice = (TextView) findViewById(R.id.total_price);
-		tvTotalPrice.setText(String.valueOf(totalPrice));
-
-		mSimpleAdapter.notifyDataSetChanged();
+	private boolean vaildateUserOrder() {
+		if((UserOrderUtils.getOrderType(mUserOrder) == UserOrderConsts.ORDER_TYPE_UNKNOWN)
+			|| mUserOrder.getServices().isEmpty()) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -203,6 +212,19 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 	private void onBackwordBtnClick() {
 		finish();
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(resultCode == Activity.RESULT_OK) {
+			IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+			if (result == null) { super.onActivityResult(requestCode, resultCode, data); return; }
+			if (result.getContents() != null) {
+				requestDataSource(result.getContents());
+			}
+		} else if(resultCode == Activity.RESULT_CANCELED) {
+			finish();
+		}
+	}
 
 	@Override
 	public void success(ApiMethod api, String response) {
@@ -212,12 +234,14 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 		RespOrderOfNo resp = ApiServer.getGson().fromJson(response, RespOrderOfNo.class);
 		if (resp.getBody() != null) {
 			mUserOrder = resp.getBody();
-			updateDataSetAndViewLayout();
+			updateViewLayout();
 		}
 	}
 
 	@Override
 	public void fail(ApiMethod api, VolleyError error) {
+		Toast.makeText(this, R.string.order_status_text_invalidate, Toast.LENGTH_LONG).show();
+		finish();
 	}
 
 	class PaymentHandler implements Handler.Callback {
