@@ -150,22 +150,10 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-		if (result == null) { super.onActivityResult(requestCode, resultCode, data); return; }
-		if (result.getContents() != null) {
-			Intent intent = new Intent(this, UserOrderDetail.class);
-			intent.putExtra(UserOrderDetail.INTENT_EXTRA_USER_ORDER_ID, result.getContents());
-			startActivity(intent);
-		}
-	}
-
 	private void toScanBarcode(View v) {
-		IntentIntegrator integrator = new IntentIntegrator(this);
-		integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-		integrator.setResultDisplayDuration(0); integrator.setCameraId(0);
-		integrator.initiateScan(); 
+		Intent intent = new Intent(this, UserOrderDetail.class);
+		intent.putExtra(UserOrderDetail.INTENT_EXTRA_USER_ORDER_BARCODE_SCAN_MODE, true);
+		startActivity(intent);
 	}
 
 	private ResponseListener mResponseListener = new ResponseListener() {

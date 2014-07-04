@@ -19,7 +19,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +56,9 @@ public class UserProfile extends Activity implements OnClickListener, TextWatche
 		EditText address = (EditText) findViewById(R.id.address);
 		address.addTextChangedListener(this);
 
+		TextView confirm = (TextView) findViewById(R.id.user_confirm);
+		confirm.setOnClickListener(this);
+		
 		TextView logout = (TextView) findViewById(R.id.user_logout);
 		logout.setOnClickListener(this);
 	}
@@ -80,19 +82,30 @@ public class UserProfile extends Activity implements OnClickListener, TextWatche
 
 	@Override
 	public void onClick(View view) {
-		if (view.getId() == R.id.navigator_backward) {
-			if (mAddressHasChanged) {
-				requestDataSource();
-			} else {
-				finish();
-			}
-		} else if (view.getId() == R.id.user_logout) {
+		switch (view.getId()) {
+		case R.id.navigator_backward:
+			onBackwardBtnClick();
+			break;
+		case R.id.user_confirm:
+			onUserConfirmBtnClick();
+			break;
+		case R.id.user_logout:
 			onUserLogoutBtnClick();
+			break;
 		}
 	}
 
+	private void onUserConfirmBtnClick() {
+		if (mAddressHasChanged) {
+			requestDataSource();
+		}
+	}
+
+	private void onBackwardBtnClick() {
+		finish();
+	}
+
 	private void onUserLogoutBtnClick() {
-		// TODO: user logout
 		ResUser user = PreferenceUtils.getUser(this);
 		InfoUserLogout info = new InfoUserLogout(user.userid, user.username);
 		mApiServer.logout(info, this);
@@ -119,7 +132,6 @@ public class UserProfile extends Activity implements OnClickListener, TextWatche
 		default:
 			if (mAddressHasChanged) {
 				Toast.makeText(this, R.string.user_profile_address_changed_failture, Toast.LENGTH_SHORT).show();
-				finish();
 			}
 			break;
 		}
@@ -128,21 +140,17 @@ public class UserProfile extends Activity implements OnClickListener, TextWatche
 	private void logout() {
 		PreferenceUtils.saveUser(UserProfile.this, new ResUser("", "", -1, "", ""));
 		startActivity(new Intent(UserProfile.this, ActLogin.class));
+		finish();
 	}
 
 	private void changeUserInfo(String response) {
 		RespEditUserInfo resp = ApiServer.getGson().fromJson(response, RespEditUserInfo.class);
 		if (resp.getBody().getErrorcode().length() == 0) {
-			PreferenceUtils.getUser(this).address = mAddress;
-			PreferenceUtils.save(this, PreferenceUtils.PREFERENCE_USERADDR, mAddress);
+ 			PreferenceUtils.save(this, PreferenceUtils.PREFERENCE_USERADDR, mAddress);
 			updateViewLayout();
 			Toast.makeText(this, R.string.user_profile_address_changed_success, Toast.LENGTH_SHORT).show();
 		} else {
 			Toast.makeText(this, R.string.user_profile_address_changed_failture, Toast.LENGTH_SHORT).show();
-		}
-
-		if (mAddressHasChanged) {
-			finish();
 		}
 	}
 
@@ -159,6 +167,7 @@ public class UserProfile extends Activity implements OnClickListener, TextWatche
 
 		String address = ((EditText) findViewById(R.id.address)).getText().toString();
 		if (!address.equals(mAddress)) {
+			mAddress = address;
 			mAddressHasChanged = true;
 		}
 	}

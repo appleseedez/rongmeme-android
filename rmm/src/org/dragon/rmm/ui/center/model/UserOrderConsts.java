@@ -2,6 +2,8 @@ package org.dragon.rmm.ui.center.model;
 
 public class UserOrderConsts {
 	
+	public static final String ORDER_TYPE_UNKNOWN       = "uk";
+	
 	public static final String ORDER_TYPE_CLEANING      = "bj";
 	
 	public static final String ORDER_TYPE_DRY_CLEANING  = "gx";

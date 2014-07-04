@@ -24,8 +24,6 @@ import android.widget.Toast;
 
 public class DryCleaningPortal extends ProgreadListActivity<DryCleaningService> {
 	
-	public final String UID_SERVICE_ICON          = "icon";
-	
 	public final String UID_SERVICE_TITLE         = "title";
 	
 	public final String UID_SERVICE_PRICE         = "price";
@@ -49,10 +47,10 @@ public class DryCleaningPortal extends ProgreadListActivity<DryCleaningService> 
 	public DryCleaningPortal() {
 		super(R.layout.activity_dry_cleaning_portal, R.layout.activity_dry_cleaning_portal_item);
 		
-		String[] fields = { UID_SERVICE_ICON, UID_SERVICE_TITLE, UID_SERVICE_PRICE, UID_SERVICE_SUBTOTAL,
+		String[] fields = { UID_SERVICE_TITLE, UID_SERVICE_PRICE, UID_SERVICE_SUBTOTAL,
 								UID_SERVICE_AMOUNT, UID_SERVICE_ADDITION, UID_SERVICE_SUBSTRACTION };
 		
-		int[] elements = { R.id.icon, R.id.title, R.id.price, R.id.subtotal, R.id.amount, R.id.addition, R.id.subtraction };
+		int[] elements = { R.id.title, R.id.price, R.id.subtotal, R.id.amount, R.id.addition, R.id.subtraction };
 		
 		setFields(fields);
 		setElements(elements);
@@ -75,7 +73,6 @@ public class DryCleaningPortal extends ProgreadListActivity<DryCleaningService> 
 
 	@Override
 	protected void updateDataSet(DryCleaningService data, HashMap<String, Object> mapping) {
-//		mapping.put(UID_SERVICE_ICON         , );
 		mapping.put(UID_SERVICE_TITLE        , data.getName());
 		mapping.put(UID_SERVICE_PRICE        , getPriceText(data));
 		mapping.put(UID_SERVICE_SUBTOTAL     , getSubtotalText(data));
@@ -104,9 +101,7 @@ public class DryCleaningPortal extends ProgreadListActivity<DryCleaningService> 
 	@Override
 	protected boolean updateViewValue(int id, View view, Object data) {
 		switch (id) {
-		case R.id.icon:
 //			((NetworkImageView)view).setImageUrl((String) data, ApiServer.getImageLoader(this));
-			break;
 		case R.id.title:
 			((TextView) view).setText((String) data);
 			break;

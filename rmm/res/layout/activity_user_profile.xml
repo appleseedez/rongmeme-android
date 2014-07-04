@@ -30,17 +30,24 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/edit_n"
         android:gravity="top|left"
-        android:hint="请输入联系地址"
+        android:hint="@string/user_profile_address_hint"
         android:inputType="textMultiLine"
         android:scrollbarStyle="insideInset"
         android:scrollbars="vertical"
         android:textColor="@android:color/white" />
 
     <TextView
-        android:id="@+id/user_logout"
+        android:id="@+id/user_confirm"
         style="@style/button"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="80dp"
+        android:text="@string/user_profile_confirm" />
+        
+    <TextView
+        android:id="@+id/user_logout"
+        style="@style/button"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
         android:text="@string/user_profile_logout" />
 
 </LinearLayout>

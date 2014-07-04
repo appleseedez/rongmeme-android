@@ -20,26 +20,74 @@ public class UserOrderUtils {
 		String type = order.getOrdertype();
 		
 		if(UserOrderConsts.ORDER_TYPE_CLEANING.equals(type)) {
-			if(status == UserOrderConsts.ORDER_STATUS_SREVED) {
-				return R.drawable.icon_order_cleaning_done;
-			} else {
-				return R.drawable.icon_order_cleaning;
-			}
+			return getIconOrderCleaningResourceId(status);
 		} else if(UserOrderConsts.ORDER_TYPE_DRY_CLEANING.equals(type)) {
-			if(status == UserOrderConsts.ORDER_STATUS_SREVED) {
-				return R.drawable.icon_order_dry_cleaning_done;
-			} else {
-				return R.drawable.icon_order_dry_cleaning;
-			}
+			return getIconOrderDryCleaningResourceId(status);
 		} else if(UserOrderConsts.ORDER_TYPE_HOURLY_WORKER.equals(type)) {
-			if(status == UserOrderConsts.ORDER_STATUS_SREVED) {
-				return R.drawable.icon_order_hourly_worker_done;
-			} else {
-				return R.drawable.icon_order_hourly_worker;
-			}
+			return getIconOrderHourlyWorkerResourceId(status);
 		} else {
 			throw new IllegalArgumentException("invalid order type : " + type);
 		}
+	}
+	
+	private static int getIconOrderCleaningResourceId(int status) {
+		switch (status) {
+		case UserOrderConsts.ORDER_STATUS_SREVED:
+			return R.drawable.icon_order_cleaning_served;
+		case UserOrderConsts.ORDER_STATUS_PENDING:
+			return R.drawable.icon_order_cleaning_pending;
+		case UserOrderConsts.ORDER_STATUS_SERVING:
+			return R.drawable.icon_order_cleaning_serving;
+		default:
+			return R.drawable.icon_order_cleaning_serving;
+		}
+	}
+	
+	private static int getIconOrderDryCleaningResourceId(int status) {
+		switch (status) {
+		case UserOrderConsts.ORDER_STATUS_SREVED:
+			return R.drawable.icon_order_dry_cleaning_served;
+		case UserOrderConsts.ORDER_STATUS_PENDING:
+			return R.drawable.icon_order_dry_cleaning_pending;
+		case UserOrderConsts.ORDER_STATUS_SERVING:
+			return R.drawable.icon_order_dry_cleaning_serving;
+		default:
+			return R.drawable.icon_order_dry_cleaning_serving;
+		}
+	}
+	
+	private static int getIconOrderHourlyWorkerResourceId(int status) {
+		switch (status) {
+		case UserOrderConsts.ORDER_STATUS_SREVED:
+			return R.drawable.icon_order_hourly_worker_served;
+		case UserOrderConsts.ORDER_STATUS_PENDING:
+			return R.drawable.icon_order_hourly_worker_pending;
+		case UserOrderConsts.ORDER_STATUS_SERVING:
+			return R.drawable.icon_order_hourly_worker_serving;
+		default:
+			return R.drawable.icon_order_hourly_worker_serving;
+		}
+	}
+	
+	public static String getOrderType(UserOrder order) {
+		if(UserOrderConsts.ORDER_TYPE_CLEANING.equals(order.getOrdertype())) {
+			return UserOrderConsts.ORDER_TYPE_CLEANING;
+		} else if(UserOrderConsts.ORDER_TYPE_DRY_CLEANING.equals(order.getOrdertype())) {
+			return UserOrderConsts.ORDER_TYPE_DRY_CLEANING;
+		} else if(UserOrderConsts.ORDER_TYPE_HOURLY_WORKER.equals(order.getOrdertype())) {
+			return UserOrderConsts.ORDER_TYPE_HOURLY_WORKER;
+		}
+		return UserOrderConsts.ORDER_TYPE_UNKNOWN;
+	}
+	
+	public static String getOrderIdFixedWidth(UserOrder order) {
+		String prefix = order.getOrderno().substring(0, 9);
+		String suffix = order.getOrderno().substring(order.getOrderno().length() - 11);
+		return prefix + "..." + suffix;
+	}
+	
+	public static String getOrderDateText(UserOrder order) {
+		return order.getUpdatetime().split(" ")[0];
 	}
 	
 	public static String getOrderTypeText(UserOrder order) {
@@ -47,6 +95,8 @@ public class UserOrderUtils {
 			return StringResource.getString(R.string.order_type_text_cleaning);
 		} else if(UserOrderConsts.ORDER_TYPE_DRY_CLEANING.equals(order.getOrdertype())) {
 			return StringResource.getString(R.string.order_type_text_dry_cleaning);
+		} else if(UserOrderConsts.ORDER_TYPE_HOURLY_WORKER.equals(order.getOrdertype())) {
+			return StringResource.getString(R.string.order_type_text_hourly_worker);
 		}
 		return StringResource.getString(R.string.order_type_text_unknown);
 	}

@@ -6,7 +6,7 @@
     tools:context="${packageName}.${activityClass}" >
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/order_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -19,24 +19,30 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/icon"
+        android:layout_toRightOf="@id/order_icon"
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/order_title"
             style="@style/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+		<TextView
+            android:id="@+id/order_id"
+            style="@style/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+                
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/order_date"
             style="@style/title.small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/status"
+        android:id="@+id/order_status"
         style="@style/title.small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
