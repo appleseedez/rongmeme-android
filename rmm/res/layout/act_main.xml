@@ -30,7 +30,7 @@
             android:layout_marginLeft="230dip"
             android:layout_marginTop="180dip"
             android:drawableTop="@drawable/icon_2"
-            android:text="我的预约" />
+            android:text="个人中心" />
     </org.dragon.rmm.ui.widget.MenuViewItem>
 
     <org.dragon.rmm.ui.widget.MenuViewItem

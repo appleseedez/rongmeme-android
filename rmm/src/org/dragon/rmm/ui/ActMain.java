@@ -16,7 +16,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,7 +24,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
 
 public class ActMain extends Activity implements OnClickListener {
 	private static final String TAG = "ActMain";
@@ -50,6 +48,7 @@ public class ActMain extends Activity implements OnClickListener {
 		@Override
 		public boolean handleMessage(Message msg) {
 			startActivity(new Intent(ActMain.this, ActShopList.class));
+			finish();
 			return true;
 		}
 	});
@@ -88,16 +87,6 @@ public class ActMain extends Activity implements OnClickListener {
 		if (sensorManager != null) {// 取消监听器
 			sensorManager.unregisterListener(sensorEventListener);
 		}
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
 	}
 
 	@Override
@@ -151,7 +140,7 @@ public class ActMain extends Activity implements OnClickListener {
 	}
 
 	/** 监听对话框里面的button点击事件 */
-	DialogInterface.OnClickListener backKeyDownlistener = new DialogInterface.OnClickListener() {
+	private DialogInterface.OnClickListener backKeyDownlistener = new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int which) {
 			switch (which) {
 			case AlertDialog.BUTTON_POSITIVE:// "确认"按钮退出程序
@@ -191,17 +180,4 @@ public class ActMain extends Activity implements OnClickListener {
 		}
 	};
 
-	/*
-	 * {
-	 * 
-	 * @Override public void handleMessage(Message msg) {
-	 * super.handleMessage(msg); switch (msg.what) { case SENSOR_SHAKE: //
-	 * Location location = rmmApplication.getLastKnownLocation(); //
-	 * Toast.makeText( // ActMain.this, // "检测到摇晃，执行操作！纬度为：" +
-	 * location.getLatitude() + "经度：" // + location.getLongitude(),
-	 * Toast.LENGTH_SHORT) // .show(); // Log.i(TAG, "检测到摇晃，执行操作！");
-	 * startActivity(new Intent(ActMain.this, ActShopList.class)); break; } }
-	 * 
-	 * };
-	 */
 }
