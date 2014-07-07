@@ -31,7 +31,7 @@
             android:singleLine="true"
             android:text="@string/he_tv_title_text"
             android:textColor="@color/white"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/he_next_flow_button"

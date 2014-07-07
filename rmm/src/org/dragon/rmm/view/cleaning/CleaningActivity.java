@@ -1,16 +1,13 @@
 package org.dragon.rmm.view.cleaning;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.dragon.core.galhttprequest.GalHttpRequest.GalHttpLoadTextCallBack;
 import org.dragon.core.utils.json.MierJsonUtils;
 import org.dragon.rmm.R;
 import org.dragon.rmm.dao.CleaningDAO;
-import org.dragon.rmm.domain.CleaningBigItemVO;
 import org.dragon.rmm.domain.CleaningItemResult;
 import org.dragon.rmm.domain.CleaningItemVO;
 import org.dragon.rmm.utils.PreferenceUtils;
@@ -20,6 +17,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -94,55 +92,10 @@ public class CleaningActivity extends Activity {
      * 初始化星级服务content
      */
     private void initStarComponents(List<CleaningItemVO> list) {
-        Set<Integer> starLevels = new TreeSet<Integer>(new IntegerComparator());
-        for (CleaningItemVO cleaningItemVO : list) {
-            int starLevel = cleaningItemVO.getStarlevel();
-            starLevels.add(starLevel);
-        }
-        List<CleaningBigItemVO> cbis = new ArrayList<CleaningBigItemVO>();
-        for (Integer bigLevel : starLevels) {
-            if (bigLevel.intValue() == 1) {
-                // 1星级服务
-                CleaningBigItemVO cgi = new CleaningBigItemVO("一星服务", 1);
-                cbis.add(cgi);
-            }
-            if (bigLevel.intValue() == 2) {
-                // 2星级服务
-                CleaningBigItemVO cgi = new CleaningBigItemVO("两星服务", 2);
-                cbis.add(cgi);
-            }
-            if (bigLevel.intValue() == 3) {
-                // 3星级服务
-                CleaningBigItemVO cgi = new CleaningBigItemVO("三星服务", 3);
-                cbis.add(cgi);
-            }
-            if (bigLevel.intValue() == 4) {
-                // 4星级服务
-                CleaningBigItemVO cgi = new CleaningBigItemVO("四星服务", 4);
-                cbis.add(cgi);
-            }
-            if (bigLevel.intValue() == 5) {
-                // 5星级服务
-                CleaningBigItemVO cgi = new CleaningBigItemVO("五星服务", 5);
-                cbis.add(cgi);
-            }
-        }
-
-        for (CleaningBigItemVO cbi : cbis) {
-            List<CleaningItemVO> cleaningItems = new ArrayList<CleaningItemVO>();
-            for (CleaningItemVO cleaningItemVO : list) {
-                if (cbi.getStarlevel() == cleaningItemVO.getStarlevel()) {
-                    cleaningItems.add(cleaningItemVO);
-                }
-            }
-            // 如果星级一样，那么就加入
-            cbi.setCleaningItems(cleaningItems);
-        }
-
+        Collections.sort(list, new CleaningItemComparator());
         // 星级服务的content
         startItemContent = (LinearLayout) findViewById(R.id.start_item_content);
-        for (CleaningBigItemVO cbi : cbis) {
-            List<CleaningItemVO> cis = cbi.getCleaningItems();
+        for (CleaningItemVO cbi : list) {
             LinearLayout startItemView = (LinearLayout) getLayoutInflater().inflate(R.layout.star_item,
                     startItemContent, false);
             startItemView.setOnClickListener(startItemViewOnClickListener);
@@ -169,17 +122,22 @@ public class CleaningActivity extends Activity {
             } else {
                 bigCategoryStartLevelImageview.setImageResource(R.drawable.fivestart);
             }
-
-            for (CleaningItemVO ci : cis) {
-                View startSmallItemView = getLayoutInflater().inflate(R.layout.star_small_item, null, false);
-                TextView smallCategoryNameTextView = (TextView) startSmallItemView
-                        .findViewById(R.id.ssi_small_category_name_title);
-                smallCategoryNameTextView.setText(ci.getName());
-                startSmallItemView.setTag(ci.getStarlevel());
-                LinearLayout starSmallItemViewContent = (LinearLayout) startItemView
-                        .findViewById(R.id.si_small_category_content);
-                starSmallItemViewContent.addView(startSmallItemView);
+            // 获取小项，小项存储在description中用逗号分隔
+            String descs = cbi.getDescription();
+            if (!TextUtils.isEmpty(descs)) {
+                String[] smallItemArr = descs.split(",");
+                for (String ci : smallItemArr) {
+                    View startSmallItemView = getLayoutInflater().inflate(R.layout.star_small_item, null, false);
+                    TextView smallCategoryNameTextView = (TextView) startSmallItemView
+                            .findViewById(R.id.ssi_small_category_name_title);
+                    smallCategoryNameTextView.setText(ci);
+                    startSmallItemView.setTag(cbi.getStarlevel());
+                    LinearLayout starSmallItemViewContent = (LinearLayout) startItemView
+                            .findViewById(R.id.si_small_category_content);
+                    starSmallItemViewContent.addView(startSmallItemView);
+                }
             }
+
             // 从start_item.xml文件导入
             startItemContent.addView(startItemView, 0);
         }
@@ -261,7 +219,7 @@ public class CleaningActivity extends Activity {
             ImageButton pullDownImageButton = (ImageButton) v;
             View starItem = (View) v.getParent().getParent();
             View starSmallContent = starItem.findViewById(R.id.si_small_category_content);
-            RelativeLayout bigStarItem = (RelativeLayout)starItem.findViewById(R.id.si_top_navigation_bar);
+            RelativeLayout bigStarItem = (RelativeLayout) starItem.findViewById(R.id.si_top_navigation_bar);
             if (starSmallContent.getVisibility() == View.GONE) {
                 bigStarItem.setBackgroundColor(getResources().getColor(R.color.white));
                 pullDownImageButton.setImageResource(R.drawable.horizontalline);
@@ -283,7 +241,7 @@ public class CleaningActivity extends Activity {
 
         @Override
         public void onClick(View v) {
-            CleaningBigItemVO cleaningBigItem = (CleaningBigItemVO) v.getTag(R.id.cleaning_big_category_tag);
+            CleaningItemVO cleaningBigItem = (CleaningItemVO) v.getTag(R.id.cleaning_big_category_tag);
             Intent intent = new Intent(CleaningActivity.this, CleaningAppointmentActivity.class);
             intent.putExtra("cleaningBigItem", cleaningBigItem);
             startActivity(intent);
@@ -312,7 +270,7 @@ public class CleaningActivity extends Activity {
     public class CleaningItemComparator implements Comparator<CleaningItemVO> {
 
         public int compare(CleaningItemVO o1, CleaningItemVO o2) {
-            return o1.getStarlevel() - o2.getStarlevel();
+            return -(o1.getStarlevel() - o2.getStarlevel());
         }
     }
 

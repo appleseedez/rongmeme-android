@@ -29,7 +29,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -299,7 +298,8 @@ public class CleaningCustomActivity extends Activity {
             if (status == 0) {
                 // 成功
                 // 获取当前用户currentUser,根据用户获取电话号码 TODO dengjie
-                String phone = "";
+                SharedPreferences curUser = getSharedPreferences(PreferenceUtils.PREFERENCE, 0);
+                String phone = curUser.getString(PreferenceUtils.PREFERENCE_USERPHONE, "");
                 createSuccessDialog(phone);
             } else {
                 createFaildDialog();

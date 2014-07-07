@@ -114,7 +114,7 @@ public class ActLogin extends Activity implements OnClickListener {
 				if (-1 == oldId) {
 					startActivity(new Intent(ActLogin.this, ActShopList.class)); // 根据当前经纬度获取店铺列表
 				} else {
-					startActivity(new Intent(ActLogin.this, ActMain.class)); // 根据当前经纬度获取店铺列表
+					startActivity(ActMain.getIntent(ActLogin.this, oldId));
 				}
 				finish();
 				break;

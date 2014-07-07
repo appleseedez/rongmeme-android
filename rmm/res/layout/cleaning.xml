@@ -31,7 +31,7 @@
             android:singleLine="true"
             android:text="@string/cleaning_tv_title_text"
             android:textColor="@color/white"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <!-- 功能列表区域 -->

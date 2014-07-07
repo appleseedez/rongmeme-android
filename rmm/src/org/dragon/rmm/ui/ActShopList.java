@@ -111,6 +111,9 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 			startActivity(ActMain.getIntent(this, oldId));
 			finish();
 		} else {
+			int index = lvDetail.getCheckedItemPosition();
+			// the position of listview header is 0.
+			mCurrentShop = (ResShop) mAdapter.getItem(index - 1);
 			changeShop();
 		}
 	}

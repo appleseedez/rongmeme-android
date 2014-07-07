@@ -10,7 +10,6 @@ import org.dragon.rmm.R;
 import org.dragon.rmm.dao.CleaningDAO;
 import org.dragon.rmm.domain.CleaningAppointmentItemForm;
 import org.dragon.rmm.domain.CleaningAppointmentResult;
-import org.dragon.rmm.domain.CleaningBigItemVO;
 import org.dragon.rmm.domain.CleaningItemVO;
 import org.dragon.rmm.domain.common.Head;
 import org.dragon.rmm.utils.PreferenceUtils;
@@ -73,8 +72,8 @@ public class CleaningAppointmentActivity extends Activity {
         contactCustomServiceBtn = (Button) findViewById(R.id.ca_contact_custom_service_btn);
         backNavigationImagebutton = (ImageButton) findViewById(R.id.ca_back_navigation_imagebutton);
 
-        CleaningBigItemVO cleaningBigItem = (CleaningBigItemVO) getIntent().getExtras().get("cleaningBigItem");
-        List<CleaningItemVO> cis = cleaningBigItem.getCleaningItems();
+        CleaningItemVO cleaningBigItem = (CleaningItemVO) getIntent().getExtras().get("cleaningBigItem");
+        String[] cis = cleaningBigItem.getDescription().split(",");
         int starlevel = cleaningBigItem.getStarlevel();
         String tipMsgTextviewStr = "您选择了一星级保洁服务";
         if (starlevel == 1) {
@@ -92,9 +91,9 @@ public class CleaningAppointmentActivity extends Activity {
         tipMsgTextview.setText(tipMsgTextviewStr);
         smallStartItemContent = (LinearLayout) findViewById(R.id.ca_small_start_item_content);
 
-        for (CleaningItemVO ct : cis) {
+        for (String ct : cis) {
             // 遍历生成item的
-            String name = ct.getName();
+            String name = ct;
             View checkStartSmallItemView = (View) getLayoutInflater().inflate(R.layout.star_small_item_appointment,
                     null);
             TextView smallCategoryNameTitleTextView = (TextView) checkStartSmallItemView
@@ -199,21 +198,20 @@ public class CleaningAppointmentActivity extends Activity {
 
         @Override
         public void onClick(View v) {
-            CleaningBigItemVO cleaningBigItem = (CleaningBigItemVO) getIntent().getExtras().get("cleaningBigItem");
-            List<CleaningItemVO> cis = cleaningBigItem.getCleaningItems();
+            CleaningItemVO cleaningBigItem = (CleaningItemVO) getIntent().getExtras().get("cleaningBigItem");
             // TODO dengjie 这里需要获取当前用户,这些数据都要进行获取
 
             double allprice = 0;
             // 进行服务转换，且求总价
             List<CleaningAppointmentItemForm> services = new ArrayList<CleaningAppointmentItemForm>();
-            for (CleaningItemVO ci : cis) {
-                CleaningAppointmentItemForm cleaningAppointmentItemForm = new CleaningAppointmentItemForm();
-                cleaningAppointmentItemForm.setItemid(ci.getId());
-                cleaningAppointmentItemForm.setName(ci.getName());
-                services.add(cleaningAppointmentItemForm);
-                // 累计总价
-                allprice = allprice + ci.getPrice();
-            }
+
+            CleaningAppointmentItemForm cleaningAppointmentItemForm = new CleaningAppointmentItemForm();
+            cleaningAppointmentItemForm.setItemid(cleaningBigItem.getId());
+            cleaningAppointmentItemForm.setName(cleaningBigItem.getName());
+            services.add(cleaningAppointmentItemForm);
+            // 累计总价
+            allprice = cleaningBigItem.getPrice();
+
             SharedPreferences curSp = getSharedPreferences(PreferenceUtils.PREFERENCE, 0);
             String curSessionToken = curSp.getString("curSessionToken", "");
             long userid = curSp.getLong("curUserId", 0);
@@ -258,8 +256,9 @@ public class CleaningAppointmentActivity extends Activity {
         @Override
         public void textLoaded(String text) {
             // 解析返回的JSON字符串
-            CleaningAppointmentResult msgList = MierJsonUtils.readValue(text, new TypeToken<CleaningAppointmentResult>() {
-            }.getType());
+            CleaningAppointmentResult msgList = MierJsonUtils.readValue(text,
+                    new TypeToken<CleaningAppointmentResult>() {
+                    }.getType());
             // 成功
             Head head = msgList.getHead();
             int status = -1;
@@ -269,7 +268,8 @@ public class CleaningAppointmentActivity extends Activity {
             if (status == 0) {
                 // 成功
                 // 获取当前用户currentUser,根据用户获取电话号码 TODO dengjie
-                String phone = "";
+                SharedPreferences curUser = getSharedPreferences(PreferenceUtils.PREFERENCE, 0);
+                String phone = curUser.getString(PreferenceUtils.PREFERENCE_USERPHONE, "");
                 createSuccessDialog(phone);
             } else {
                 createFaildDialog();
