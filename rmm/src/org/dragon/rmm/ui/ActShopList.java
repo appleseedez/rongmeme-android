@@ -193,6 +193,11 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 					longitude = Double.parseDouble(preLongitude);
 					latitude = Double.parseDouble(preLatitude);
 				}
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 				return new InfoPlace(longitude, latitude);
 			}
 
