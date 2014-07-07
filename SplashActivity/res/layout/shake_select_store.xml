@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/sss_top_navigation_bar"
         android:layout_width="fill_parent"
-        android:layout_height="56dp"
+        android:layout_height="50dip"
         android:background="#66222222"
         android:gravity="center_vertical" >
 
