@@ -32,7 +32,7 @@
             android:singleLine="true"
             android:text="@string/cleaning_tv_title_text"
             android:textColor="@color/R61G85B1"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/si_big_category_pull_down_imageButton"

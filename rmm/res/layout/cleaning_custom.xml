@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/cc_top_navigation_bar"
         android:layout_width="fill_parent"
-        android:layout_height="56dp"
+        android:layout_height="50dip"
         android:background="#66222222"
         android:gravity="center_vertical" >
 
@@ -18,10 +18,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:background="@null"
             android:contentDescription="@string/back_navigation_imagebutton_desc"
-            android:src="@drawable/back_nav" />
+            android:src="@drawable/icon_backward" />
 
         <TextView
             android:id="@+id/cc_tv_title"
@@ -45,7 +45,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/cc_tip_msg_textview_defalut_text"
         android:textColor="@color/white"
-        android:textSize="16sp" >
+        android:textSize="18sp" >
     </TextView>
 
     <!-- 星级服务 -->
@@ -67,8 +67,6 @@
 
             <Button
                 android:id="@+id/cc_confirm_appointment_btn"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="50dp"
                 style="@style/button"
@@ -80,8 +78,6 @@
 
             <Button
                 android:id="@+id/cc_contact_custom_service_btn"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
                 android:layout_marginBottom="60dp"
                 style="@style/button"
                 android:singleLine="true"

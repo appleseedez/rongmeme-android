@@ -15,7 +15,7 @@
         android:singleLine="true"
         android:text="@string/ssi_small_category_name_title_text"
         android:textColor="@color/white"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <ImageButton
         android:id="@+id/ssi_small_category_checkbox_imageButton"
