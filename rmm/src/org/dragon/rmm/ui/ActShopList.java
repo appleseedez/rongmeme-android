@@ -25,12 +25,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 
-public class ActShopList extends Activity implements OnClickListener, IXListViewListener {
+public class ActShopList extends Activity implements OnClickListener, IXListViewListener, OnItemClickListener {
 
 	private ApiServer mApiServer;
 	private XListView lvDetail;
@@ -61,6 +63,7 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 		lvDetail.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		mAdapter = new ShopAdapter(getLayoutInflater());
 		lvDetail.setAdapter(mAdapter);
+		lvDetail.setOnItemClickListener(this);
 	}
 
 	private void refreshShopList(ModelResShopList shoplist) {
@@ -94,22 +97,33 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.actionbar_back:
-			changeShop();
+			// changeShop();
+
+			onBackPressed();
 			break;
 		}
 	}
 
 	@Override
 	public void onBackPressed() {
-		changeShop();
+		long oldId = getSharedPreferences(PreferenceUtils.PREFERENCE, MODE_WORLD_READABLE).getLong(PreferenceUtils.PREFERENCE_SHOPID, -1);
+		if (-1 != oldId) {
+			startActivity(ActMain.getIntent(this, oldId));
+			finish();
+		} else {
+			int index = lvDetail.getCheckedItemPosition();
+			// the position of listview header is 0.
+			mCurrentShop = (ResShop) mAdapter.getItem(index - 1);
+			changeShop();
+		}
 	}
 
 	private void changeShop() {
-		int index = lvDetail.getCheckedItemPosition();
-		// the position of listview header is 0.
-		mCurrentShop = (ResShop) mAdapter.getItem(index - 1);
+		// int index = lvDetail.getCheckedItemPosition();
+		// // the position of listview header is 0.
+		// mCurrentShop = (ResShop) mAdapter.getItem(index - 1);
 		if (mAdapter.getCount() > 0) {
-			long oldId = getSharedPreferences(PreferenceUtils.PREFERENCE_SHOPADDR, MODE_WORLD_READABLE).getLong(PreferenceUtils.PREFERENCE_SHOPID, -1);
+			long oldId = getSharedPreferences(PreferenceUtils.PREFERENCE, MODE_WORLD_READABLE).getLong(PreferenceUtils.PREFERENCE_SHOPID, -1);
 			if ((-1 == oldId) || (oldId == mCurrentShop.id)) {
 				save(mCurrentShop);
 				startActivity(ActMain.getIntent(ActShopList.this, mCurrentShop.id));
@@ -212,5 +226,11 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 	@Override
 	public void onLoadMore() {
 
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		mCurrentShop = (ResShop) mAdapter.getItem(position - 1);
+		changeShop();
 	}
 }
