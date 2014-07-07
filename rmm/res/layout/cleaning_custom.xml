@@ -31,7 +31,7 @@
             android:singleLine="true"
             android:text="@string/cc_tv_title_text"
             android:textColor="@color/white"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <!-- 功能列表区域 -->
@@ -45,7 +45,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/cc_tip_msg_textview_defalut_text"
         android:textColor="@color/white"
-        android:textSize="20sp" >
+        android:textSize="16sp" >
     </TextView>
 
     <!-- 星级服务 -->
@@ -71,11 +71,10 @@
                 android:layout_height="50dp"
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/cleaning_btn_n"
+                style="@style/button"
                 android:singleLine="true"
                 android:text="@string/cc_confirm_appointment_btn_text"
-                android:textColor="@color/white"
-                android:textSize="18sp" >
+                android:textColor="@color/white">
             </Button>
             <!-- 联系客服 -->
 
@@ -84,11 +83,10 @@
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="60dp"
-                android:background="@drawable/cleaning_btn_n"
+                style="@style/button"
                 android:singleLine="true"
                 android:text="@string/cc_contact_custom_service_text"
-                android:textColor="@color/white"
-                android:textSize="18sp" >
+                android:textColor="@color/white">
             </Button>
         </LinearLayout>
     </ScrollView>
