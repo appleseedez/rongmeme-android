@@ -21,7 +21,7 @@
             android:layout_marginLeft="10dp"
             android:background="@null"
             android:contentDescription="@string/back_navigation_imagebutton_desc"
-            android:src="@drawable/icon_backward" />
+            android:src="@drawable/btn_back" />
 
         <TextView
             android:id="@+id/he_tv_title"
@@ -42,7 +42,7 @@
             android:layout_marginRight="10dp"
             android:background="@null"
             android:contentDescription="@string/he_next_flow_button_desc"
-            android:src="@drawable/next_flow" />
+            android:src="@drawable/btn_next_flow" />
     </RelativeLayout>
 
     <!-- 功能列表区域 -->

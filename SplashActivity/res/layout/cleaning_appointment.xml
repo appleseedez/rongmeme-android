@@ -21,7 +21,7 @@
             android:layout_marginLeft="10dp"
             android:background="@null"
             android:contentDescription="@string/back_navigation_imagebutton_desc"
-            android:src="@drawable/icon_backward" />
+            android:src="@drawable/btn_back" />
 
         <TextView
             android:id="@+id/ca_tv_title"
