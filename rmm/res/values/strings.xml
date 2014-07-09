@@ -78,7 +78,9 @@
     <string name="dry_cleaning_reserve_title">干洗预约</string>
     <string name="dry_cleaning_reserve_support">联系客服</string>
     <string name="dry_cleaning_reserve_telephone">联系电话</string>
+    <string name="dry_cleaning_reserve_telephone_hint">请输入联系电话</string>
     <string name="dry_cleaning_reserve_address">联系地址</string>
+    <string name="dry_cleaning_reserve_address_hint">请输入联系地址</string>
     <string name="dry_cleaning_reserve_confirmed">确认预定</string>
     <string name="dry_cleaning_reserve_failture">预定失败</string>
     <string name="dry_cleaning_reserve_disclaimer_title">免责声明</string>
