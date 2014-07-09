@@ -40,6 +40,7 @@
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/icon_map_pin"
             android:drawablePadding="10dip"
+            android:hint="@string/dry_cleaning_reserve_address_hint"
             android:inputType="text"
             android:minHeight="40dp"
             android:textColor="@android:color/white" />
@@ -51,6 +52,7 @@
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/icon_contact"
             android:drawablePadding="10dip"
+            android:hint="@string/dry_cleaning_reserve_telephone_hint"
             android:inputType="phone"
             android:minHeight="40dp"
             android:textColor="@android:color/white" />

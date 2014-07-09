@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 import org.dragon.rmm.R;
 import org.dragon.rmm.api.ApiMethod;
 import org.dragon.rmm.api.ApiServer;
@@ -25,7 +24,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -186,23 +184,29 @@ public class DryCleaningReservation extends Activity implements OnClickListener,
 		}
 	}
 	
-	private void setDrcyCleanReservation(InfoDryCleanReservation request) {
+	private boolean setDrcyCleanReservation(InfoDryCleanReservation request) {
 		request.setServicetype("gx");
 		request.setSource("app");
 		
 		// USER INFO
-		if(PreferenceUtils.getUser(this) == null) { return; }
+		if(PreferenceUtils.getUser(this) == null) { return false; }
 		request.setUserid(PreferenceUtils.getUser(this).userid);
 		request.setName(PreferenceUtils.getUser(this).nickname);
 		
 		EditText telephone = (EditText) findViewById(R.id.telephone);
+		if(telephone.getText().toString().length() == 0) {
+			Toast.makeText(this, R.string.dry_cleaning_reserve_telephone_hint, Toast.LENGTH_SHORT).show(); return false;
+		}
 		request.setPhone(telephone.getText().toString());
 		
 		EditText address = (EditText) findViewById(R.id.address);
+		if(address.getText().toString().length() == 0) {
+			Toast.makeText(this, R.string.dry_cleaning_reserve_address_hint, Toast.LENGTH_SHORT).show(); return false;
+		}
 		request.setAddress(address.getText().toString());
 		
 		// STORE INFO
-		if(PreferenceUtils.getShop(this) == null) { return; }
+		if(PreferenceUtils.getShop(this) == null) { return false; }
 		request.setStoreid(PreferenceUtils.getShop(this).id);
 		request.setStorename(PreferenceUtils.getShop(this).name);
 		
@@ -214,6 +218,7 @@ public class DryCleaningReservation extends Activity implements OnClickListener,
 			totalPrice += item.getAmount() * item.getPrice();
 		}
 		request.setAllprice(totalPrice);
+		return true;
 	}
 	
 
