@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dip"
         android:layout_marginTop="20dip"
-        android:text="没有账号"
+        android:text="新用户"
         android:textColor="@android:color/white"
         android:textSize="16sp" />
 
