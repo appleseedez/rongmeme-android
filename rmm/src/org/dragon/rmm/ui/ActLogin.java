@@ -126,6 +126,7 @@ public class ActLogin extends Activity implements OnClickListener {
 		public void fail(ApiMethod api, VolleyError error) {
 			switch (api) {
 			case API_LOGIN:
+				Toast.makeText(ActLogin.this, "网络异常",Toast.LENGTH_SHORT).show();
 				if (isAutoLogin) {
 					setupView();
 				}
