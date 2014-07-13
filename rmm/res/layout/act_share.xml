@@ -1,16 +1,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+<<<<<<< HEAD
     android:background="@drawable/allbg"
     android:focusable="true"
     android:focusableInTouchMode="true"
+=======
+    android:background="@drawable/bg_home"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+>>>>>>> 7df8b381bf8d063bbca2fa0b73d68d37ef262d89
     android:orientation="vertical" >
 
     <include
         android:id="@+id/actionbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        layout="@layout/actionbar" />
+        layout="@layout/actionbar" 
+        />
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -65,6 +72,10 @@
                     android:id="@+id/share_content"
                     style="@style/title.small"
                     android:layout_width="fill_parent"
+<<<<<<< HEAD
+=======
+                    android:gravity="left"
+>>>>>>> 7df8b381bf8d063bbca2fa0b73d68d37ef262d89
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dip"
                     android:gravity="left"

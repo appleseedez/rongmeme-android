@@ -121,38 +121,12 @@ public class ActMain extends Activity implements OnClickListener {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			// 创建退出对话框
-			AlertDialog isExit = new AlertDialog.Builder(this).create();
-			// 设置对话框标题
-			isExit.setTitle("系统提示");
-			// 设置对话框消息
-			isExit.setMessage("确定要退出吗");
-			// 添加选择按钮并注册监听
-			isExit.setButton(DialogInterface.BUTTON_POSITIVE, "确定", backKeyDownlistener);
-			isExit.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", backKeyDownlistener);
-			// 显示对话框
-			isExit.show();
-
+			moveTaskToBack(false);
 		}
 
 		return false;
-
 	}
-
-	/** 监听对话框里面的button点击事件 */
-	private DialogInterface.OnClickListener backKeyDownlistener = new DialogInterface.OnClickListener() {
-		public void onClick(DialogInterface dialog, int which) {
-			switch (which) {
-			case AlertDialog.BUTTON_POSITIVE:// "确认"按钮退出程序
-				finish();
-				break;
-			case AlertDialog.BUTTON_NEGATIVE:// "取消"第二个按钮取消对话框
-				break;
-			default:
-				break;
-			}
-		}
-	};
+	
 	/**
 	 * 重力感应监听
 	 */
@@ -165,9 +139,9 @@ public class ActMain extends Activity implements OnClickListener {
 			float x = values[0]; // x轴方向的重力加速度，向右为正
 			float y = values[1]; // y轴方向的重力加速度，向前为正
 			float z = values[2]; // z轴方向的重力加速度，向上为正
-			Log.i(TAG, "x轴方向的重力加速度" + x + "；y轴方向的重力加速度" + y + "；z轴方向的重力加速度" + z);
+
 			// 一般在这三个方向的重力加速度达到40就达到了摇晃手机的状态。
-			int medumValue = 19;// 三星 i9250怎么晃都不会超过20，没办法，只设置19了
+			int medumValue = 15;// 三星 i9250怎么晃都不会超过20，没办法，只设置19了
 			if (Math.abs(x) > medumValue || Math.abs(y) > medumValue || Math.abs(z) > medumValue) {
 				vibrator.vibrate(200);
 				mHandler.sendMessage(mHandler.obtainMessage(SENSOR_SHAKE));
