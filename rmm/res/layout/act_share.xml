@@ -2,13 +2,16 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/bg_home"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
     android:orientation="vertical" >
 
     <include
         android:id="@+id/actionbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        layout="@layout/actionbar" />
+        layout="@layout/actionbar" 
+        />
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -59,10 +62,11 @@
                     android:layout_marginTop="2dip"
                     android:text="吕阿姨" />
 
-                <TextView
+                <EditText
                     android:id="@+id/share_content"
                     style="@style/title.small"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:gravity="left"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dip"
                     android:text="服务类型" />

@@ -188,7 +188,7 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 	private void requestDataSource(String id) {
 		InfoOrderOfNo request = new InfoOrderOfNo();
 		
-		request.setOrderno(id.split("=")[1]);
+		request.setOrderno(id);
 
 		ApiServer.getInstance(this).findOrderByNo(request, this);
 	}
@@ -219,7 +219,10 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 			IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 			if (result == null) { super.onActivityResult(requestCode, resultCode, data); return; }
 			if (result.getContents() != null) {
-				requestDataSource(result.getContents());
+				String[] segment = result.getContents().split("=");
+				if(segment != null && segment.length == 2) {
+					requestDataSource(segment[1]);
+				}
 			}
 		} else if(resultCode == Activity.RESULT_CANCELED) {
 			finish();

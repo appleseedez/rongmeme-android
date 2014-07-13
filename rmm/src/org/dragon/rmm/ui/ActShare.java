@@ -19,13 +19,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
 import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.Platform.ShareParams;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.framework.Platform.ShareParams;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 import com.android.volley.VolleyError;
@@ -88,7 +88,7 @@ public class ActShare extends Activity implements OnClickListener {
 		}
 		String extraText = intent.getStringExtra(EXTRA_TEXT);
 		if (!TextUtils.isEmpty(extraText)) {
-			((TextView) parent.findViewById(R.id.share_content)).setText(extraText);
+			((EditText) parent.findViewById(R.id.share_content)).setText(extraText);
 		}
 
 		mOrderId = intent.getLongExtra(EXTRA_ORDERID, -1);
@@ -116,12 +116,13 @@ public class ActShare extends Activity implements OnClickListener {
 			break;
 		case R.id.share_wechat:
 			Platform plat = null;
-			ShareParams sp = getShareParams(v);
-			plat = ShareSDK.getPlatform("Wechat");
-			// plat = ShareSDK.getPlatform("WechatMoments");
-			// plat = ShareSDK.getPlatform("WechatFavorite");
+			
+//			plat = ShareSDK.getPlatform("Wechat");
+			plat = ShareSDK.getPlatform("WechatMoments");
+//			plat = ShareSDK.getPlatform("WechatFavorite");
 			plat.setPlatformActionListener(mPlatformActionListener);
-			plat.share(sp);
+
+			plat.share(getShareParams(v));
 			break;
 		case R.id.share_sinaweibo:
 			showShare(false, "SinaWeibo");
