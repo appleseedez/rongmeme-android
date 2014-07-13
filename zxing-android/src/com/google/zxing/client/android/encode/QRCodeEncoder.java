@@ -313,7 +313,7 @@ final class QRCodeEncoder {
   }
 
   private static List<String> getAllBundleValues(Bundle bundle, String[] keys) {
-    List<String> values = new ArrayList<String>(keys.length);
+    List<String> values = new ArrayList<>(keys.length);
     for (String key : keys) {
       Object value = bundle.get(key);
       values.add(value == null ? null : value.toString());
@@ -351,7 +351,7 @@ final class QRCodeEncoder {
     Map<EncodeHintType,Object> hints = null;
     String encoding = guessAppropriateEncoding(contentsToEncode);
     if (encoding != null) {
-      hints = new EnumMap<EncodeHintType,Object>(EncodeHintType.class);
+      hints = new EnumMap<>(EncodeHintType.class);
       hints.put(EncodeHintType.CHARACTER_SET, encoding);
     }
     BitMatrix result;

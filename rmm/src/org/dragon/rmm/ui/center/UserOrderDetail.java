@@ -25,6 +25,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -129,26 +131,40 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 	
 	private void updateOrderServerViewLayout() {
 		List<UserOrderServer> servers = mUserOrder.getServers();
-		if(servers.size() >= 1) {
-			setServerViewLayout(R.id.order_server_a, servers.get(0));
+//		if(servers.size() >= 1) {
+//			setServerViewLayout(R.id.order_server_a, servers.get(0));
+//		}
+//		if(servers.size() >= 2) {
+//			setServerViewLayout(R.id.order_server_b, servers.get(1));
+//		}
+//		if(servers.size() >= 3) {
+//			setServerViewLayout(R.id.order_server_c, servers.get(2));
+//		}
+//		if(servers.size() >= 4) {
+//			setServerViewLayout(R.id.order_server_d, servers.get(3));
+//		}
+		ViewGroup viewGroup = (ViewGroup) findViewById(R.id.order_server_box);
+		int size = servers.size();
+		if (size == 0) {
+			findViewById(R.id.order_server_label).setVisibility(View.GONE);
+			return;
 		}
-		if(servers.size() >= 2) {
-			setServerViewLayout(R.id.order_server_b, servers.get(1));
-		}
-		if(servers.size() >= 3) {
-			setServerViewLayout(R.id.order_server_c, servers.get(2));
-		}
-		if(servers.size() >= 4) {
-			setServerViewLayout(R.id.order_server_d, servers.get(3));
+		LayoutInflater inflater = getLayoutInflater();
+		for (int i = 0; i < size; i++) {
+			UserOrderServer server = servers.get(i);
+			View child = inflater.inflate(R.layout.icon_column, viewGroup,false);
+			((NetworkImageView)child.findViewById(R.id.order_server_icon)).setImageUrl(server.getAvatar(), ApiServer.getImageLoader(this));
+			((TextView)child.findViewById(R.id.order_server_name)).setText(server.getName());
+			viewGroup.addView(child);
 		}
 	}
 	
-	private void setServerViewLayout(int resId, UserOrderServer server) {
-		TextView view = (TextView) findViewById(resId);
-		view.setText(server.getName());
-		NetworkImageView imageView = new NetworkImageView(this);
-		imageView.setImageUrl(server.getAvatar(), ApiServer.getImageLoader(this));
-	}
+//	private void setServerViewLayout(int resId, UserOrderServer server) {
+//		TextView view = (TextView) findViewById(resId);
+//		view.setText(server.getName());
+//		NetworkImageView imageView = new NetworkImageView(this);
+//		imageView.setImageUrl(server.getAvatar(), ApiServer.getImageLoader(this));
+//	}
 	
 	private void startBarcodeScanner() {
 		IntentIntegrator integrator = new IntentIntegrator(this);

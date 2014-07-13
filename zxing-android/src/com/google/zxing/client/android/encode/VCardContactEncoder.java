@@ -80,14 +80,14 @@ final class VCardContactEncoder extends ContactEncoder {
     if (phoneTypes == null || phoneTypes.isEmpty()) {
       return null;
     }
-    List<Map<String,Set<String>>> metadataForIndex = new ArrayList<Map<String,Set<String>>>();
+    List<Map<String,Set<String>>> metadataForIndex = new ArrayList<>();
     for (int i = 0; i < phones.size(); i++) {
       if (phoneTypes.size() <= i) {
         metadataForIndex.add(null);
       } else {
-        Map<String,Set<String>> metadata = new HashMap<String,Set<String>>();
+        Map<String,Set<String>> metadata = new HashMap<>();
         metadataForIndex.add(metadata);
-        Set<String> typeTokens = new HashSet<String>();
+        Set<String> typeTokens = new HashSet<>();
         metadata.put("TYPE", typeTokens);
         String typeString = phoneTypes.get(i);
         Integer androidType = maybeIntValue(typeString);

@@ -98,7 +98,11 @@ final class CameraConfigurationManager {
       }
 
     }
-
+    
+    ////////////// PORTRAIT MODE //////////////
+    camera.setDisplayOrientation(90);
+    //////////////////////////////////////////
+    
     parameters.setPreviewSize(cameraResolution.x, cameraResolution.y);
     camera.setParameters(parameters);
 

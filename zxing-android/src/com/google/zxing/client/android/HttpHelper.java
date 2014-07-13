@@ -38,7 +38,7 @@ public final class HttpHelper {
 
   private static final String TAG = HttpHelper.class.getSimpleName();
 
-  private static final Collection<String> REDIRECTOR_DOMAINS = new HashSet<String>(Arrays.asList(
+  private static final Collection<String> REDIRECTOR_DOMAINS = new HashSet<>(Arrays.asList(
     "amzn.to", "bit.ly", "bitly.com", "fb.me", "goo.gl", "is.gd", "j.mp", "lnkd.in", "ow.ly",
     "R.BEETAGG.COM", "r.beetagg.com", "SCN.BY", "su.pr", "t.co", "tinyurl.com", "tr.im"
   ));
