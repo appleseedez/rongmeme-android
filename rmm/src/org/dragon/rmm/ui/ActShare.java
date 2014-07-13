@@ -96,12 +96,8 @@ public class ActShare extends Activity implements OnClickListener {
 		}
 		String extraText = intent.getStringExtra(EXTRA_TEXT);
 		if (!TextUtils.isEmpty(extraText)) {
-<<<<<<< HEAD
-			((TextView) parent.findViewById(R.id.share_content))
+			((EditText) parent.findViewById(R.id.share_content))
 					.setText(extraText);
-=======
-			((EditText) parent.findViewById(R.id.share_content)).setText(extraText);
->>>>>>> 7df8b381bf8d063bbca2fa0b73d68d37ef262d89
 		}
 
 		mOrderId = intent.getLongExtra(EXTRA_ORDERID, -1);
@@ -130,20 +126,12 @@ public class ActShare extends Activity implements OnClickListener {
 			break;
 		case R.id.share_wechat:
 			Platform plat = null;
-<<<<<<< HEAD
 			ShareParams sp = getShareParams(v);
-			// ShareParams sp = new WechatMoments.ShareParams();
 			sp.setImageData(BitmapFactory.decodeResource(getResources(),
 					R.drawable.icon_logo));
 			// plat = ShareSDK.getPlatform("Wechat");
 			plat = ShareSDK.getPlatform(this, WechatMoments.NAME);
 			// plat = ShareSDK.getPlatform("WechatFavorite");
-=======
-			
-//			plat = ShareSDK.getPlatform("Wechat");
-			plat = ShareSDK.getPlatform("WechatMoments");
-//			plat = ShareSDK.getPlatform("WechatFavorite");
->>>>>>> 7df8b381bf8d063bbca2fa0b73d68d37ef262d89
 			plat.setPlatformActionListener(mPlatformActionListener);
 
 			plat.share(getShareParams(v));
