@@ -6,11 +6,12 @@ import org.dragon.rmm.api.ApiMethod;
 import org.dragon.rmm.api.ApiServer;
 import org.dragon.rmm.api.ResponseListener;
 import org.dragon.rmm.model.InfoRegist;
+import org.dragon.rmm.model.InfoUserLogin;
 import org.dragon.rmm.model.InfoVerycode;
+import org.dragon.rmm.utils.PreferenceUtils;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -33,8 +34,10 @@ public class ActRegist extends Activity implements OnClickListener {
 		View parent = getLayoutInflater().inflate(R.layout.act_regist, null);
 		setContentView(parent);
 		mApiServer = ApiServer.getInstance(this);
-		etPhone = (EditText) parent.findViewById(R.id.regist_et_phone_verifycode);
-		etVerifyCode = (EditText) parent.findViewById(R.id.regist_et_verifycode);
+		etPhone = (EditText) parent
+				.findViewById(R.id.regist_et_phone_verifycode);
+		etVerifyCode = (EditText) parent
+				.findViewById(R.id.regist_et_verifycode);
 		etPwd = (EditText) parent.findViewById(R.id.regist_et_pwd);
 		etRePwd = (EditText) parent.findViewById(R.id.regist_et_pwd_confirm);
 		parent.findViewById(R.id.regist_bt_verifycode).setOnClickListener(this);
@@ -87,9 +90,10 @@ public class ActRegist extends Activity implements OnClickListener {
 			Toast.makeText(this, "两次密码不同，请重新输入", Toast.LENGTH_SHORT).show();
 			return;
 		}
-		InfoRegist info = new InfoRegist(phone, MD5Utils.encode(pwd), verifyCode, 0, 0);
+		InfoRegist info = new InfoRegist(phone, MD5Utils.encode(pwd),
+				verifyCode, 0, 0);
 		showDialog(0);
-		mApiServer.regist(info, mResponseListener);
+		mApiServer.regist(info, mRegistListener);
 	}
 
 	private void requestVerifyCode() {
@@ -98,22 +102,27 @@ public class ActRegist extends Activity implements OnClickListener {
 			Toast.makeText(this, "请输入正确的电话号码", Toast.LENGTH_SHORT).show();
 			return;
 		}
-		mApiServer.verifyCode(new InfoVerycode(phone), mResponseListener);
+		mApiServer.verifyCode(new InfoVerycode(phone), mRegistListener);
 		Toast.makeText(this, "已发送", Toast.LENGTH_SHORT).show();
 	}
 
-	private ResponseListener mResponseListener = new ResponseListener() {
+	private ResponseListener mRegistListener = new ResponseListener() {
 
 		@Override
 		public void success(ApiMethod api, String response) {
 			switch (api) {
 			case API_REGIST_VERIFYCODE:
-				Toast.makeText(ActRegist.this, "请注意查收短信验证码", Toast.LENGTH_SHORT).show();
+				Toast.makeText(ActRegist.this, "请注意查收短信验证码", Toast.LENGTH_SHORT)
+						.show();
 				break;
 			case API_REGIST:
-				dismissDialog(0);
-				Toast.makeText(ActRegist.this, "用户注册成功", Toast.LENGTH_SHORT).show();
-				startActivity(new Intent(ActRegist.this, ActLogin.class));
+				Toast.makeText(ActRegist.this, "用户注册成功", Toast.LENGTH_SHORT)
+						.show();
+				// startActivity(new Intent(ActRegist.this, ActLogin.class));
+				mApiServer.login(
+						new InfoUserLogin(etPhone.getText().toString().trim(),
+								MD5Utils.encode(etPwd.getText().toString()
+										.trim())), mLoginListener);
 				finish();
 				break;
 			}
@@ -124,7 +133,33 @@ public class ActRegist extends Activity implements OnClickListener {
 			switch (api) {
 			case API_REGIST:
 				dismissDialog(0);
-				Toast.makeText(ActRegist.this, "用户注册失败", Toast.LENGTH_SHORT).show();
+				Toast.makeText(ActRegist.this, "用户注册失败", Toast.LENGTH_SHORT)
+						.show();
+				break;
+			}
+		}
+	};
+
+	private ResponseListener mLoginListener = new ResponseListener() {
+
+		@Override
+		public void success(ApiMethod api, String response) {
+			dismissDialog(0);
+			switch (api) {
+			case API_LOGIN:
+				startActivity(new Intent(ActRegist.this, ActShopList.class)); // 根据当前经纬度获取店铺列表
+				finish();
+				break;
+			}
+		}
+
+		@Override
+		public void fail(ApiMethod api, VolleyError error) {
+			dismissDialog(0);
+			switch (api) {
+			case API_LOGIN:
+				Toast.makeText(ActRegist.this, "网络异常", Toast.LENGTH_SHORT)
+						.show();
 				break;
 			}
 		}

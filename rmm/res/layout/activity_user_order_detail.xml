@@ -115,6 +115,7 @@
         android:layout_marginRight="20dp"
         android:layout_below="@id/order_server_label">
         
+       <!-- 
         <TextView
             android:id="@+id/order_server_a"
             style="@style/order_server_empty"
@@ -133,7 +134,7 @@
         <TextView
             android:id="@+id/order_server_d"
             style="@style/order_server_empty"
-            android:layout_weight="1"/>       
+            android:layout_weight="1"/> -->       
     </LinearLayout>
 
     <TextView

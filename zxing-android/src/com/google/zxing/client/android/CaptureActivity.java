@@ -56,6 +56,7 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -78,7 +79,7 @@ import java.util.Map;
  * @author dswitkin@google.com (Daniel Switkin)
  * @author Sean Owen
  */
-public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
+public final class CaptureActivity extends Activity implements OnClickListener, SurfaceHolder.Callback {
 
   private static final String TAG = CaptureActivity.class.getSimpleName();
 
@@ -131,8 +132,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   public void onCreate(Bundle icicle) {
     super.onCreate(icicle);
 
+    requestWindowFeature(Window.FEATURE_NO_TITLE);
+    
     Window window = getWindow();
     window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    
     setContentView(R.layout.zxing_capture);
 
     hasSurface = false;
@@ -143,12 +147,15 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     ambientLightManager = new AmbientLightManager(this);
 
     PreferenceManager.setDefaultValues(this, R.xml.zxing_preferences, false);
+    
+    TextView closeView = (TextView) findViewById(R.id.zxing_close_view);
+    closeView.setOnClickListener(this);
   }
 
   @Override
   protected void onResume() {
     super.onResume();
-
+    
     // CameraManager must be initialized here, not in onCreate(). This is necessary because we don't
     // want to open the camera driver and measure the screen size if we're going to show the help on
     // first launch. That led to bugs where the scanning rectangle was the wrong size and partially
@@ -166,11 +173,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-    if (prefs.getBoolean(PreferencesActivity.KEY_DISABLE_AUTO_ORIENTATION, true)) {
-      setRequestedOrientation(getCurrentOrientation());
-    } else {
-      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-    }
+//    if (prefs.getBoolean(PreferencesActivity.KEY_DISABLE_AUTO_ORIENTATION, true)) {
+//      setRequestedOrientation(getCurrentOrientation());
+//    } else {
+//      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+//    }
 
     resetStatusView();
 
@@ -264,9 +271,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     switch (rotation) {
       case Surface.ROTATION_0:
       case Surface.ROTATION_90:
-        return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+//        return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+        return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
       default:
         return ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
+//        return ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
     }
   }
   
@@ -298,6 +307,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       surfaceHolder.removeCallback(this);
     }
     super.onPause();
+    finish();
   }
 
   @Override
@@ -337,31 +347,31 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    MenuInflater menuInflater = getMenuInflater();
-    menuInflater.inflate(R.menu.zxing_capture, menu);
+//    MenuInflater menuInflater = getMenuInflater();
+//    menuInflater.inflate(R.menu.zxing_capture, menu);
     return super.onCreateOptionsMenu(menu);
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    Intent intent = new Intent(Intent.ACTION_VIEW);
-    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-    int switchValue = item.getItemId();
-    if(switchValue == R.id.zxing_menu_share) {
-        intent.setClassName(this, ShareActivity.class.getName());
-        startActivity(intent);
-      } else if(switchValue == R.id.zxing_menu_history) {
-        intent.setClassName(this, HistoryActivity.class.getName());
-        startActivityForResult(intent, HISTORY_REQUEST_CODE);
-      } else if(switchValue == R.id.zxing_menu_settings) {
-        intent.setClassName(this, PreferencesActivity.class.getName());
-        startActivity(intent);
-      } else if(switchValue == R.id.zxing_menu_help) {
-        intent.setClassName(this, HelpActivity.class.getName());
-        startActivity(intent);
-      } else {
-        return super.onOptionsItemSelected(item);
-    }
+//    Intent intent = new Intent(Intent.ACTION_VIEW);
+//    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+//    int switchValue = item.getItemId();
+//    if(switchValue == R.id.zxing_menu_share) {
+//        intent.setClassName(this, ShareActivity.class.getName());
+//        startActivity(intent);
+//      } else if(switchValue == R.id.zxing_menu_history) {
+//        intent.setClassName(this, HistoryActivity.class.getName());
+//        startActivityForResult(intent, HISTORY_REQUEST_CODE);
+//      } else if(switchValue == R.id.zxing_menu_settings) {
+//        intent.setClassName(this, PreferencesActivity.class.getName());
+//        startActivity(intent);
+//      } else if(switchValue == R.id.zxing_menu_help) {
+//        intent.setClassName(this, HelpActivity.class.getName());
+//        startActivity(intent);
+//      } else {
+//        return super.onOptionsItemSelected(item);
+//    }
     return true;
   }
 
@@ -521,9 +531,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       return;
     }
 
-    statusView.setVisibility(View.GONE);
+//    statusView.setVisibility(View.GONE);
     viewfinderView.setVisibility(View.GONE);
-    resultView.setVisibility(View.VISIBLE);
+//    resultView.setVisibility(View.VISIBLE);
 
     ImageView barcodeImageView = (ImageView) findViewById(R.id.zxing_barcode_image_view);
     if (barcode == null) {
@@ -734,14 +744,22 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   }
 
   private void resetStatusView() {
-    resultView.setVisibility(View.GONE);
+//    resultView.setVisibility(View.GONE);
     statusView.setText(R.string.zxing_msg_default_status);
-    statusView.setVisibility(View.VISIBLE);
+//    statusView.setVisibility(View.VISIBLE);
     viewfinderView.setVisibility(View.VISIBLE);
     lastResult = null;
   }
 
   public void drawViewfinder() {
     viewfinderView.drawViewfinder();
+  }
+
+  @Override
+  public void onClick(View view) {
+	if(view.getId() == R.id.zxing_close_view) {
+		setResult(Activity.RESULT_CANCELED);
+		finish();
+	}
   }
 }
