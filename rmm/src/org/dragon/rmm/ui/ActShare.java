@@ -133,7 +133,7 @@ public class ActShare extends Activity implements OnClickListener {
 			plat = ShareSDK.getPlatform(this, WechatMoments.NAME);
 			// plat = ShareSDK.getPlatform("WechatFavorite");
 			plat.setPlatformActionListener(mPlatformActionListener);
-
+			sp.setShareType(Platform.SHARE_IMAGE);
 			plat.share(getShareParams(v));
 			break;
 		case R.id.share_sinaweibo:
