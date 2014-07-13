@@ -121,38 +121,12 @@ public class ActMain extends Activity implements OnClickListener {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			// 创建退出对话框
-			AlertDialog isExit = new AlertDialog.Builder(this).create();
-			// 设置对话框标题
-			isExit.setTitle("系统提示");
-			// 设置对话框消息
-			isExit.setMessage("确定要退出吗");
-			// 添加选择按钮并注册监听
-			isExit.setButton(DialogInterface.BUTTON_POSITIVE, "确定", backKeyDownlistener);
-			isExit.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", backKeyDownlistener);
-			// 显示对话框
-			isExit.show();
-
+			moveTaskToBack(false);
 		}
 
 		return false;
-
 	}
-
-	/** 监听对话框里面的button点击事件 */
-	private DialogInterface.OnClickListener backKeyDownlistener = new DialogInterface.OnClickListener() {
-		public void onClick(DialogInterface dialog, int which) {
-			switch (which) {
-			case AlertDialog.BUTTON_POSITIVE:// "确认"按钮退出程序
-				finish();
-				break;
-			case AlertDialog.BUTTON_NEGATIVE:// "取消"第二个按钮取消对话框
-				break;
-			default:
-				break;
-			}
-		}
-	};
+	
 	/**
 	 * 重力感应监听
 	 */
