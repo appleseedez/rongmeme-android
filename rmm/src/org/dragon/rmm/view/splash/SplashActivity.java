@@ -59,7 +59,7 @@ public class SplashActivity extends Activity {
     private void createAllCustomPushNotificationStyle() {
         BasicPushNotificationBuilder cBuilder = new BasicPushNotificationBuilder();
         cBuilder.setNotificationVibrate(new long[] {1000,500,500,100,50});
-        cBuilder.setStatusbarIcon(R.drawable.simple_notification_icon);
+        cBuilder.setStatusbarIcon(R.drawable.icon_logo);
         PushManager.setNotificationBuilder(this, 1, cBuilder);
     }
 

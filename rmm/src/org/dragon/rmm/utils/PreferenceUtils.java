@@ -24,12 +24,14 @@ public class PreferenceUtils {
 	public static final String PREFERENCE_SHOPID = "curStoreId";
 	public static final String PREFERENCE_SHOPNAME = "curStoreName";
 	public static final String PREFERENCE_SHOPADDR = "curAddress";
+	public static final String PREFERENCE_SHOPPHONE = "curPhone";
 	public static final String EXTRA_LONGITUDE = "longitude";
 	public static final String EXTRA_LATITUDE = "latitude";
 	public static final String PREFERENCE_SESSIONTOKEN = "curSessionToken";
 
 	public static void saveUser(Context context, ResUser user) {
-		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_WORLD_WRITEABLE);
+		SharedPreferences sharedPreferences = context.getSharedPreferences(
+				PREFERENCE, Context.MODE_WORLD_WRITEABLE);
 		Editor edit = sharedPreferences.edit();
 		edit.putLong(PREFERENCE_USERID, user.userid);
 		edit.putString(PREFERENCE_USERNAME, user.username);
@@ -40,7 +42,8 @@ public class PreferenceUtils {
 	}
 
 	public static ResUser getUser(Context context) {
-		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_WORLD_READABLE);
+		SharedPreferences sharedPreferences = context.getSharedPreferences(
+				PREFERENCE, Context.MODE_WORLD_READABLE);
 		long userid = sharedPreferences.getLong(PREFERENCE_USERID, -1);
 		if (-1 == userid) {
 			return null;
@@ -55,29 +58,31 @@ public class PreferenceUtils {
 		if (TextUtils.isEmpty(key) || TextUtils.isEmpty(value)) {
 			return;
 		}
-		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_WORLD_WRITEABLE);
+		SharedPreferences sharedPreferences = context.getSharedPreferences(
+				PREFERENCE, Context.MODE_WORLD_WRITEABLE);
 		Editor edit = sharedPreferences.edit();
 		edit.putString(key, value);
 		edit.commit();
 	}
 
 	public static String getValue(Context context, String key) {
-		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_WORLD_READABLE);
+		SharedPreferences sharedPreferences = context.getSharedPreferences(
+				PREFERENCE, Context.MODE_WORLD_READABLE);
 		return sharedPreferences.getString(key, "");
 	}
 
 	public static ResShop getShop(Context context) {
-		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_WORLD_READABLE);
+		SharedPreferences sharedPreferences = context.getSharedPreferences(
+				PREFERENCE, Context.MODE_WORLD_READABLE);
 		long shopid = sharedPreferences.getLong(PREFERENCE_SHOPID, -1);
 		if (-1 == shopid) {
 			return null;
 		}
-		String name = sharedPreferences.getString(PREFERENCE_SHOPNAME, null);
-		String address = sharedPreferences.getString(PREFERENCE_SHOPADDR, null);
 		ResShop shop = new ResShop();
 		shop.id = shopid;
-		shop.name = name;
-		shop.address = address;
+		shop.name = sharedPreferences.getString(PREFERENCE_SHOPNAME, null);
+		shop.address = sharedPreferences.getString(PREFERENCE_SHOPADDR, null);
+		shop.phone = sharedPreferences.getString(PREFERENCE_SHOPPHONE, null);
 		return shop;
 	}
 
@@ -86,7 +91,8 @@ public class PreferenceUtils {
 	}
 
 	public static String getSessionToken(Context context) {
-		SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_WORLD_READABLE);
+		SharedPreferences sharedPreferences = context.getSharedPreferences(
+				PREFERENCE, Context.MODE_WORLD_READABLE);
 		return sharedPreferences.getString(PREFERENCE_SESSIONTOKEN, null);
 	}
 }

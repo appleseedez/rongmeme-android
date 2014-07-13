@@ -32,7 +32,8 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 
-public class ActShopList extends Activity implements OnClickListener, IXListViewListener, OnItemClickListener {
+public class ActShopList extends Activity implements OnClickListener,
+		IXListViewListener, OnItemClickListener {
 
 	private ApiServer mApiServer;
 	private XListView lvDetail;
@@ -81,10 +82,14 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 		public void onClick(DialogInterface dialog, int which) {
 			switch (which) {
 			case AlertDialog.BUTTON_POSITIVE:// "确认"按钮退出程序
-				startActivity(ActMain.getIntent(ActShopList.this, mCurrentShop.id));
+				startActivity(ActMain.getIntent(ActShopList.this,
+						mCurrentShop.id));
 				break;
 			case AlertDialog.BUTTON_NEGATIVE:// "取消"第二个按钮取消对话框
-				long oldId = getSharedPreferences(PreferenceUtils.PREFERENCE_SHOPADDR, MODE_WORLD_READABLE).getLong(PreferenceUtils.PREFERENCE_SHOPID, -1);
+				long oldId = getSharedPreferences(
+						PreferenceUtils.PREFERENCE_SHOPADDR,
+						MODE_WORLD_READABLE).getLong(
+						PreferenceUtils.PREFERENCE_SHOPID, -1);
 				startActivity(ActMain.getIntent(ActShopList.this, oldId));
 				break;
 			}
@@ -106,7 +111,9 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 
 	@Override
 	public void onBackPressed() {
-		long oldId = getSharedPreferences(PreferenceUtils.PREFERENCE, MODE_WORLD_READABLE).getLong(PreferenceUtils.PREFERENCE_SHOPID, -1);
+		long oldId = getSharedPreferences(PreferenceUtils.PREFERENCE,
+				MODE_WORLD_READABLE).getLong(PreferenceUtils.PREFERENCE_SHOPID,
+				-1);
 		if (-1 != oldId) {
 			startActivity(ActMain.getIntent(this, oldId));
 			finish();
@@ -123,10 +130,13 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 		// // the position of listview header is 0.
 		// mCurrentShop = (ResShop) mAdapter.getItem(index - 1);
 		if (mAdapter.getCount() > 0) {
-			long oldId = getSharedPreferences(PreferenceUtils.PREFERENCE, MODE_WORLD_READABLE).getLong(PreferenceUtils.PREFERENCE_SHOPID, -1);
+			long oldId = getSharedPreferences(PreferenceUtils.PREFERENCE,
+					MODE_WORLD_READABLE).getLong(
+					PreferenceUtils.PREFERENCE_SHOPID, -1);
 			if ((-1 == oldId) || (oldId == mCurrentShop.id)) {
 				save(mCurrentShop);
-				startActivity(ActMain.getIntent(ActShopList.this, mCurrentShop.id));
+				startActivity(ActMain.getIntent(ActShopList.this,
+						mCurrentShop.id));
 				finish();
 			} else {
 				// 创建退出对话框
@@ -136,8 +146,10 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 				// 设置对话框消息
 				changeShop.setMessage("确定需要切换店铺吗");
 				// 添加选择按钮并注册监听
-				changeShop.setButton(DialogInterface.BUTTON_POSITIVE, "确定", mListener);
-				changeShop.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", mListener);
+				changeShop.setButton(DialogInterface.BUTTON_POSITIVE, "确定",
+						mListener);
+				changeShop.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
+						mListener);
 				// 显示对话框
 				changeShop.show();
 			}
@@ -145,11 +157,13 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 	}
 
 	private void save(ResShop shop) {
-		SharedPreferences sp = getSharedPreferences(PreferenceUtils.PREFERENCE, MODE_WORLD_WRITEABLE);
+		SharedPreferences sp = getSharedPreferences(PreferenceUtils.PREFERENCE,
+				MODE_WORLD_WRITEABLE);
 		Editor edit = sp.edit();
 		edit.putLong(PreferenceUtils.PREFERENCE_SHOPID, shop.id);
 		edit.putString(PreferenceUtils.PREFERENCE_SHOPNAME, shop.name);
 		edit.putString(PreferenceUtils.PREFERENCE_SHOPADDR, shop.address);
+		edit.putString(PreferenceUtils.PREFERENCE_SHOPPHONE, shop.phone);
 		edit.commit();
 	}
 
@@ -163,7 +177,8 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 				if (lvDetail.isRefresh()) {
 					mAdapter.clear();
 				}
-				refreshShopList(ApiServer.getGson().fromJson(response, ModelResShopList.class));
+				refreshShopList(ApiServer.getGson().fromJson(response,
+						ModelResShopList.class));
 				break;
 			}
 			lvDetail.reset();
@@ -195,15 +210,19 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 
 			@Override
 			protected InfoPlace doInBackground(Void... params) {
-				Location location = ((RmmApplication) getApplication()).getLastKnownLocation();
-				String preLongitude = PreferenceUtils.getValue(ActShopList.this, PreferenceUtils.EXTRA_LONGITUDE);
-				String preLatitude = PreferenceUtils.getValue(ActShopList.this, PreferenceUtils.EXTRA_LATITUDE);
+				Location location = ((RmmApplication) getApplication())
+						.getLastKnownLocation();
+				String preLongitude = PreferenceUtils.getValue(
+						ActShopList.this, PreferenceUtils.EXTRA_LONGITUDE);
+				String preLatitude = PreferenceUtils.getValue(ActShopList.this,
+						PreferenceUtils.EXTRA_LATITUDE);
 				double longitude = -1;
 				double latitude = -1;
 				if (null != location) {
 					longitude = location.getLongitude();
 					latitude = location.getLatitude();
-				} else if (!TextUtils.isEmpty(preLongitude) && !TextUtils.isEmpty(preLatitude)) {
+				} else if (!TextUtils.isEmpty(preLongitude)
+						&& !TextUtils.isEmpty(preLatitude)) {
 					longitude = Double.parseDouble(preLongitude);
 					latitude = Double.parseDouble(preLatitude);
 				}
@@ -229,7 +248,8 @@ public class ActShopList extends Activity implements OnClickListener, IXListView
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
 		mCurrentShop = (ResShop) mAdapter.getItem(position - 1);
 		changeShop();
 	}

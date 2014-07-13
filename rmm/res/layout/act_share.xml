@@ -1,7 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg_home"
+    android:background="@drawable/allbg"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical" >
 
     <include
@@ -59,12 +61,13 @@
                     android:layout_marginTop="2dip"
                     android:text="吕阿姨" />
 
-                <TextView
+                <EditText
                     android:id="@+id/share_content"
                     style="@style/title.small"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dip"
+                    android:gravity="left"
                     android:text="服务类型" />
             </LinearLayout>
 
