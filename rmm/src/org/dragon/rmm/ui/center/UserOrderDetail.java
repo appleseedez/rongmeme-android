@@ -187,8 +187,8 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 
 	private void requestDataSource(String id) {
 		InfoOrderOfNo request = new InfoOrderOfNo();
-
-		request.setOrderno(id);
+		
+		request.setOrderno(id.split("=")[1]);
 
 		ApiServer.getInstance(this).findOrderByNo(request, this);
 	}

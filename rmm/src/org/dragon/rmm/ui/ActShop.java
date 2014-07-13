@@ -10,7 +10,10 @@ import org.dragon.rmm.model.ModelResCommenList;
 import org.dragon.rmm.model.ModelResShop;
 import org.dragon.rmm.model.ResShop;
 import org.dragon.rmm.ui.adapter.CommentAdapter;
+import org.dragon.rmm.ui.center.UserCenterPortal;
 import org.dragon.rmm.ui.center.UserOrderDetail;
+import org.dragon.rmm.ui.drycleaning.DryCleaningPortal;
+import org.dragon.rmm.view.hourlyemployee.HourlyEmployeeActivity;
 import org.dragon.rmm.widget.xlistview.XListView;
 import org.dragon.rmm.widget.xlistview.XListView.IXListViewListener;
 import android.app.Activity;
@@ -105,12 +108,37 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
                 String id = serverIds[i];
                 if("1".equals( id)) {
                     icon.setImageResource( R.drawable.icon_4);
+                    icon.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							Intent intentHourlyEmployee = new Intent(ActShop.this, HourlyEmployeeActivity.class);
+							startActivity(intentHourlyEmployee);
+						}
+					});
                 }
                 else if("2".equals( id)) {
-                    icon.setImageResource( R.drawable.icon_3);
+                    icon.setImageResource( R.drawable.icon_1);
+                    icon.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							Intent intentHourlyEmployee = new Intent(ActShop.this, UserCenterPortal.class);
+							startActivity(intentHourlyEmployee);
+						}
+					});
                 }
                 else if("3".equals( id)) {
-                    icon.setImageResource( R.drawable.icon_1);
+                    icon.setImageResource( R.drawable.icon_3);
+                    icon.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							Intent intentHourlyEmployee = new Intent(ActShop.this, DryCleaningPortal.class);
+							startActivity(intentHourlyEmployee);
+						}
+					});
                 }
                 else {
                     icon.setImageResource( R.drawable.icon_logo);
