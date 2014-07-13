@@ -91,7 +91,7 @@ public class ActShare extends Activity implements OnClickListener {
 		}
 		String extraText = intent.getStringExtra(EXTRA_TEXT);
 		if (!TextUtils.isEmpty(extraText)) {
-			((EditText) parent.findViewById(R.id.share_content)).setText(extraText);
+			((TextView) parent.findViewById(R.id.share_content)).setText(extraText);
 		}
 
 		mOrderId = intent.getLongExtra(EXTRA_ORDERID, -1);
