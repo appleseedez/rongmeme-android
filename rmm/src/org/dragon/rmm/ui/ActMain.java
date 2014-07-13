@@ -139,9 +139,9 @@ public class ActMain extends Activity implements OnClickListener {
 			float x = values[0]; // x轴方向的重力加速度，向右为正
 			float y = values[1]; // y轴方向的重力加速度，向前为正
 			float z = values[2]; // z轴方向的重力加速度，向上为正
-			Log.i(TAG, "x轴方向的重力加速度" + x + "；y轴方向的重力加速度" + y + "；z轴方向的重力加速度" + z);
+
 			// 一般在这三个方向的重力加速度达到40就达到了摇晃手机的状态。
-			int medumValue = 19;// 三星 i9250怎么晃都不会超过20，没办法，只设置19了
+			int medumValue = 15;// 三星 i9250怎么晃都不会超过20，没办法，只设置19了
 			if (Math.abs(x) > medumValue || Math.abs(y) > medumValue || Math.abs(z) > medumValue) {
 				vibrator.vibrate(200);
 				mHandler.sendMessage(mHandler.obtainMessage(SENSOR_SHAKE));
