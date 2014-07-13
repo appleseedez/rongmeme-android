@@ -7,6 +7,8 @@ import org.dragon.rmm.ui.drycleaning.DryCleaningPortal;
 import org.dragon.rmm.view.cleaning.CleaningActivity;
 import org.dragon.rmm.view.hourlyemployee.HourlyEmployeeActivity;
 
+import cn.sharesdk.framework.ShareSDK;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -58,7 +60,6 @@ public class ActMain extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		View parent = getLayoutInflater().inflate(R.layout.act_main, null);
 		setContentView(parent);
-
 		rmmApplication = (RmmApplication) getApplication();
 		rmmApplication.requestLocationUpdates(true);
 
@@ -126,7 +127,7 @@ public class ActMain extends Activity implements OnClickListener {
 
 		return false;
 	}
-	
+
 	/**
 	 * 重力感应监听
 	 */

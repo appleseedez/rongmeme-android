@@ -6,6 +6,7 @@ import org.dragon.rmm.api.ApiMethod;
 import org.dragon.rmm.api.ApiServer;
 import org.dragon.rmm.api.ResponseListener;
 import org.dragon.rmm.model.InfoUserLogin;
+import org.dragon.rmm.model.ModelResUser;
 import org.dragon.rmm.model.ResUser;
 import org.dragon.rmm.utils.PreferenceUtils;
 
@@ -126,7 +127,7 @@ public class ActLogin extends Activity implements OnClickListener {
 		public void fail(ApiMethod api, VolleyError error) {
 			switch (api) {
 			case API_LOGIN:
-				Toast.makeText(ActLogin.this, "网络异常",Toast.LENGTH_SHORT).show();
+				Toast.makeText(ActLogin.this, "网络异常", Toast.LENGTH_SHORT).show();
 				if (isAutoLogin) {
 					setupView();
 				}

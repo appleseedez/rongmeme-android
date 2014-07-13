@@ -18,11 +18,13 @@ import org.dragon.rmm.model.InfoUserLogin;
 import org.dragon.rmm.model.InfoUserLogout;
 import org.dragon.rmm.model.InfoVerycode;
 import org.dragon.rmm.model.ModelResUser;
+import org.dragon.rmm.ui.ActLogin;
 import org.dragon.rmm.utils.PreferenceUtils;
 import org.dragon.rmm.volley.BitmapLruCache;
 import org.dragon.rmm.volley.PostRequest;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
@@ -114,6 +116,10 @@ public class ApiServer {
 				switch (apiMethod) {
 				case API_LOGIN:
 					ModelResUser result = ApiServer.getGson().fromJson(response, ModelResUser.class);
+					if (result.head.status ==-1) {
+						Toast.makeText(mContext, "账号和密码不匹配", Toast.LENGTH_SHORT).show();
+						return;
+					}
 					mHeader.sessionToken = result.head.sessionToken;
 					PreferenceUtils.saveUser(mContext, result.body);
 					PreferenceUtils.saveSessionToken(mContext, mHeader.sessionToken);

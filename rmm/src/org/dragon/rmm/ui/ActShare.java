@@ -66,7 +66,7 @@ public class ActShare extends Activity implements OnClickListener {
 		setContentView(parent);
 		mApiServer = ApiServer.getInstance(this);
 		initView(parent);
-		ShareSDK.initSDK(this);
+		// ShareSDK.initSDK(this);
 	}
 
 	private void initView(View parent) {
@@ -104,7 +104,7 @@ public class ActShare extends Activity implements OnClickListener {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		ShareSDK.stopSDK(this);
+		// ShareSDK.stopSDK(this);
 	}
 
 	@Override
@@ -119,12 +119,13 @@ public class ActShare extends Activity implements OnClickListener {
 			break;
 		case R.id.share_wechat:
 			Platform plat = null;
-			ShareParams sp = getShareParams(v);
-			sp.setImageData(BitmapFactory.decodeResource(getResources(), R.drawable.icon_logo));
+			ShareParams sp = new WechatMoments.ShareParams();
+			sp.setTitle("分享");
+			sp.setText("蓉么么做家政服务确实不错!");
+			sp.setShareType(Platform.SHARE_TEXT);
 			sp.setShareType(Platform.SHARE_IMAGE);
-			// plat = ShareSDK.getPlatform("Wechat");
-			plat = ShareSDK.getPlatform(this, WechatMoments.NAME);
-			// plat = ShareSDK.getPlatform("WechatFavorite");
+			sp.setImageData(BitmapFactory.decodeResource(getResources(), R.drawable.icon_logo));
+			plat = ShareSDK.getPlatform("WechatMoments");
 			plat.setPlatformActionListener(mPlatformActionListener);
 			plat.share(sp);
 			break;
@@ -159,7 +160,7 @@ public class ActShare extends Activity implements OnClickListener {
 		final OnekeyShare oks = new OnekeyShare();
 		oks.setNotification(R.drawable.icon_login, getString(R.string.app_name));
 		oks.setTitle("分享");
-		oks.setText("这家店不错，支持一下");
+		oks.setText("蓉么么做家政服务确实不错!");
 		oks.setSilent(silent);
 		if (platform != null) {
 			oks.setPlatform(platform);
@@ -170,14 +171,6 @@ public class ActShare extends Activity implements OnClickListener {
 		oks.disableSSOWhenAuthorize();
 		oks.setCallback(mPlatformActionListener);
 		oks.show(this);
-	}
-
-	private ShareParams getShareParams(View v) {
-		ShareParams sp = new ShareParams();
-		sp.setTitle("分享");
-		sp.setText("这家店不错，支持一下");
-		sp.setShareType(Platform.SHARE_TEXT);
-		return sp;
 	}
 
 	private ResponseListener mResponseListener = new ResponseListener() {
