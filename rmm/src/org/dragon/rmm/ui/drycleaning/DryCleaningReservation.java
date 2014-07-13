@@ -34,8 +34,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
-public class DryCleaningReservation extends Activity implements
-		OnClickListener, ResponseListener {
+public class DryCleaningReservation extends Activity implements OnClickListener, ResponseListener {
 
 	public final String UID_CELL_TITLE = "cell_title";
 
@@ -57,8 +56,7 @@ public class DryCleaningReservation extends Activity implements
 
 		setContentView(R.layout.activity_dry_cleaning_reservation);
 
-		String bundle = getIntent().getStringExtra(
-				DryCleaningPortal.INTENT_EXTRA_RESERVED_LIST);
+		String bundle = getIntent().getStringExtra(DryCleaningPortal.INTENT_EXTRA_RESERVED_LIST);
 		mDataSource = DryCleaningUtils.fromJson(bundle);
 
 		initViewLayout();
@@ -95,14 +93,10 @@ public class DryCleaningReservation extends Activity implements
 		String[] fields = { UID_CELL_TITLE, UID_CELL_AMOUNT, UID_CELL_PRICE };
 		int[] elements = { R.id.cell_title, R.id.cell_amount, R.id.cell_price };
 
-		mSimpleAdapter = new SimpleAdapter(this, mDataSet,
-				R.layout.activity_dry_cleaning_reservation_item, fields,
-				elements);
+		mSimpleAdapter = new SimpleAdapter(this, mDataSet, R.layout.activity_dry_cleaning_reservation_item, fields, elements);
 
-		View header = getLayoutInflater().inflate(
-				R.layout.activity_dry_cleaning_reservation_header, null);
-		View footer = getLayoutInflater().inflate(
-				R.layout.activity_dry_cleaning_reservation_footer, null);
+		View header = getLayoutInflater().inflate(R.layout.activity_dry_cleaning_reservation_header, null);
+		View footer = getLayoutInflater().inflate(R.layout.activity_dry_cleaning_reservation_footer, null);
 
 		ListView listView = (ListView) findViewById(R.id.manifest);
 
@@ -140,11 +134,7 @@ public class DryCleaningReservation extends Activity implements
 	}
 
 	private String getContentText(String telephone) {
-		String content = StringResource
-				.getString(R.string.dry_cleaning_reserve_notification_part_a)
-				+ telephone
-				+ StringResource
-						.getString(R.string.dry_cleaning_reserve_notification_part_b);
+		String content = StringResource.getString(R.string.dry_cleaning_reserve_notification_part_a) + telephone + StringResource.getString(R.string.dry_cleaning_reserve_notification_part_b);
 
 		return content;
 	}
@@ -154,23 +144,19 @@ public class DryCleaningReservation extends Activity implements
 		if (api != ApiMethod.API_CREATE_DRY_CLEAN_APPOINTENT) {
 			return;
 		}
-		RespDryCleanReservation resp = ApiServer.getGson().fromJson(response,
-				RespDryCleanReservation.class);
+		RespDryCleanReservation resp = ApiServer.getGson().fromJson(response, RespDryCleanReservation.class);
 		if (resp.getHead().getStatus() == 0) {
 			EditText telephone = (EditText) findViewById(R.id.telephone);
-			Dialog dialog = new DryCleaningNotification(this,
-					getContentText(telephone.getText().toString()));
+			Dialog dialog = new DryCleaningNotification(this, getContentText(telephone.getText().toString()));
 			dialog.show();
 		} else {
-			Toast.makeText(this, R.string.dry_cleaning_reserve_failture,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.dry_cleaning_reserve_failture, Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	@Override
 	public void fail(ApiMethod api, VolleyError error) {
-		Toast.makeText(this, R.string.dry_cleaning_reserve_failture,
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, R.string.dry_cleaning_reserve_failture, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
@@ -193,12 +179,9 @@ public class DryCleaningReservation extends Activity implements
 		if (disclaimer.isChecked()) {
 			InfoDryCleanReservation request = new InfoDryCleanReservation();
 			setDrcyCleanReservation(request);
-			ApiServer.getInstance(this)
-					.createDryCleanReservation(request, this);
+			ApiServer.getInstance(this).createDryCleanReservation(request, this);
 		} else {
-			Toast.makeText(this,
-					R.string.dry_cleaning_reserve_disclaimer_notification,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.dry_cleaning_reserve_disclaimer_notification, Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -215,16 +198,14 @@ public class DryCleaningReservation extends Activity implements
 
 		EditText telephone = (EditText) findViewById(R.id.telephone);
 		if (telephone.getText().toString().length() == 0) {
-			Toast.makeText(this, R.string.dry_cleaning_reserve_telephone_hint,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.dry_cleaning_reserve_telephone_hint, Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		request.setPhone(telephone.getText().toString());
 
 		EditText address = (EditText) findViewById(R.id.address);
 		if (address.getText().toString().length() == 0) {
-			Toast.makeText(this, R.string.dry_cleaning_reserve_address_hint,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.dry_cleaning_reserve_address_hint, Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		request.setAddress(address.getText().toString());
@@ -249,10 +230,7 @@ public class DryCleaningReservation extends Activity implements
 
 	private void onForwardBtnClick() {
 		if (null != getSystemService(Context.TELEPHONY_SERVICE)) {
-//			startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
-//					+ PreferenceUtils.getShop(this).phone)));
-//			
-			startActivity( new Intent( Intent.ACTION_CALL, Uri.parse( "tel:" + 123)));
+			startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + PreferenceUtils.getShop(this).phone)));
 		} else {
 			Toast.makeText(this, "设备不支持电话功能", Toast.LENGTH_SHORT).show();
 		}

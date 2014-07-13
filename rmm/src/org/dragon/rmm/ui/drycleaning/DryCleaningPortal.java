@@ -96,7 +96,6 @@ public class DryCleaningPortal extends ProgreadListActivity<DryCleaningService> 
 		if(which != ApiMethod.API_LOAD_DRY_CLEAN_SERVICES) { return; }
 		RespDryCleanServices resp = ApiServer.getGson().fromJson(bundle, RespDryCleanServices.class);
 		dataSource.addAll(resp.getBody());
-		System.out.println("---");
 	}
 
 	@Override

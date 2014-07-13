@@ -52,6 +52,8 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 
 	private Handler mHandler;
 
+	private ViewGroup vgServerPerson;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,7 +68,7 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 		if (bundle != null) {
 			mUserOrder = UserOrderUtils.fromJson(bundle);
 			updateViewLayout();
-		} else if(getIntent().getBooleanExtra(INTENT_EXTRA_USER_ORDER_BARCODE_SCAN_MODE, false)) {
+		} else if (getIntent().getBooleanExtra(INTENT_EXTRA_USER_ORDER_BARCODE_SCAN_MODE, false)) {
 			startBarcodeScanner();
 		}
 
@@ -76,15 +78,16 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 	private void initViewLayout() {
 		TextView backward = (TextView) findViewById(R.id.navigator_backward);
 		backward.setOnClickListener(this);
-
+		vgServerPerson = (ViewGroup) findViewById(R.id.order_server_box);
 		TextView forward = (TextView) findViewById(R.id.navigator_forward);
 		forward.setOnClickListener(this);
 	}
 
 	private void updateViewLayout() {
-		
-		if(!vaildateUserOrder()) {
-			Toast.makeText(this, R.string.order_status_text_invalidate, Toast.LENGTH_SHORT).show(); finish();
+
+		if (!vaildateUserOrder()) {
+			Toast.makeText(this, R.string.order_status_text_invalidate, Toast.LENGTH_SHORT).show();
+			finish();
 		}
 
 		TextView title = (TextView) findViewById(R.id.navigator_title);
@@ -113,37 +116,36 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 
 		TextView totalPrice = (TextView) findViewById(R.id.order_total_price);
 		totalPrice.setText("￥ " + mUserOrder.getAllprice());
-		
+
 		TextView status = (TextView) findViewById(R.id.order_status);
 		status.setText(UserOrderUtils.getOrderTypeText(mUserOrder) + UserOrderUtils.getOrderStatusText(mUserOrder));
-		
+
 		TextView orderDate = (TextView) findViewById(R.id.order_date);
 		orderDate.setText(mUserOrder.getUpdatetime());
-		
+
 		TextView userAddress = (TextView) findViewById(R.id.user_address);
 		userAddress.setText(PreferenceUtils.getUser(this).address);
-		
+
 		TextView userTelephone = (TextView) findViewById(R.id.user_telephone);
 		userTelephone.setText(PreferenceUtils.getUser(this).username);
-		
+
 		updateOrderServerViewLayout();
 	}
-	
+
 	private void updateOrderServerViewLayout() {
 		List<UserOrderServer> servers = mUserOrder.getServers();
-//		if(servers.size() >= 1) {
-//			setServerViewLayout(R.id.order_server_a, servers.get(0));
-//		}
-//		if(servers.size() >= 2) {
-//			setServerViewLayout(R.id.order_server_b, servers.get(1));
-//		}
-//		if(servers.size() >= 3) {
-//			setServerViewLayout(R.id.order_server_c, servers.get(2));
-//		}
-//		if(servers.size() >= 4) {
-//			setServerViewLayout(R.id.order_server_d, servers.get(3));
-//		}
-		ViewGroup viewGroup = (ViewGroup) findViewById(R.id.order_server_box);
+		// if(servers.size() >= 1) {
+		// setServerViewLayout(R.id.order_server_a, servers.get(0));
+		// }
+		// if(servers.size() >= 2) {
+		// setServerViewLayout(R.id.order_server_b, servers.get(1));
+		// }
+		// if(servers.size() >= 3) {
+		// setServerViewLayout(R.id.order_server_c, servers.get(2));
+		// }
+		// if(servers.size() >= 4) {
+		// setServerViewLayout(R.id.order_server_d, servers.get(3));
+		// }
 		int size = servers.size();
 		if (size == 0) {
 			findViewById(R.id.order_server_label).setVisibility(View.GONE);
@@ -152,30 +154,31 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 		LayoutInflater inflater = getLayoutInflater();
 		for (int i = 0; i < size; i++) {
 			UserOrderServer server = servers.get(i);
-			View child = inflater.inflate(R.layout.icon_column, viewGroup,false);
-			((NetworkImageView)child.findViewById(R.id.order_server_icon)).setImageUrl(server.getAvatar(), ApiServer.getImageLoader(this));
-			((TextView)child.findViewById(R.id.order_server_name)).setText(server.getName());
-			viewGroup.addView(child);
+			View child = inflater.inflate(R.layout.icon_column, vgServerPerson, false);
+			((NetworkImageView) child.findViewById(R.id.order_server_icon)).setImageUrl(server.getAvatar(), ApiServer.getImageLoader(this));
+			((TextView) child.findViewById(R.id.order_server_name)).setText(server.getName());
+			vgServerPerson.addView(child);
 		}
 	}
-	
-//	private void setServerViewLayout(int resId, UserOrderServer server) {
-//		TextView view = (TextView) findViewById(resId);
-//		view.setText(server.getName());
-//		NetworkImageView imageView = new NetworkImageView(this);
-//		imageView.setImageUrl(server.getAvatar(), ApiServer.getImageLoader(this));
-//	}
-	
+
+	// private void setServerViewLayout(int resId, UserOrderServer server) {
+	// TextView view = (TextView) findViewById(resId);
+	// view.setText(server.getName());
+	// NetworkImageView imageView = new NetworkImageView(this);
+	// imageView.setImageUrl(server.getAvatar(),
+	// ApiServer.getImageLoader(this));
+	// }
+
 	private void startBarcodeScanner() {
 		IntentIntegrator integrator = new IntentIntegrator(this);
 		integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-		integrator.setResultDisplayDuration(0); integrator.setCameraId(0);
-		integrator.initiateScan(); 
+		integrator.setResultDisplayDuration(0);
+		integrator.setCameraId(0);
+		integrator.initiateScan();
 	}
 
 	private boolean vaildateUserOrder() {
-		if((UserOrderUtils.getOrderType(mUserOrder) == UserOrderConsts.ORDER_TYPE_UNKNOWN)
-			|| mUserOrder.getServices().isEmpty()) {
+		if ((UserOrderUtils.getOrderType(mUserOrder) == UserOrderConsts.ORDER_TYPE_UNKNOWN) || mUserOrder.getServices().isEmpty()) {
 			return false;
 		}
 		return true;
@@ -203,7 +206,7 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 
 	private void requestDataSource(String id) {
 		InfoOrderOfNo request = new InfoOrderOfNo();
-		
+
 		request.setOrderno(id);
 
 		ApiServer.getInstance(this).findOrderByNo(request, this);
@@ -221,6 +224,7 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 						StringResource.getString(R.string.order_service_comments_list)));
 			}
 		} else {
+			vgServerPerson.removeAllViews();
 			requestDataSource(mUserOrder.getOrderno());
 		}
 	}
@@ -228,19 +232,22 @@ public class UserOrderDetail extends Activity implements OnClickListener, Respon
 	private void onBackwordBtnClick() {
 		finish();
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(resultCode == Activity.RESULT_OK) {
+		if (resultCode == Activity.RESULT_OK) {
 			IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-			if (result == null) { super.onActivityResult(requestCode, resultCode, data); return; }
+			if (result == null) {
+				super.onActivityResult(requestCode, resultCode, data);
+				return;
+			}
 			if (result.getContents() != null) {
 				String[] segment = result.getContents().split("=");
-				if(segment != null && segment.length == 2) {
+				if (segment != null && segment.length == 2) {
 					requestDataSource(segment[1]);
 				}
 			}
-		} else if(resultCode == Activity.RESULT_CANCELED) {
+		} else if (resultCode == Activity.RESULT_CANCELED) {
 			finish();
 		}
 	}

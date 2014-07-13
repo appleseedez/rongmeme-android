@@ -49,8 +49,7 @@ public class ActShare extends Activity implements OnClickListener {
 	private long mStoreId = -1;
 	private long mOrderId = -1;
 
-	public static Intent getIntent(Context context, long storeid, long orderid,
-			String iconUrl, String name, String text) {
+	public static Intent getIntent(Context context, long storeid, long orderid, String iconUrl, String name, String text) {
 		Intent intent = new Intent(context, ActShare.class);
 		intent.putExtra(EXTRA_ORDERID, orderid);
 		intent.putExtra(EXTRA_STOREID, storeid);
@@ -77,27 +76,22 @@ public class ActShare extends Activity implements OnClickListener {
 		parent.findViewById(R.id.actionbar_back).setOnClickListener(this);
 		rbRating = (RatingBar) parent.findViewById(R.id.share_rating);
 		TextView date = (TextView) parent.findViewById(R.id.share_date);
-		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd",
-				Locale.CHINA);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd", Locale.CHINA);
 		date.setText(format.format(new Date()));
 		Intent intent = getIntent();
 		if (null == intent) {
 			finish();
 		}
-		NetworkImageView icon = (NetworkImageView) parent
-				.findViewById(R.id.share_icon);
+		NetworkImageView icon = (NetworkImageView) parent.findViewById(R.id.share_icon);
 		icon.setDefaultImageResId(R.drawable.icon_logo);
-		icon.setImageUrl(intent.getStringExtra(EXTRA_ICON),
-				ApiServer.getImageLoader(this));
+		icon.setImageUrl(intent.getStringExtra(EXTRA_ICON), ApiServer.getImageLoader(this));
 		String extraName = intent.getStringExtra(EXTRA_NAME);
 		if (!TextUtils.isEmpty(extraName)) {
-			((TextView) parent.findViewById(R.id.share_name))
-					.setText(extraName);
+			((TextView) parent.findViewById(R.id.share_name)).setText(extraName);
 		}
 		String extraText = intent.getStringExtra(EXTRA_TEXT);
 		if (!TextUtils.isEmpty(extraText)) {
-			((EditText) parent.findViewById(R.id.share_content))
-					.setText(extraText);
+			((TextView) parent.findViewById(R.id.share_content)).setText(extraText);
 		}
 
 		mOrderId = intent.getLongExtra(EXTRA_ORDERID, -1);
@@ -120,21 +114,19 @@ public class ActShare extends Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.share_app:
-			float rating = ((RatingBar) findViewById(R.id.share_rating))
-					.getRating();
+			float rating = ((RatingBar) findViewById(R.id.share_rating)).getRating();
 			new ShareComment(this, mStoreId, mOrderId, rating).show();
 			break;
 		case R.id.share_wechat:
 			Platform plat = null;
 			ShareParams sp = getShareParams(v);
-			sp.setImageData(BitmapFactory.decodeResource(getResources(),
-					R.drawable.icon_logo));
+			sp.setImageData(BitmapFactory.decodeResource(getResources(), R.drawable.icon_logo));
+			sp.setShareType(Platform.SHARE_IMAGE);
 			// plat = ShareSDK.getPlatform("Wechat");
 			plat = ShareSDK.getPlatform(this, WechatMoments.NAME);
 			// plat = ShareSDK.getPlatform("WechatFavorite");
 			plat.setPlatformActionListener(mPlatformActionListener);
-			sp.setShareType(Platform.SHARE_IMAGE);
-			plat.share(getShareParams(v));
+			plat.share(sp);
 			break;
 		case R.id.share_sinaweibo:
 			showShare(false, "SinaWeibo");
@@ -150,12 +142,10 @@ public class ActShare extends Activity implements OnClickListener {
 		}
 
 		@Override
-		public void onComplete(Platform arg0, int arg1,
-				HashMap<String, Object> arg2) {
+		public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
 			// TODO Auto-generated method stub
 			String text = arg2.get("text").toString();
-			InfoComment info = new InfoComment(mStoreId, mOrderId,
-					rbRating.getRating(), text);
+			InfoComment info = new InfoComment(mStoreId, mOrderId, rbRating.getRating(), text);
 			mApiServer.comment(info, mResponseListener);
 		}
 

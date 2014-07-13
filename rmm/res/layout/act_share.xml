@@ -61,7 +61,7 @@
                     android:layout_marginTop="2dip"
                     android:text="吕阿姨" />
 
-                <EditText
+                <TextView
                     android:id="@+id/share_content"
                     style="@style/title.small"
                     android:layout_width="fill_parent"
