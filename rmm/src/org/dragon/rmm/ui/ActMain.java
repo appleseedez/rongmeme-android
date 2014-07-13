@@ -7,12 +7,8 @@ import org.dragon.rmm.ui.drycleaning.DryCleaningPortal;
 import org.dragon.rmm.view.cleaning.CleaningActivity;
 import org.dragon.rmm.view.hourlyemployee.HourlyEmployeeActivity;
 
-import cn.sharesdk.framework.ShareSDK;
-
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -22,13 +18,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 
 public class ActMain extends Activity implements OnClickListener {
-	private static final String TAG = "ActMain";
 	public static final String EXTRA_ID = "ID";
 
 	private static final int SENSOR_SHAKE = 10;
