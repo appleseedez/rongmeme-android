@@ -18,3 +18,11 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-keep class com.alipay.android.app.** {*;}
+-keep class cn.sharesdk.onekeyshare.**{*;}
+-keep class cn.sharesdk.**{*;}
+-keep class com.google.zxing.client.android.**{*;}
+-keep class com.google.zxing.client.android.**{*;}
+-keep class com.google.zxing.integration.android.**{*;}
+-keep class com.embarkmobile.zxing.integration.**{*;}
