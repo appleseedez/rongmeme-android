@@ -11,10 +11,13 @@ import org.dragon.rmm.model.ResUser;
 import org.dragon.rmm.utils.PreferenceUtils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -144,4 +147,16 @@ public class ActLogin extends Activity implements OnClickListener {
 		}
 	}
 
+	/**
+	 * 捕获键盘上的返回键，避免返回后到注册登陆界面去，用户确定退出就直接退出系统
+	 */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			moveTaskToBack(true);
+            return false;
+		}
+
+		return super.onKeyDown(keyCode, event);
+	}
 }
