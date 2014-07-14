@@ -22,7 +22,7 @@
             android:id="@+id/regist_et_phone_verifycode"
             style="@style/edit"
             android:layout_weight="1"
-            android:hint="134 0862 0260"
+            android:hint="请输入手机号码"
             android:inputType="phone" />
 
         <TextView

@@ -13,6 +13,7 @@ import org.dragon.rmm.ui.adapter.CommentAdapter;
 import org.dragon.rmm.ui.center.UserCenterPortal;
 import org.dragon.rmm.ui.center.UserOrderDetail;
 import org.dragon.rmm.ui.drycleaning.DryCleaningPortal;
+import org.dragon.rmm.view.cleaning.CleaningActivity;
 import org.dragon.rmm.view.hourlyemployee.HourlyEmployeeActivity;
 import org.dragon.rmm.widget.xlistview.XListView;
 import org.dragon.rmm.widget.xlistview.XListView.IXListViewListener;
@@ -113,8 +114,8 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 						@Override
 						public void onClick(View v) {
 							// TODO Auto-generated method stub
-							Intent intentHourlyEmployee = new Intent(ActShop.this, HourlyEmployeeActivity.class);
-							startActivity(intentHourlyEmployee);
+							Intent intentCleaning = new Intent(ActShop.this, CleaningActivity.class);
+							startActivity(intentCleaning);
 						}
 					});
                 }
@@ -124,7 +125,7 @@ public class ActShop extends Activity implements OnClickListener, IXListViewList
 						
 						@Override
 						public void onClick(View v) {
-							Intent intentHourlyEmployee = new Intent(ActShop.this, UserCenterPortal.class);
+							Intent intentHourlyEmployee = new Intent(ActShop.this, HourlyEmployeeActivity.class);
 							startActivity(intentHourlyEmployee);
 						}
 					});
